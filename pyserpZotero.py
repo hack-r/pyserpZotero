@@ -9,15 +9,12 @@ import pandas as pd
 import pycurl
 import re
 import requests
-import rispy
 
 from bibtexparser.bparser import BibTexParser
-from bs4 import BeautifulSoup
 from datetime import date
 from habanero import Crossref
 from io import BytesIO
 from pyzotero import zotero
-from rispy import TAG_KEY_MAPPING
 from serpapi import GoogleSearch
 from urllib.parse import urlencode
 
