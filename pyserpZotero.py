@@ -1,11 +1,3 @@
-# pyserpZotero.py
-# Miller, J.
-
-## To do: 
-# 1. Make this into a proper Python library
-# 2. Make a non-Zotero-specific version
-# 3. Add other formats, support for middle initials / suffixes 
-
 # Libraries
 import bibtexparser
 import certifi
@@ -34,7 +26,7 @@ class serpZot:
     :param API_KEY: serpAPI API key
     :type API_KEY: str
 
-    :param ZOT_ID: Zotero library Id
+    :param ZOT_ID: Zotero user (aka library) Id
     :type ZOT_ID: str
 
     :param ZOT_KEY: Zotero API key
@@ -42,12 +34,13 @@ class serpZot:
     """
  
     def __init__(self, API_KEY  = "", ZOT_ID = "", ZOT_KEY = ""):
+        print("Make sure your Zotero key has write permissions.")
         self.API_KEY = API_KEY
         self.ZOT_ID = ZOT_ID
         self.ZOT_KEY = ZOT_KEY
 
     # User Parameters
-    def search2Zotero(TERM = "", MIN_YEAR = ""):
+    def search2Zotero(self, TERM = "", MIN_YEAR = ""):
         """
         Search for journal articles and add them to your Zotero library.
 
@@ -60,7 +53,7 @@ class serpZot:
 
         # Search Parameters 
         params = {
-          "api_key": API_KEY,
+          "api_key": self.API_KEY,
           "device": "desktop",
           "engine": "google_scholar",
           "q": TERM,
@@ -80,7 +73,7 @@ class serpZot:
 
         # Get the Citation!
         params = {
-          "api_key": API_KEY,
+          "api_key": self.API_KEY,
           "device": "desktop",
           "engine": "google_scholar_cite",
           "q": ris[0]
@@ -106,6 +99,7 @@ class serpZot:
         jsonResponse = jsonResponse[0]
         jsonResponse['DOI']
         curl_str = 'curl -LH "Accept: application/x-bibtex" http://dx.doi.org/' + jsonResponse['DOI']
+        result = os.popen(curl_str).read()
 
         # Write bibtext file
         text_file = open("auto_cite.bib", "w")
@@ -121,7 +115,7 @@ class serpZot:
         print(bib_dict)
 
         # Connect to Zotero
-        zot = zotero.Zotero(ZOT_ID, 'user', ZOT_KEY)
+        zot = zotero.Zotero(self.ZOT_ID, 'user', self.ZOT_KEY)
         template = zot.item_template('journalArticle') # Set Template
 
         # Populate Zotero Template with Data
