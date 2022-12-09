@@ -45,11 +45,10 @@ class serpZot:
         self.API_KEY = API_KEY
         self.ZOT_ID = ZOT_ID
         self.ZOT_KEY = ZOT_KEY
-        self.TERM = TERM
-        self.MIN_YEAR = MIN_YEAR
+
 
     # Search for RIS Result Id's on Google Scholar
-    def searchScholar(self):
+    def searchScholar(self, TERM = "", MIN_YEAR=""):
         """
         Search for journal articles
 
@@ -59,16 +58,16 @@ class serpZot:
         :param MIN_YEAR: oldest year to search on
         :type MIN_YEAR: str
         """    
-
+        
         # Search Parameters 
         params = {
           "api_key": self.API_KEY,
           "device": "desktop",
           "engine": "google_scholar",
-          "q": self.TERM,
+          "q": TERM,
           "hl": "en",
           "num": "20",
-          "as_ylo": self.MIN_YEAR
+          "as_ylo": MIN_YEAR
         }
 
         # Search
@@ -84,12 +83,12 @@ class serpZot:
         return 0
     
     # Convert RIS Result Id to Bibtex Citation
-    def search2Zotero(self):
+    def search2Zotero(self): #, TERM = "", MIN_YEAR=""
         """
         Add journal articles to your Zotero library.
         """
         
-        searchScholar()
+        #self.searchScholar(TERM=TERM, MIN_YEAR = MIN_YEAR)
         
         ris = self.ris
         
@@ -175,7 +174,11 @@ class serpZot:
                 pass
 
             # Fix Date
-            mydate = bib_dict['month']+' '+bib_dict['year']
+            try:
+                mydate = bib_dict['month']+' '+bib_dict['year']
+            except:
+                mydate = +bib_dict['year']
+                
             template['date'] = str(datetime.datetime.strptime(mydate, '%b %Y').date())
 
             # Parse Names into Template/Data
