@@ -13,10 +13,8 @@ import json
 import numpy as np
 import os
 import pandas as pd
-import pycurl
 import re
 import requests
-import rispy
 
 from bibtexparser.bparser import BibTexParser
 from bs4 import BeautifulSoup
@@ -24,7 +22,6 @@ from datetime import date
 from habanero import Crossref
 from io import BytesIO
 from pyzotero import zotero
-from rispy import TAG_KEY_MAPPING
 from serpapi import GoogleSearch
 from urllib.parse import urlencode
 
@@ -41,7 +38,7 @@ class serpZot:
     """
  
     def __init__(self, API_KEY  = "", ZOT_ID = "", ZOT_KEY = ""):
-        print("Make sure your Zotero key has write permissions.")
+        print("Reminder: Make sure your Zotero key has write permissions.")
         self.API_KEY = API_KEY
         self.ZOT_ID = ZOT_ID
         self.ZOT_KEY = ZOT_KEY
@@ -93,7 +90,9 @@ class serpZot:
         ris = self.ris
         
         for i in ris:
-
+            # Announce status
+            print('Now processing: ' + str(i))
+            
             # Get the Citation!
             params = {
               "api_key": self.API_KEY,
@@ -134,8 +133,10 @@ class serpZot:
                 parser = BibTexParser()
                 parser.customization = bibtexparser.customization.author    
                 bib_database = bibtexparser.load(bibtex_file, parser=parser)
-            bib_dict = bib_database.entries[0]
-            print(bib_dict)
+            try:
+                bib_dict = bib_database.entries[0]
+            except:
+                break
 
             # Connect to Zotero
             zot = zotero.Zotero(self.ZOT_ID, 'user', self.ZOT_KEY)
@@ -177,7 +178,7 @@ class serpZot:
             try:
                 mydate = bib_dict['month']+' '+bib_dict['year']
             except:
-                mydate = +bib_dict['year']
+                mydate = bib_dict['year']
                 
             template['date'] = str(datetime.datetime.strptime(mydate, '%b %Y').date())
 
