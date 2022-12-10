@@ -187,15 +187,18 @@ class serpZot:
                             
 
             # Parse Names into Template/Data
-            num_authors = len(bib_dict['author'])
-            template['creators'] = []
+            try:
+                num_authors = len(bib_dict['author'])
+                template['creators'] = []
 
-            for a in bib_dict['author']:
-                split = bibtexparser.customization.splitname(a, strict_mode=False)
-                template['creators'].append({'creatorType': 'author', 'firstName': split['first'][0], 'lastName': split['last'][0]})
+                for a in bib_dict['author']:
+                    split = bibtexparser.customization.splitname(a, strict_mode=False)
+                    template['creators'].append({'creatorType': 'author', 'firstName': split['first'][0], 'lastName': split['last'][0]})
 
-            print(template)
+                print(template)
 
-            zot.create_items([template])
+                zot.create_items([template])
+            except:
+                continue
 
         return 0
