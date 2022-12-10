@@ -1,7 +1,6 @@
 ########
 # Build a list of search terms:
-TERMS = ['neurocognitive dose','memory improve medicine',
-        'Lion Mane memory', 'Lion Mane cognitive', 'magnesium memory',
+TERMS = ['Lion Mane memory', 'Lion Mane cognitive', 'magnesium memory',
         'patient trial memory', 'intellectual disability effective',
         'intellectual disability internal medicine',
         'intellectual disability nootropic', 'nootropic medicine',
