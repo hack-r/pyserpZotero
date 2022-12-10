@@ -136,8 +136,11 @@ class serpZot:
             try:
                 bib_dict = bib_database.entries[0]
             except:
-                break
-
+                continue
+            try: # test to make sure it worked
+                len(bib_dict['author']) > 0
+            except:
+                continue
             # Connect to Zotero
             zot = zotero.Zotero(self.ZOT_ID, 'user', self.ZOT_KEY)
             template = zot.item_template('journalArticle') # Set Template
