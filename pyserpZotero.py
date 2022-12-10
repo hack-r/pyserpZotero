@@ -166,8 +166,14 @@ class serpZot:
                 template['publicationTitle'] = bib_dict['journal']
             except:
                 pass
-            template['title'] = bib_dict['title']
-            template['DOI'] = str(jsonResponse['DOI'])
+            try:
+                template['title'] = bib_dict['title']
+            except:
+                pass
+            try:
+                template['DOI'] = str(jsonResponse['DOI'])
+            except:
+                pass
             try:
                 template['accessDate'] = str(date.today())
             except:
