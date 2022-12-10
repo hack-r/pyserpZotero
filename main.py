@@ -1,6 +1,6 @@
 ########
 # Build a list of search terms:
-TERMS = ['Lion Mane memory', 'Lion Mane cognitive', 'magnesium memory',
+TERMS = ['magnesium memory', "tbi racteam", "neuroregenerative",
         'patient trial memory', 'intellectual disability effective',
         'intellectual disability internal medicine',
         'intellectual disability nootropic', 'nootropic medicine',
