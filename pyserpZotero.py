@@ -177,10 +177,11 @@ class serpZot:
             # Fix Date
             try:
                 mydate = bib_dict['month']+' '+bib_dict['year']
+                template['date'] = str(datetime.datetime.strptime(mydate, '%b %Y').date())
             except:
                 mydate = bib_dict['year']
-                
-            template['date'] = str(datetime.datetime.strptime(mydate, '%b %Y').date())
+                template['date'] = str(bib_dict['year'])
+                            
 
             # Parse Names into Template/Data
             num_authors = len(bib_dict['author'])
