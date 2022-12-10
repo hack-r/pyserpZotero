@@ -43,7 +43,6 @@ class serpZot:
         self.ZOT_ID = ZOT_ID
         self.ZOT_KEY = ZOT_KEY
 
-
     # Search for RIS Result Id's on Google Scholar
     def searchScholar(self, TERM = "", MIN_YEAR=""):
         """
@@ -71,22 +70,23 @@ class serpZot:
         search = GoogleSearch(params)
 
         # Scrape Results, Extract Result Id's
-        json_data = search.get_raw_json()
-        data = json.loads(json_data)
-        df = pd.json_normalize(data['organic_results'])
-        ris = df['result_id']
-        self.ris = ris
-        
+        try:
+            json_data = search.get_raw_json()
+            data = json.loads(json_data)
+            df = pd.json_normalize(data['organic_results'])
+            ris = df['result_id']
+            self.ris = ris
+        except:
+            "ERROR: The initial search failed because Google sucks..."
+            
         return 0
     
     # Convert RIS Result Id to Bibtex Citation
-    def search2Zotero(self): #, TERM = "", MIN_YEAR=""
+    def search2Zotero(self):
         """
         Add journal articles to your Zotero library.
         """
-        
-        #self.searchScholar(TERM=TERM, MIN_YEAR = MIN_YEAR)
-        
+                
         ris = self.ris
         
         for i in ris:
@@ -105,7 +105,10 @@ class serpZot:
             citation = search.get_dict()
 
             # Get APA Format Citation and Parse
-            citation['citations'][1]['snippet']
+            try:
+                print(citation['citations'][1]['snippet'])
+            except:
+                continue
 
             # Cross-reference the Citation with Crossref to Get Bibtext
             base = 'https://api.crossref.org/works?query.'
@@ -144,7 +147,20 @@ class serpZot:
             # Connect to Zotero
             zot = zotero.Zotero(self.ZOT_ID, 'user', self.ZOT_KEY)
             template = zot.item_template('journalArticle') # Set Template
-
+            
+            # Retreive DOI numbers of existing articles to avoid duplication of citations
+            items = zot.items() #
+            doi_holder = []
+            for idx in range(len(items)):
+                try:
+                    doi_holder.append(items[idx]['data']['DOI'])
+                    if str(jsonResponse['DOI']) in doi_holder:
+                        next
+                    else:
+                        pass
+                except:
+                    next
+                    
             # Populate Zotero Template with Data
             try:
                 template['publicationTitle'] = bib_dict['journal']
@@ -182,8 +198,11 @@ class serpZot:
                 mydate = bib_dict['month']+' '+bib_dict['year']
                 template['date'] = str(datetime.datetime.strptime(mydate, '%b %Y').date())
             except:
-                mydate = bib_dict['year']
-                template['date'] = str(bib_dict['year'])
+                try:
+                    mydate = bib_dict['year']
+                    template['date'] = str(bib_dict['year'])
+                except:
+                    continue
                             
 
             # Parse Names into Template/Data
