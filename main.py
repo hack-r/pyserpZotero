@@ -1,13 +1,8 @@
 ########
 # Build a list of search terms:
-TERMS = ['magnesium memory', "tbi racteam", "neuroregenerative",
-        'patient trial memory', 'intellectual disability effective',
-        'intellectual disability internal medicine',
-        'intellectual disability nootropic', 'nootropic medicine',
-        'nmda piracetam', 'memory enhancement', 'clinical cognitive',
-        'alzheimer clinical','alzheimer peptide', 'effective treatment alzheimer',
-        'improved cognitive tbi', 'traumatic brain treament dose']
-
+TERMS = ['prl-8-53','time series forecasting']
+MIN_YEAR = "2019"
+    
 ########
 # Load libraries
 import importlib
@@ -33,7 +28,7 @@ citeObj = pyserpCite.serpZot(API_KEY = API_KEY,
 
 # Call the search method
 for i in range(len(TERMS)):
-    print(citeObj.searchScholar(TERM = TERMS[i], MIN_YEAR = "1990"))
+    print(citeObj.searchScholar(TERM = TERMS[i], MIN_YEAR = MIN_YEAR))
     print("This should've returned 0 (sucess)")
     # Upload the parsed results
     print(citeObj.search2Zotero())
