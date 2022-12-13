@@ -1,5 +1,5 @@
 # pyserpZotero
-serpAPI citation download, parsing, Bibtex export, and Zotero cloud upload. 
+serpAPI Google Scholar citation download, parsing, Bibtex export, and Zotero cloud upload. 
 
 ## To do: 
   1. Make this into a proper Python library
