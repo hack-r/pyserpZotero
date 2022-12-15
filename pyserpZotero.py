@@ -6,6 +6,15 @@
 # 3. Add other formats, support for middle initials / suffixes 
 
 # Libraries
+from bibtexparser.bparser import BibTexParser
+from bs4 import BeautifulSoup
+from datetime import date
+from habanero import Crossref
+from io import BytesIO
+from pyzotero import zotero
+from serpapi import GoogleSearch
+from urllib.parse import urlencode
+
 import bibtexparser
 import certifi
 import datetime
@@ -16,14 +25,6 @@ import pandas as pd
 import re
 import requests
 
-from bibtexparser.bparser import BibTexParser
-from bs4 import BeautifulSoup
-from datetime import date
-from habanero import Crossref
-from io import BytesIO
-from pyzotero import zotero
-from serpapi import GoogleSearch
-from urllib.parse import urlencode
 
 class serpZot:
     """
@@ -42,9 +43,9 @@ class serpZot:
         self.API_KEY = API_KEY
         self.ZOT_ID = ZOT_ID
         self.ZOT_KEY = ZOT_KEY
-
+        
     # Search for RIS Result Id's on Google Scholar
-    def searchScholar(self, TERM = "", MIN_YEAR=""):
+    def searchScholar(self, TERM = "", MIN_YEAR="",SAVE_BIB=False):
         """
         Search for journal articles
 
@@ -69,6 +70,9 @@ class serpZot:
         # Search
         search = GoogleSearch(params)
 
+        # Set SAVE_BIB for search2Zotero
+        self.SAVE_BIB = SAVE_BIB
+        
         # Scrape Results, Extract Result Id's
         try:
             json_data = search.get_raw_json()
@@ -118,11 +122,13 @@ class serpZot:
             response = requests.get(url)
 
             # Parse Bibtext from Crossref
-            jsonResponse = response.json()
-            jsonResponse = jsonResponse['message']
-            jsonResponse = jsonResponse['items']
-            jsonResponse = jsonResponse[0]
-            jsonResponse['DOI']
+            try:
+                jsonResponse = response.json()
+                jsonResponse = jsonResponse['message']
+                jsonResponse = jsonResponse['items']
+                jsonResponse = jsonResponse[0]
+            except:
+                continue
             curl_str = 'curl -LH "Accept: application/x-bibtex" http://dx.doi.org/' + jsonResponse['DOI']
             result = os.popen(curl_str).read()
 
@@ -130,6 +136,16 @@ class serpZot:
             text_file = open("auto_cite.bib", "w")
             n = text_file.write(result)
             text_file.close()
+            
+            if self.SAVE_BIB:
+                # If the user wants we can save a copy of the BIB
+                # that won't be overwritten later
+                dt = datetime.now()
+                ts = datetime.timestamp(dt)
+                fn = "my_bib_"+str(ts)+".bib"
+                text_file = open(fn, "w")
+                n = text_file.write(result)
+                text_file.close()
 
             # Parse bibtext
             with open('auto_cite.bib') as bibtex_file:
