@@ -1,6 +1,8 @@
 ########
 # Build a list of search terms:
-TERMS = ['Tweedie deviance','2SLS','3SLS','zero shot learning','one shot learning','hugging face', 'openai','gamma deviance', 'fraction of explained variance','Poisson deviance','zero-inflated time series','fraud imbalanced','imbalanced class']
+TERMS = ['Tweedie deviance','2SLS','3SLS','zero shot learning','one shot learning','hugging face', 
+         'openai','gamma deviance', 'fraction of explained variance','Poisson deviance','zero-inflated time series',
+         'fraud imbalanced','imbalanced class']
 
 MIN_YEAR = "2019" # Oldest year to search
 SAVE_BIB = False  # Save a Bibtex file (.bib)?
