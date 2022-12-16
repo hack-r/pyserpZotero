@@ -5,4 +5,6 @@ serpAPI Google Scholar citation download, parsing, Bibtex export, and Zotero clo
   1. Make this into a proper Python library
   2. Make a non-Zotero-specific version
   3. Add other formats, support for middle initials / suffixes 
-  4. Logic to clean LaTex code from entries
+  
+## Recently added:  
+  1. Logic to clean LaTex code from entries
