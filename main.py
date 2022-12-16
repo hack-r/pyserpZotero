@@ -1,10 +1,8 @@
 ########
 # Build a list of search terms:
-TERMS = ['Tweedie deviance','2SLS','3SLS','zero shot learning','one shot learning','hugging face', 
-         'openai','gamma deviance', 'fraction of explained variance','Poisson deviance','zero-inflated time series',
-         'fraud imbalanced','imbalanced class']
+TERMS = ['Tweedie deviance','2SLS','3SLS','zero shot learning','one shot learning','hugging face', 'openai','gamma deviance', 'fraction of explained variance','Poisson deviance','zero-inflated time series','fraud imbalanced','imbalanced class']
 
-MIN_YEAR = "2019" # Oldest year to search
+MIN_YEAR = "2015" # Oldest year to search
 SAVE_BIB = False  # Save a Bibtex file (.bib)?
 USE_ZOT  = True   # Upload to Zotero?
 
@@ -12,6 +10,7 @@ USE_ZOT  = True   # Upload to Zotero?
 # Load libraries
 from box import Box
 
+import cleanZot
 import importlib
 import pyserpCite
 import yaml
@@ -39,3 +38,11 @@ for i in range(len(TERMS)):
     print("This should've returned 0 (sucess)")
     # Upload the parsed results
     print(citeObj.search2Zotero())
+    
+
+# Clean Ugly Raw LaText (as Much as Possible)
+CLEAN = False
+if CLEAN:
+    cleanZot.serpZot(ZOT_ID      = ZOT_ID, 
+                     ZOT_KEY     = ZOT_KEY,
+                     SEARCH_TERM = "")
