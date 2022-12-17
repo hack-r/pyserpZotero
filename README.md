@@ -1,7 +1,6 @@
 pyserpZotero
 ============
 
-# pyserpZotero
 Google Scholar citation download, parsing, Bibtex export, and Zotero cloud upload via serpAPI.
 
 What does it do?
@@ -17,6 +16,7 @@ What does it do?
   **search2Zotero** - Pull references from Google using identifiers from searchScholar, convert to Bibtex via CrossRef, reformat for Zotero, and upload to your Zotero cloud libary (results will automatically sync to any connect desktop applications).
 
 ***cleanZot Module***
+
   **serpZot** - Attempt to remove/replace broken LaTex and other formatting in titles. 
 
 Why serpAPI?
