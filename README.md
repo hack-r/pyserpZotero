@@ -3,13 +3,13 @@ pyserpZotero
 
 Google Scholar citation download, parsing, Bibtex export, and Zotero cloud upload via serpAPI.
 
-GitHub Repo: https://github.com/hack-r/pyserpZotero/edit/main/README.md
+  GitHub Repo: https://github.com/hack-r/pyserpZotero/edit/main/README.md
 
-PyPi Package: 
+  PyPi Package: 
 
-serpAPI: https://serpAPI.com
+  serpAPI: https://serpAPI.com
 
-Zotero: https://zotero.org
+  Zotero: https://zotero.org
 
 What does it do?
 ----------------
