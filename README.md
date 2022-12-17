@@ -32,7 +32,7 @@ You'll need to provide an API key for serpAPI and Zotero, as well as a Zotero li
 Example Usage
 ----------------
 
-########
+
 # Build a list of search terms:
 TERMS = ['Reinforcement learning', 'traveling salesman', 'xgb traveling salesman', 'machine learning optimization route']
 
@@ -41,7 +41,7 @@ SAVE_BIB = False  # Save a Bibtex file (.bib)?
 USE_ZOT  = True   # Upload to Zotero?
 CLEAN    = False  # Attempt to remove/repair broken LaTex and other formatting 
 
-########
+
 # Load libraries
 from box import Box
 
