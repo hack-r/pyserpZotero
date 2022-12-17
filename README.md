@@ -6,6 +6,11 @@ Google Scholar citation download, parsing, Bibtex export, and Zotero cloud uploa
 What does it do?
 ----------------
 *pyserpZotero* offers 2 modules with the following functions for (semi-) automating literature review:
+* Item 1
+* Item 2
+* Item 3
+  * Sub Item A
+  * Sub Item B
 
 ***pyserpCite Module***
 
