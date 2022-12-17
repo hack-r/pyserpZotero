@@ -29,11 +29,11 @@ How to Configure?
 You'll need to provide an API key for serpAPI and Zotero, as well as a Zotero library Id. You can either provide these directly as arguments to the functions or manage them more securely via a YAML configuration file, as in the *Example Usage* below.
 
 
-Example Usage
+## Example Usage
 ----------------
 
 
-# Build a list of search terms:
+#### Build a list of search terms:
 TERMS = ['Reinforcement learning', 'traveling salesman', 'xgb traveling salesman', 'machine learning optimization route']
 
 MIN_YEAR = "2010" # Oldest year to search
@@ -42,7 +42,7 @@ USE_ZOT  = True   # Upload to Zotero?
 CLEAN    = False  # Attempt to remove/repair broken LaTex and other formatting 
 
 
-# Load libraries
+#### Load libraries
 from box import Box
 
 import cleanZot
@@ -52,7 +52,7 @@ import yaml
 
 importlib.reload(pyserpCite)
 
-# Import Credentials from Your YAML File
+#### Import Credentials from Your YAML File
 with open("config.yaml", "r") as ymlfile:
     cfg = Box(yaml.safe_load(ymlfile), default_box=True, default_box_attr=None)
 
@@ -60,12 +60,12 @@ API_KEY = cfg.API_KEY
 ZOT_ID  = cfg.ZOT_ID
 ZOT_KEY = cfg.ZOT_KEY
 
-# Instantiate a serpZot object for API management
+#### Instantiate a serpZot object for API management
 citeObj = pyserpCite.serpZot(API_KEY  = API_KEY, 
                              ZOT_ID   = ZOT_ID, 
                              ZOT_KEY  = ZOT_KEY)
 
-# Call the search method
+#### Call the search method
 for i in range(len(TERMS)):
     print(citeObj.searchScholar(TERM     = TERMS[i], 
                                 MIN_YEAR = MIN_YEAR,
@@ -75,7 +75,7 @@ for i in range(len(TERMS)):
     print(citeObj.search2Zotero())
     
 
-# Clean Ugly Raw LaText (as Much as Possible)
+#### Clean Ugly Raw LaText (as Much as Possible)
 if CLEAN:
     cleanZot.serpZot(ZOT_ID      = ZOT_ID, 
                      ZOT_KEY     = ZOT_KEY,
