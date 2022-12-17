@@ -30,7 +30,7 @@ You'll need to provide an API key for serpAPI and Zotero, as well as a Zotero li
 
 
     #### Build a list of search terms:
-    TERMS = ['Reinforcement learning', 'traveling salesman', 'xgb traveling salesman', 'machine learning optimization route']
+    TERMS = ['reinforcement learning', 'traveling salesman', 'nowcasting', 'propensity score']
 
     MIN_YEAR = "2010" # Oldest year to search
     SAVE_BIB = False  # Save a Bibtex file (.bib)?
