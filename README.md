@@ -33,50 +33,50 @@ You'll need to provide an API key for serpAPI and Zotero, as well as a Zotero li
 ----------------
 
 
-#### Build a list of search terms:
-TERMS = ['Reinforcement learning', 'traveling salesman', 'xgb traveling salesman', 'machine learning optimization route']
+    #### Build a list of search terms:
+    TERMS = ['Reinforcement learning', 'traveling salesman', 'xgb traveling salesman', 'machine learning optimization route']
 
-MIN_YEAR = "2010" # Oldest year to search
-SAVE_BIB = False  # Save a Bibtex file (.bib)?
-USE_ZOT  = True   # Upload to Zotero?
-CLEAN    = False  # Attempt to remove/repair broken LaTex and other formatting 
+    MIN_YEAR = "2010" # Oldest year to search
+    SAVE_BIB = False  # Save a Bibtex file (.bib)?
+    USE_ZOT  = True   # Upload to Zotero?
+    CLEAN    = False  # Attempt to remove/repair broken LaTex and other formatting 
 
 
-#### Load libraries
-from box import Box
+    #### Load libraries
+    from box import Box
 
-import cleanZot
-import importlib
-import pyserpCite
-import yaml
+    import cleanZot
+    import importlib
+    import pyserpCite
+    import yaml
 
-importlib.reload(pyserpCite)
+    importlib.reload(pyserpCite)
 
-#### Import Credentials from Your YAML File
-with open("config.yaml", "r") as ymlfile:
-    cfg = Box(yaml.safe_load(ymlfile), default_box=True, default_box_attr=None)
+    #### Import Credentials from Your YAML File
+    with open("config.yaml", "r") as ymlfile:
+        cfg = Box(yaml.safe_load(ymlfile), default_box=True, default_box_attr=None)
 
-API_KEY = cfg.API_KEY
-ZOT_ID  = cfg.ZOT_ID
-ZOT_KEY = cfg.ZOT_KEY
+    API_KEY = cfg.API_KEY
+    ZOT_ID  = cfg.ZOT_ID
+    ZOT_KEY = cfg.ZOT_KEY
 
-#### Instantiate a serpZot object for API management
-citeObj = pyserpCite.serpZot(API_KEY  = API_KEY, 
-                             ZOT_ID   = ZOT_ID, 
-                             ZOT_KEY  = ZOT_KEY)
+    #### Instantiate a serpZot object for API management
+    citeObj = pyserpCite.serpZot(API_KEY  = API_KEY, 
+                                 ZOT_ID   = ZOT_ID, 
+                                 ZOT_KEY  = ZOT_KEY)
 
-#### Call the search method
-for i in range(len(TERMS)):
-    print(citeObj.searchScholar(TERM     = TERMS[i], 
-                                MIN_YEAR = MIN_YEAR,
-                                SAVE_BIB = SAVE_BIB))
-    print("This should've returned 0 (sucess)")
-    # Upload the parsed results
-    print(citeObj.search2Zotero())
-    
+    #### Call the search method
+    for i in range(len(TERMS)):
+        print(citeObj.searchScholar(TERM     = TERMS[i], 
+                                    MIN_YEAR = MIN_YEAR,
+                                    SAVE_BIB = SAVE_BIB))
+        print("This should've returned 0 (sucess)")
+        # Upload the parsed results
+        print(citeObj.search2Zotero())
 
-#### Clean Ugly Raw LaText (as Much as Possible)
-if CLEAN:
-    cleanZot.serpZot(ZOT_ID      = ZOT_ID, 
-                     ZOT_KEY     = ZOT_KEY,
-                     SEARCH_TERM = "\\") # optional (defaults to all items)
+
+    #### Clean Ugly Raw LaText (as Much as Possible)
+    if CLEAN:
+        cleanZot.serpZot(ZOT_ID      = ZOT_ID, 
+                         ZOT_KEY     = ZOT_KEY,
+                         SEARCH_TERM = "\\") # optional (defaults to all items)
