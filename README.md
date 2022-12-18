@@ -16,12 +16,12 @@ What does it do?
 ----------------
 *pyserpZotero* offers 2 modules with the following functions for (semi-) automating literature review:
 
-* pyserpCite Module
+* **pyserpCite** Module
   * *serpZot* - Instantiates a serpZot object for API management. 
   * *searchScholar* - Searches Google Scholar for papers corresponding to 1 or more search terms and captures their identifiers.
   * *search2Zotero* - Pulls references from Google using identifiers from searchScholar, converts to Bibtex via CrossRef, reformats for Zotero, and uploads to your Zotero cloud libary (results will automatically sync to any connect desktop applications).
 
-* cleanZot Module
+* **cleanZot** Module
   * *serpZot* - Attempt to remove/replace broken LaTex and other formatting in titles. 
 
 Why serpAPI?
