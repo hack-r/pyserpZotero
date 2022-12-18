@@ -1,8 +1,7 @@
 pyserpZotero
 ============
-[<img src="[https://user-images.githubusercontent.com/link-to-your-image.png]()" width="200" />](https://github.com/hack-r/pyserpZotero)
 <div style="width:60px ; height:60px">
-![Employee data](https://i.imgur.com/bHS0mPZ.png "")
+![](https://i.imgur.com/bHS0mPZ.png "")
 <div>
 https://i.imgur.com/bHS0mPZ.png
 Google Scholar citation download, parsing, Bibtex export, and Zotero cloud upload via serpAPI.
