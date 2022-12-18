@@ -1,8 +1,8 @@
 pyserpZotero
 ============
-<div style="width:60px ; height:60px">
 ![](https://i.imgur.com/bHS0mPZ.png "")
-<div>
+
+  
 https://i.imgur.com/bHS0mPZ.png
 Google Scholar citation download, parsing, Bibtex export, and Zotero cloud upload via serpAPI.
 
