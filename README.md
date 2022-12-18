@@ -1,5 +1,6 @@
 pyserpZotero
 ============
+![AI-generated icon](https://i.imgur.com/bHS0mPZ.png "pyserpZotero")
 
 Google Scholar citation download, parsing, Bibtex export, and Zotero cloud upload via serpAPI.
 
