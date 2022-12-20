@@ -1,9 +1,14 @@
+arxiv
 bibtexparser
 bytesbufio
+collections
 google-search-results
 habanero
+math
+#python-Levenstein
 python-box
 PyYAML
 pyzotero
-requests
+re
+#sklearn
 urllib3

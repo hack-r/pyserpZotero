@@ -1,0 +1,23 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "pyserpZotero"
+version = "1.0.6"
+authors = [
+  { name="Miller, J.", email="info@aliendb.org" },
+]
+description = "Reliably scrape and clean Google Scholar citations. Automatically uploads to Zotero. Bibtex local file exports are also supported."
+readme = "README.md"
+requires-python = ">=3.7"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+]
+
+[project.urls]
+"Homepage" = "https://github.com/hack-r/pyserpZotero"
+"Bug Tracker" = "https://github.com/hack-r/pyserpZotero/issues"
+
