@@ -18,7 +18,7 @@ What does it do?
   * *serpZot* (class) - Instantiates a serpZot object for API management. 
     * ***searchScholar*** - Searches Google Scholar for papers corresponding to 1 or more search terms and captures their identifiers.
     * ***search2Zotero*** - Pulls references from Google using identifiers from *searchScholar*, converts to Bibtex via CrossRef, reformats for Zotero, and uploads to your Zotero cloud libary (results will automatically sync to any connect desktop applications).
-    * ***cleanZot*** - Attempt to remove/replace broken LaTex and other formatting in titles (experimental support for publicationTitle with the FIELD argument). 
+    * ***cleanZot*** - Attempt to remove/replace broken LaTex and other formatting in titles (experimental support for *publicationTitle* and other fields with the *FIELD* argument). 
     * ***arxivDownload*** - Checks Arxiv to see if items in your Zotero library have free PDFs available. Downloads matching PDF's from Arxiv, attaches them to the corresponding library items, and uploads the changes to Zotero.
 
 Why serpAPI?
