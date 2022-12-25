@@ -6,5 +6,4 @@ habanero
 python-box
 PyYAML
 pyzotero
-re
 urllib3
