@@ -228,7 +228,7 @@ class serpZot:
             except:
                 pass
             try:
-                template['title'] = bib_dict['title']
+                template[FIELD] = bib_dict[FIELD]
             except:
                 pass
             try:
@@ -289,7 +289,11 @@ class serpZot:
 
         return 0
 
-    def cleanZot(ZOT_ID = "", ZOT_KEY = "",SEARCH_TERM=""):
+    def cleanZot(self, ZOT_ID = "", ZOT_KEY = "",SEARCH_TERM="", FIELD="title"):
+        # Get keys / id from Self
+        ZOT_ID        = self.ZOT_ID
+        ZOT_KEY       = self.ZOT_KEY
+        
         # Connect to Zotero
         zot = zotero.Zotero(ZOT_ID, 'user', ZOT_KEY)
 
@@ -303,43 +307,62 @@ class serpZot:
         for item in items:
             n = n+1
             message2 = "Processing number: " + str(n)
-            print(message2)
+            try:
+                # Clean LaTex and similar garbage
+                item['data'][FIELD] = item['data'][FIELD].replace("{","")
+                item['data'][FIELD] = item['data'][FIELD].replace("}","")
+                item['data'][FIELD] = item['data'][FIELD].replace("$\less","")
+                item['data'][FIELD] = item['data'][FIELD].replace("$scp","")
+                item['data'][FIELD] = item['data'][FIELD].replace("$\greater","")
+                item['data'][FIELD] = item['data'][FIELD].replace("/scp","")
+                item['data'][FIELD] = item['data'][FIELD].replace("$$","")
+                item['data'][FIELD] = item['data'][FIELD].replace("$","")
+                item['data'][FIELD] = item['data'][FIELD].replace("\\upkappa","k")
+                item['data'][FIELD] = item['data'][FIELD].replace("\\upalpha","α")
+                item['data'][FIELD] = item['data'][FIELD].replace("\\textdollar","$") # must come after replacement of $
+                item['data'][FIELD] = item['data'][FIELD].replace("\\mathplus","+")
+                item['data'][FIELD] = item['data'][FIELD].replace('\\textquotedblleft','"')
+                item['data'][FIELD] = item['data'][FIELD].replace('\\textquotedblright','"')
+                item['data'][FIELD] = item['data'][FIELD].replace('{\\textquotesingle}',"'")
+                item['data'][FIELD] = item['data'][FIELD].replace('{\\\textquotesingle}',"'")
+                item['data'][FIELD] = item['data'][FIELD].replace('{\\\\textquotesingle}',"'")
+                item['data'][FIELD] = item['data'][FIELD].replace("\\textendash","-")
+                item['data'][FIELD] = item['data'][FIELD].replace("$\textbackslashsqrt","")
+                item['data'][FIELD] = item['data'][FIELD].replace("\\textbackslashsqrt","")
+                item['data'][FIELD] = item['data'][FIELD].replace("\\textbackslash","")
+                item['data'][FIELD] = item['data'][FIELD].replace("\textemdash","-")
+                item['data'][FIELD] = item['data'][FIELD].replace("\\lbraces","")
+                item['data'][FIELD] = item['data'][FIELD].replace("\\lbrace=","")
+                item['data'][FIELD] = item['data'][FIELD].replace("\\rbrace=","")
+                item['data'][FIELD] = item['data'][FIELD].replace("\\rbrace","")
+                item['data'][FIELD] = item['data'][FIELD].replace("\\rbrace","")
+                item['data'][FIELD] = item['data'][FIELD].replace("$\sim$","~")
+                item['data'][FIELD] = item['data'][FIELD].replace("$\\sim$","~")
+                item['data'][FIELD] = item['data'][FIELD].replace("\\&amp","&")
+                item['data'][FIELD] = item['data'][FIELD].replace("\&amp","&")
+                item['data'][FIELD] = item['data'][FIELD].replace("\\mathsemicolon",";")
+                item['data'][FIELD] = item['data'][FIELD].replace("\\mathcolon",":")
+                item['data'][FIELD] = item['data'][FIELD].replace("\mathsemicolon",";")
+                item['data'][FIELD] = item['data'][FIELD].replace("\mathcolon",":")
+                item['data'][FIELD] = item['data'][FIELD].replace("\\#",":")
+                item['data'][FIELD] = item['data'][FIELD].replace("\\textregistered","®")
+                item['data'][FIELD] = item['data'][FIELD].replace("\textregistered","®")
+                item['data'][FIELD] = item['data'][FIELD].replace("\\\textregistered","®")
+                item['data'][FIELD] = item['data'][FIELD].replace("#1I/`","'") 
+                item['data'][FIELD] = item['data'][FIELD].replace("1I/","'") 
+                item['data'][FIELD] = item['data'][FIELD].replace("\1I/","'")  #{\’{\i}}   {\’{\a}}   {\’{o}}
+                item['data'][FIELD] = item['data'][FIELD].replace("{\’{\a}}","a") 
+                item['data'][FIELD] = item['data'][FIELD].replace("{\’{\e}}","e") 
+                item['data'][FIELD] = item['data'][FIELD].replace("{\’{\i}}","i") 
+                item['data'][FIELD] = item['data'][FIELD].replace("{\’{\o}}","o") 
+                item['data'][FIELD] = item['data'][FIELD].replace("{\’{\u}}","u") 
+                item['data'][FIELD] = item['data'][FIELD].replace("{\’{a}}","a") 
+                item['data'][FIELD] = item['data'][FIELD].replace("{\’{e}}","e") 
+                item['data'][FIELD] = item['data'][FIELD].replace("{\’{i}}","i") 
+                item['data'][FIELD] = item['data'][FIELD].replace("{\’{o}}","o") 
+            except: 
+                pass
             
-            # Clean LaTex and similar garbage
-            item['data']['title'] = item['data']['title'].replace("{","")
-            item['data']['title'] = item['data']['title'].replace("}","")
-            item['data']['title'] = item['data']['title'].replace("$\less","")
-            item['data']['title'] = item['data']['title'].replace("$scp","")
-            item['data']['title'] = item['data']['title'].replace("$\greater","")
-            item['data']['title'] = item['data']['title'].replace("/scp","")
-            item['data']['title'] = item['data']['title'].replace("$$","")
-            item['data']['title'] = item['data']['title'].replace("$","")
-            item['data']['title'] = item['data']['title'].replace("\\upkappa","k")
-            item['data']['title'] = item['data']['title'].replace("\\upalpha","α")
-            item['data']['title'] = item['data']['title'].replace("\\textdollar","$") # must come after replacement of $
-            item['data']['title'] = item['data']['title'].replace("\\mathplus","+")
-            item['data']['title'] = item['data']['title'].replace('\\textquotedblleft','"')
-            item['data']['title'] = item['data']['title'].replace('\\textquotedblright','"')
-            item['data']['title'] = item['data']['title'].replace("\\textendash","-")
-            item['data']['title'] = item['data']['title'].replace("$\textbackslashsqrt","")
-            item['data']['title'] = item['data']['title'].replace("\\textbackslashsqrt","")
-            item['data']['title'] = item['data']['title'].replace("\\textbackslash","")
-            item['data']['title'] = item['data']['title'].replace("\textemdash","-")
-            item['data']['title'] = item['data']['title'].replace("\\lbraces","")
-            item['data']['title'] = item['data']['title'].replace("\\lbrace=","")
-            item['data']['title'] = item['data']['title'].replace("\\rbrace=","")
-            item['data']['title'] = item['data']['title'].replace("\\rbrace","")
-            item['data']['title'] = item['data']['title'].replace("\\rbrace","")
-            item['data']['title'] = item['data']['title'].replace("$\sim$","~")
-            item['data']['title'] = item['data']['title'].replace("$\\sim$","~")
-            item['data']['title'] = item['data']['title'].replace("\\&amp","&")
-            item['data']['title'] = item['data']['title'].replace("\&amp","&")
-            item['data']['title'] = item['data']['title'].replace("\\mathsemicolon",";")
-            item['data']['title'] = item['data']['title'].replace("\\mathcolon",":")
-            item['data']['title'] = item['data']['title'].replace("\mathsemicolon",";")
-            item['data']['title'] = item['data']['title'].replace("\mathcolon",":")
-            item['data']['title'] = item['data']['title'].replace("\\#",":")
-
         # Update the cloud with the improvements
         print("Updating your cloud library...")
         zot.update_items(items)
@@ -347,7 +370,7 @@ class serpZot:
         print("Done! I hope this made things more readable.")
         # Return 0
         return 0
-
+    
     def arxivDownload(self, ZOT_ID = "", ZOT_KEY = "",SEARCH_TERM="",GET_SOURCE=False,DOWNLOAD_DEST="."):
         '''
         :param ZOT_ID: Zotero user (aka library) Id
@@ -380,90 +403,31 @@ class serpZot:
             n = n+1
             message2 = "Processing number: " + str(n)
             print(message2)
-            #print(item['data']['title'])
-            if item['data']['itemType'] == 'journalArticle':
-                text1 = item['data']['title']
-                string = re.sub('[ ](?=[ ])|[^-_,A-Za-z0-9 ]+','',text1)
-                vector1 = self.text_to_vector(string)
+            try: 
+                if item['data']['itemType'] == 'journalArticle':
+                    text1 = item['data'][FIELD]
+                    string = re.sub('[ ](?=[ ])|[^-_,A-Za-z0-9 ]+','',text1)
+                    vector1 = self.text_to_vector(string)
 
-                search = arxiv.Search(
-                  query = 'ti:'+"'"+string+"'",
-                  max_results = 10,
-                  sort_by = arxiv.SortCriterion.Relevance
-                )
-                #cosine_holder = []
-                for result in search.results():
-                    vector2 = self.text_to_vector(result.title)
-                    cosine = self.get_cosine(vector1, vector2)
-                    #cosine_holder.append({result.title:cosine})
-                    if cosine > .9:
-                        #result.doi
-                        print("Match found!: ")
-                        print(text1)
-                        print(result.entry_id)
-                        result.download_pdf(dirpath=DOWNLOAD_DEST)
-                        files = [os.path.join(DOWNLOAD_DEST, x) for x in os.listdir(DOWNLOAD_DEST) if x.endswith(".pdf")]
-                        newest = max(files , key = os.path.getctime)
-                        zot.attachment_simple([newest],item['key'])
-        return 0
-    
-    def cleanZot(self, ZOT_ID = "", ZOT_KEY = "",SEARCH_TERM=""):
-        # Get keys / id from Self
-        ZOT_ID        = self.ZOT_ID
-        ZOT_KEY       = self.ZOT_KEY
-        
-        # Connect to Zotero
-        zot = zotero.Zotero(ZOT_ID, 'user', ZOT_KEY)
-
-        zot.add_parameters(q=SEARCH_TERM)
-        items = zot.everything(zot.items())
-
-        message = "Number of items retreived from your library:" + str(len(items))
-        print(message)
-
-        n=0
-        for item in items:
-            n = n+1
-            message2 = "Processing number: " + str(n)
-            # Clean LaTex and similar garbage
-            item['data']['title'] = item['data']['title'].replace("{","")
-            item['data']['title'] = item['data']['title'].replace("}","")
-            item['data']['title'] = item['data']['title'].replace("$\less","")
-            item['data']['title'] = item['data']['title'].replace("$scp","")
-            item['data']['title'] = item['data']['title'].replace("$\greater","")
-            item['data']['title'] = item['data']['title'].replace("/scp","")
-            item['data']['title'] = item['data']['title'].replace("$$","")
-            item['data']['title'] = item['data']['title'].replace("$","")
-            item['data']['title'] = item['data']['title'].replace("\\upkappa","k")
-            item['data']['title'] = item['data']['title'].replace("\\upalpha","α")
-            item['data']['title'] = item['data']['title'].replace("\\textdollar","$") # must come after replacement of $
-            item['data']['title'] = item['data']['title'].replace("\\mathplus","+")
-            item['data']['title'] = item['data']['title'].replace('\\textquotedblleft','"')
-            item['data']['title'] = item['data']['title'].replace('\\textquotedblright','"')
-            item['data']['title'] = item['data']['title'].replace("\\textendash","-")
-            item['data']['title'] = item['data']['title'].replace("$\textbackslashsqrt","")
-            item['data']['title'] = item['data']['title'].replace("\\textbackslashsqrt","")
-            item['data']['title'] = item['data']['title'].replace("\\textbackslash","")
-            item['data']['title'] = item['data']['title'].replace("\textemdash","-")
-            item['data']['title'] = item['data']['title'].replace("\\lbraces","")
-            item['data']['title'] = item['data']['title'].replace("\\lbrace=","")
-            item['data']['title'] = item['data']['title'].replace("\\rbrace=","")
-            item['data']['title'] = item['data']['title'].replace("\\rbrace","")
-            item['data']['title'] = item['data']['title'].replace("\\rbrace","")
-            item['data']['title'] = item['data']['title'].replace("$\sim$","~")
-            item['data']['title'] = item['data']['title'].replace("$\\sim$","~")
-            item['data']['title'] = item['data']['title'].replace("\\&amp","&")
-            item['data']['title'] = item['data']['title'].replace("\&amp","&")
-            item['data']['title'] = item['data']['title'].replace("\\mathsemicolon",";")
-            item['data']['title'] = item['data']['title'].replace("\\mathcolon",":")
-            item['data']['title'] = item['data']['title'].replace("\mathsemicolon",";")
-            item['data']['title'] = item['data']['title'].replace("\mathcolon",":")
-            item['data']['title'] = item['data']['title'].replace("\\#",":")
-
-        # Update the cloud with the improvements
-        print("Updating your cloud library...")
-        zot.update_items(items)
-
-        print("Done! I hope this made things more readable.")
-        # Return 0
+                    search = arxiv.Search(
+                      query = 'ti:'+"'"+string+"'",
+                      max_results = 10,
+                      sort_by = arxiv.SortCriterion.Relevance
+                    )
+                    #cosine_holder = []
+                    for result in search.results():
+                        vector2 = self.text_to_vector(result.title)
+                        cosine = self.get_cosine(vector1, vector2)
+                        #cosine_holder.append({result.title:cosine})
+                        if cosine > .9:
+                            #result.doi
+                            print("Match found!: ")
+                            print(text1)
+                            print(result.entry_id)
+                            result.download_pdf(dirpath=DOWNLOAD_DEST)
+                            files = [os.path.join(DOWNLOAD_DEST, x) for x in os.listdir(DOWNLOAD_DEST) if x.endswith(".pdf")]
+                            newest = max(files , key = os.path.getctime)
+                            zot.attachment_simple([newest],item['key'])
+            except:
+                pass
         return 0
