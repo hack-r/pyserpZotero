@@ -4,8 +4,8 @@ pyserpZotero
 
 Google Scholar citation download, parsing, Bibtex export, and Zotero cloud upload via serpAPI.
 
-  * GitHub Repo: https://github.com/hack-r/pyserpZotero
   * Docs: https://pyserpzotero.readthedocs.io
+  * GitHub Repo: https://github.com/hack-r/pyserpZotero
   * PyPI Package: https://pypi.org/project/pyserpZotero/
   * serpAPI: https://serpAPI.com
   * Zotero: https://zotero.org
