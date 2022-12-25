@@ -11,6 +11,7 @@ Google Scholar citation download, parsing, Bibtex export, and Zotero cloud uploa
   * PyPI Package: https://pypi.org/project/pyserpZotero/
   * serpAPI: https://serpAPI.com
   * Zotero: https://zotero.org
+  * Docs: https://pyserpzotero.readthedocs.io
 
 What does it do?
 ----------------
