@@ -74,8 +74,8 @@ See quickstartDemo.ipynb for a Jupyter notebook demonstration or checkout the ex
 
     #### Instantiate a serpZot object for API management
     citeObj = pyserpZotero.serpZot(API_KEY  = API_KEY, 
-                                 ZOT_ID   = ZOT_ID, 
-                                 ZOT_KEY  = ZOT_KEY)
+                                   ZOT_ID   = ZOT_ID, 
+                                   ZOT_KEY  = ZOT_KEY)
 
     #### Call the search method
     for i in range(len(TERMS)):
