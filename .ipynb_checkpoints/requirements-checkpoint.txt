@@ -1,8 +1,0 @@
-bibtexparser
-bytesbufio
-google-search-results
-habanero
-python-box
-PyYAML
-pyzotero
-urllib3
