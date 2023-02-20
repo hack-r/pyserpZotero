@@ -1,0 +1,157 @@
+{
+    "search_metadata": {
+        "id": "63f3c416c99903923865c116",
+        "status": "Success",
+        "json_endpoint": "https://serpapi.com/searches/e063c845e1b7aaf3/63f3c416c99903923865c116.json",
+        "created_at": "2023-02-20 19:03:50 UTC",
+        "processed_at": "2023-02-20 19:03:50 UTC",
+        "google_scholar_url": "https://scholar.google.com/scholar?q=unidentified+anomalous+phenom%2A&hl=en&num=3&as_ylo=2000",
+        "raw_html_file": "https://serpapi.com/searches/e063c845e1b7aaf3/63f3c416c99903923865c116.html",
+        "total_time_taken": 0.89
+    },
+    "search_parameters": {
+        "engine": "google_scholar",
+        "q": "unidentified anomalous phenom*",
+        "hl": "en",
+        "num": "3",
+        "as_ylo": "2000"
+    },
+    "search_information": {
+        "organic_results_state": "Showing results for exact spelling despite spelling suggestion",
+        "total_results": 1430,
+        "time_taken_displayed": 0.03,
+        "query_displayed": "unidentified anomalous phenom*",
+        "spelling_fix": "phenomena"
+    },
+    "organic_results": [
+        {
+            "position": 0,
+            "title": "The plural of 'anecdote'can be 'data': statistical analysis of viewing distances in reports of unidentified large marine animals 1758\u20132000",
+            "result_id": "M0zeEcuDRKUJ",
+            "link": "https://zslpublications.onlinelibrary.wiley.com/doi/abs/10.1111/j.1469-7998.2009.00630.x",
+            "snippet": "\u2026 However, if limits are placed on the conclusions that can be drawn, anecdotes of anomalous phenomena can be considered data. Nevertheless it is clear that the data itself is subject to \u2026",
+            "publication_info": {
+                "summary": "CGM Paxton - Journal of Zoology, 2009 - Wiley Online Library",
+                "authors": [
+                    {
+                        "name": "CGM Paxton",
+                        "link": "https://scholar.google.com/citations?user=spQIRj0AAAAJ&hl=en&num=3&oi=sra",
+                        "serpapi_scholar_link": "https://serpapi.com/search.json?author_id=spQIRj0AAAAJ&engine=google_scholar_author&hl=en",
+                        "author_id": "spQIRj0AAAAJ"
+                    }
+                ]
+            },
+            "inline_links": {
+                "serpapi_cite_link": "https://serpapi.com/search.json?engine=google_scholar_cite&q=M0zeEcuDRKUJ",
+                "cited_by": {
+                    "total": 19,
+                    "link": "https://scholar.google.com/scholar?cites=11908788222875814963&as_sdt=2005&sciodt=0,5&hl=en&num=3",
+                    "cites_id": "11908788222875814963",
+                    "serpapi_scholar_link": "https://serpapi.com/search.json?as_sdt=2005&cites=11908788222875814963&engine=google_scholar&hl=en&num=3"
+                },
+                "related_pages_link": "https://scholar.google.com/scholar?q=related:M0zeEcuDRKUJ:scholar.google.com/&scioq=unidentified+anomalous+phenom*&hl=en&num=3&as_sdt=0,5&as_ylo=2000",
+                "serpapi_related_pages_link": "https://serpapi.com/search.json?as_sdt=0%2C5&as_ylo=2000&engine=google_scholar&hl=en&num=3&q=related%3AM0zeEcuDRKUJ%3Ascholar.google.com%2F",
+                "versions": {
+                    "total": 2,
+                    "link": "https://scholar.google.com/scholar?cluster=11908788222875814963&hl=en&num=3&as_sdt=0,5&as_ylo=2000",
+                    "cluster_id": "11908788222875814963",
+                    "serpapi_scholar_link": "https://serpapi.com/search.json?as_sdt=0%2C5&as_ylo=2000&cluster=11908788222875814963&engine=google_scholar&hl=en&num=3"
+                }
+            }
+        },
+        {
+            "position": 1,
+            "title": "The Study of Unidentified Flying Objects in the Soviet Union",
+            "result_id": "ol_HEqgnQ-kJ",
+            "type": "Pdf",
+            "link": "http://www.noufors.com/Documents/Platov.pdf",
+            "snippet": "\u2026 The connection between strange phenomena and the \u2026 \u201canomalous phenomenon\u201d were more in keeping with the nature of the observed effects than were the words \u201cunidentified flying \u2026",
+            "publication_info": {
+                "summary": "YV Platov, BA Sokolov - \u2026 -RUSSIAN ACADEMY OF SCIENCES C/C OF \u2026, 2000 - noufors.com"
+            },
+            "resources": [
+                {
+                    "title": "noufors.com",
+                    "file_format": "PDF",
+                    "link": "http://www.noufors.com/Documents/Platov.pdf"
+                }
+            ],
+            "inline_links": {
+                "serpapi_cite_link": "https://serpapi.com/search.json?engine=google_scholar_cite&q=ol_HEqgnQ-kJ",
+                "cited_by": {
+                    "total": 1,
+                    "link": "https://scholar.google.com/scholar?cites=16808321837099868066&as_sdt=2005&sciodt=0,5&hl=en&num=3",
+                    "cites_id": "16808321837099868066",
+                    "serpapi_scholar_link": "https://serpapi.com/search.json?as_sdt=2005&cites=16808321837099868066&engine=google_scholar&hl=en&num=3"
+                },
+                "related_pages_link": "https://scholar.google.com/scholar?q=related:ol_HEqgnQ-kJ:scholar.google.com/&scioq=unidentified+anomalous+phenom*&hl=en&num=3&as_sdt=0,5&as_ylo=2000",
+                "serpapi_related_pages_link": "https://serpapi.com/search.json?as_sdt=0%2C5&as_ylo=2000&engine=google_scholar&hl=en&num=3&q=related%3Aol_HEqgnQ-kJ%3Ascholar.google.com%2F",
+                "versions": {
+                    "total": 3,
+                    "link": "https://scholar.google.com/scholar?cluster=16808321837099868066&hl=en&num=3&as_sdt=0,5&as_ylo=2000",
+                    "cluster_id": "16808321837099868066",
+                    "serpapi_scholar_link": "https://serpapi.com/search.json?as_sdt=0%2C5&as_ylo=2000&cluster=16808321837099868066&engine=google_scholar&hl=en&num=3"
+                },
+                "cached_page_link": "http://scholar.googleusercontent.com/scholar?q=cache:ol_HEqgnQ-kJ:scholar.google.com/+unidentified+anomalous+phenom*&hl=en&num=3&as_sdt=0,5&as_ylo=2000"
+            }
+        },
+        {
+            "position": 2,
+            "title": "\" A saucerful of secrets\": an interdisciplinary analysis of UFO experiences",
+            "result_id": "BqYnnGCCNJMJ",
+            "link": "https://scholarlypublishingcollective.org/uip/jaf/article-abstract/119/472/184/229584",
+            "snippet": "\u2026 having a unidentified flying object (UFO)-like experience or \u2026 The presupposition of this article is that a study of anomalous \u2026 By this definition, the larger UFO phenomenon may be seen \u2026",
+            "publication_info": {
+                "summary": "WJ Dewan - Journal of American Folklore, 2006 - scholarlypublishingcollective.org"
+            },
+            "inline_links": {
+                "serpapi_cite_link": "https://serpapi.com/search.json?engine=google_scholar_cite&q=BqYnnGCCNJMJ",
+                "cited_by": {
+                    "total": 36,
+                    "link": "https://scholar.google.com/scholar?cites=10607246373812676102&as_sdt=2005&sciodt=0,5&hl=en&num=3",
+                    "cites_id": "10607246373812676102",
+                    "serpapi_scholar_link": "https://serpapi.com/search.json?as_sdt=2005&cites=10607246373812676102&engine=google_scholar&hl=en&num=3"
+                },
+                "related_pages_link": "https://scholar.google.com/scholar?q=related:BqYnnGCCNJMJ:scholar.google.com/&scioq=unidentified+anomalous+phenom*&hl=en&num=3&as_sdt=0,5&as_ylo=2000",
+                "serpapi_related_pages_link": "https://serpapi.com/search.json?as_sdt=0%2C5&as_ylo=2000&engine=google_scholar&hl=en&num=3&q=related%3ABqYnnGCCNJMJ%3Ascholar.google.com%2F",
+                "versions": {
+                    "total": 5,
+                    "link": "https://scholar.google.com/scholar?cluster=10607246373812676102&hl=en&num=3&as_sdt=0,5&as_ylo=2000",
+                    "cluster_id": "10607246373812676102",
+                    "serpapi_scholar_link": "https://serpapi.com/search.json?as_sdt=0%2C5&as_ylo=2000&cluster=10607246373812676102&engine=google_scholar&hl=en&num=3"
+                }
+            }
+        }
+    ],
+    "pagination": {
+        "current": 1,
+        "next": "https://scholar.google.com/scholar?start=3&q=unidentified+anomalous+phenom*&hl=en&num=3&as_sdt=0,5&as_ylo=2000",
+        "other_pages": {
+            "2": "https://scholar.google.com/scholar?start=3&q=unidentified+anomalous+phenom*&hl=en&num=3&as_sdt=0,5&as_ylo=2000",
+            "3": "https://scholar.google.com/scholar?start=6&q=unidentified+anomalous+phenom*&hl=en&num=3&as_sdt=0,5&as_ylo=2000",
+            "4": "https://scholar.google.com/scholar?start=9&q=unidentified+anomalous+phenom*&hl=en&num=3&as_sdt=0,5&as_ylo=2000",
+            "5": "https://scholar.google.com/scholar?start=12&q=unidentified+anomalous+phenom*&hl=en&num=3&as_sdt=0,5&as_ylo=2000",
+            "6": "https://scholar.google.com/scholar?start=15&q=unidentified+anomalous+phenom*&hl=en&num=3&as_sdt=0,5&as_ylo=2000",
+            "7": "https://scholar.google.com/scholar?start=18&q=unidentified+anomalous+phenom*&hl=en&num=3&as_sdt=0,5&as_ylo=2000",
+            "8": "https://scholar.google.com/scholar?start=21&q=unidentified+anomalous+phenom*&hl=en&num=3&as_sdt=0,5&as_ylo=2000",
+            "9": "https://scholar.google.com/scholar?start=24&q=unidentified+anomalous+phenom*&hl=en&num=3&as_sdt=0,5&as_ylo=2000",
+            "10": "https://scholar.google.com/scholar?start=27&q=unidentified+anomalous+phenom*&hl=en&num=3&as_sdt=0,5&as_ylo=2000"
+        }
+    },
+    "serpapi_pagination": {
+        "current": 1,
+        "next_link": "https://serpapi.com/search.json?as_sdt=0%2C5&as_ylo=2000&engine=google_scholar&hl=en&num=3&q=unidentified+anomalous+phenom%2A&start=3",
+        "next": "https://serpapi.com/search.json?as_sdt=0%2C5&as_ylo=2000&engine=google_scholar&hl=en&num=3&q=unidentified+anomalous+phenom%2A&start=3",
+        "other_pages": {
+            "2": "https://serpapi.com/search.json?as_sdt=0%2C5&as_ylo=2000&engine=google_scholar&hl=en&num=3&q=unidentified+anomalous+phenom%2A&start=3",
+            "3": "https://serpapi.com/search.json?as_sdt=0%2C5&as_ylo=2000&engine=google_scholar&hl=en&num=3&q=unidentified+anomalous+phenom%2A&start=6",
+            "4": "https://serpapi.com/search.json?as_sdt=0%2C5&as_ylo=2000&engine=google_scholar&hl=en&num=3&q=unidentified+anomalous+phenom%2A&start=9",
+            "5": "https://serpapi.com/search.json?as_sdt=0%2C5&as_ylo=2000&engine=google_scholar&hl=en&num=3&q=unidentified+anomalous+phenom%2A&start=12",
+            "6": "https://serpapi.com/search.json?as_sdt=0%2C5&as_ylo=2000&engine=google_scholar&hl=en&num=3&q=unidentified+anomalous+phenom%2A&start=15",
+            "7": "https://serpapi.com/search.json?as_sdt=0%2C5&as_ylo=2000&engine=google_scholar&hl=en&num=3&q=unidentified+anomalous+phenom%2A&start=18",
+            "8": "https://serpapi.com/search.json?as_sdt=0%2C5&as_ylo=2000&engine=google_scholar&hl=en&num=3&q=unidentified+anomalous+phenom%2A&start=21",
+            "9": "https://serpapi.com/search.json?as_sdt=0%2C5&as_ylo=2000&engine=google_scholar&hl=en&num=3&q=unidentified+anomalous+phenom%2A&start=24",
+            "10": "https://serpapi.com/search.json?as_sdt=0%2C5&as_ylo=2000&engine=google_scholar&hl=en&num=3&q=unidentified+anomalous+phenom%2A&start=27"
+        }
+    }
+}

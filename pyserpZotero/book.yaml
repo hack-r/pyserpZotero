@@ -1,0 +1,33 @@
+entries:
+    hallas_2017:
+        type: article
+        doi: 10.1103/physrevlett.119.187201
+        url: https://doi.org/10.1103%2Fphysrevlett.119.187201
+        year: '2017'
+        month: oct
+        publisher: American Physical Society ({APS})
+        volume: '119'
+        number: '18'
+        title: Phase Competition in the Palmer-Chalker $\less$mml:math xmlns:mml="http://www.w3.org/1998/Math/{MathML}"
+            display="inline"$\greater$$\less$mml:mi$\greater$X$\less$/mml:mi$\greater$$\less$mml:mi$\greater$Y$\less$/mml:mi$\greater$$\less$/mml:math$\greater$
+            Pyrochlore $\less$mml:math xmlns:mml="http://www.w3.org/1998/Math/{MathML}"
+            display="inline"$\greater$$\less$mml:mrow$\greater$$\less$mml:msub$\greater$$\less$mml:mrow$\greater$$\less$mml:mi$\greater$Er$\less$/mml:mi$\greater$$\less$/mml:mrow$\greater$$\less$mml:mrow$\greater$$\less$mml:mn$\greater$2$\less$/mml:mn$\greater$$\less$/mml:mrow$\greater$$\less$/mml:msub$\greater$$\less$mml:msub$\greater$$\less$mml:mrow$\greater$$\less$mml:mi$\greater$Pt$\less$/mml:mi$\greater$$\less$/mml:mrow$\greater$$\less$mml:mrow$\greater$$\less$mml:mn$\greater$2$\less$/mml:mn$\greater$$\less$/mml:mrow$\greater$$\less$/mml:msub$\greater$$\less$mml:msub$\greater$$\less$mml:mrow$\greater$$\less$mml:mi
+            mathvariant="normal"$\greater$O$\less$/mml:mi$\greater$$\less$/mml:mrow$\greater$$\less$mml:mrow$\greater$$\less$mml:mn$\greater$7$\less$/mml:mn$\greater$$\less$/mml:mrow$\greater$$\less$/mml:msub$\greater$$\less$/mml:mrow$\greater$$\less$/mml:math$\greater$
+        journal: Physical Review Letters
+        author:
+        -   first: A.{\hspace{0.167em}}M.
+            last: Hallas
+        -   first: J.
+            last: Gaudet
+        -   first: N.{\hspace{0.167em}}P.
+            last: Butch
+        -   first: Guangyong
+            last: Xu
+        -   first: M.
+            last: Tachibana
+        -   first: C.{\hspace{0.167em}}R.
+            last: Wiebe
+        -   first: G.{\hspace{0.167em}}M.
+            last: Luke
+        -   first: B.{\hspace{0.167em}}D.
+            last: Gaulin
