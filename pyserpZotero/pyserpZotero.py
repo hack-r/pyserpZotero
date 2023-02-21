@@ -3,9 +3,7 @@
 # 2. Make a non-Zotero-specific version
 # 3. Add other formats, support for middle initials / suffixes
 
-import contextlib
 import datetime
-import io
 import json
 import math
 import os
@@ -14,26 +12,17 @@ import subprocess
 import sys
 from collections import Counter
 from contextlib import contextmanager
-from datetime import date
-from io import BytesIO
-from lib2to3.pytree import convert
 from pathlib import Path
-from tabnanny import verbose
-from traceback import print_tb
 from urllib.parse import urlencode
 
 import arxiv
 import bibtexparser
-import numpy as np
-import pandas as pd
 import requests
 
 # Libraries
 from bibtexparser.bparser import BibTexParser
-from bs4 import BeautifulSoup
-from habanero import Crossref
 from pyzotero import zotero
-from serpapi import GoogleScholarSearch, GoogleSearch
+from serpapi import GoogleSearch
 
 
 @contextmanager
