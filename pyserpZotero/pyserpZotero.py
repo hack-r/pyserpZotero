@@ -166,7 +166,7 @@ class serpZot:
             "engine": "google_scholar",
             "q": TERM,
             "hl": "en",
-            "num": "20",
+            "num": "3",
             "as_ylo": MIN_YEAR,
         }
 
@@ -448,4 +448,3 @@ class serpZot:
                             zot.attachment_simple([newest], item["key"])
             except:
                 pass
-        return 0
