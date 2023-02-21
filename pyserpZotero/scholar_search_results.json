@@ -1,0 +1,756 @@
+{
+    "search_metadata": {
+        "id": "63f5223ec640d2ab83d48141",
+        "status": "Success",
+        "json_endpoint": "https://serpapi.com/searches/0449ad432347d211/63f5223ec640d2ab83d48141.json",
+        "created_at": "2023-02-21 19:57:50 UTC",
+        "processed_at": "2023-02-21 19:57:50 UTC",
+        "google_scholar_url": "https://scholar.google.com/scholar?q=unidentified+anomalous+phenom%2A&hl=en&num=21&as_ylo=2000",
+        "raw_html_file": "https://serpapi.com/searches/0449ad432347d211/63f5223ec640d2ab83d48141.html",
+        "total_time_taken": 1.45
+    },
+    "search_parameters": {
+        "engine": "google_scholar",
+        "q": "unidentified anomalous phenom*",
+        "hl": "en",
+        "num": "20",
+        "as_ylo": "2000"
+    },
+    "search_information": {
+        "organic_results_state": "Showing results for exact spelling despite spelling suggestion",
+        "total_results": 1430,
+        "time_taken_displayed": 0.06,
+        "query_displayed": "unidentified anomalous phenom*",
+        "spelling_fix": "phenomena"
+    },
+    "organic_results": [
+        {
+            "position": 0,
+            "title": "The plural of 'anecdote'can be 'data': statistical analysis of viewing distances in reports of unidentified large marine animals 1758\u20132000",
+            "result_id": "M0zeEcuDRKUJ",
+            "link": "https://zslpublications.onlinelibrary.wiley.com/doi/abs/10.1111/j.1469-7998.2009.00630.x",
+            "snippet": "\u2026 However, if limits are placed on the conclusions that can be drawn, anecdotes of anomalous phenomena can be considered data. Nevertheless it is clear that the data itself is subject to \u2026",
+            "publication_info": {
+                "summary": "CGM Paxton - Journal of Zoology, 2009 - Wiley Online Library",
+                "authors": [
+                    {
+                        "name": "CGM Paxton",
+                        "link": "https://scholar.google.com/citations?user=spQIRj0AAAAJ&hl=en&num=20&oi=sra",
+                        "serpapi_scholar_link": "https://serpapi.com/search.json?author_id=spQIRj0AAAAJ&engine=google_scholar_author&hl=en",
+                        "author_id": "spQIRj0AAAAJ"
+                    }
+                ]
+            },
+            "inline_links": {
+                "serpapi_cite_link": "https://serpapi.com/search.json?engine=google_scholar_cite&q=M0zeEcuDRKUJ",
+                "cited_by": {
+                    "total": 19,
+                    "link": "https://scholar.google.com/scholar?cites=11908788222875814963&as_sdt=2005&sciodt=0,5&hl=en&num=20",
+                    "cites_id": "11908788222875814963",
+                    "serpapi_scholar_link": "https://serpapi.com/search.json?as_sdt=2005&cites=11908788222875814963&engine=google_scholar&hl=en&num=20"
+                },
+                "related_pages_link": "https://scholar.google.com/scholar?q=related:M0zeEcuDRKUJ:scholar.google.com/&scioq=unidentified+anomalous+phenom*&hl=en&num=20&as_sdt=0,5&as_ylo=2000",
+                "serpapi_related_pages_link": "https://serpapi.com/search.json?as_sdt=0%2C5&as_ylo=2000&engine=google_scholar&hl=en&num=20&q=related%3AM0zeEcuDRKUJ%3Ascholar.google.com%2F",
+                "versions": {
+                    "total": 2,
+                    "link": "https://scholar.google.com/scholar?cluster=11908788222875814963&hl=en&num=20&as_sdt=0,5&as_ylo=2000",
+                    "cluster_id": "11908788222875814963",
+                    "serpapi_scholar_link": "https://serpapi.com/search.json?as_sdt=0%2C5&as_ylo=2000&cluster=11908788222875814963&engine=google_scholar&hl=en&num=20"
+                }
+            }
+        },
+        {
+            "position": 1,
+            "title": "The Study of Unidentified Flying Objects in the Soviet Union",
+            "result_id": "ol_HEqgnQ-kJ",
+            "type": "Pdf",
+            "link": "http://www.noufors.com/Documents/Platov.pdf",
+            "snippet": "\u2026 The connection between strange phenomena and the \u2026 \u201canomalous phenomenon\u201d were more in keeping with the nature of the observed effects than were the words \u201cunidentified flying \u2026",
+            "publication_info": {
+                "summary": "YV Platov, BA Sokolov - \u2026 -RUSSIAN ACADEMY OF SCIENCES C/C OF \u2026, 2000 - noufors.com"
+            },
+            "resources": [
+                {
+                    "title": "noufors.com",
+                    "file_format": "PDF",
+                    "link": "http://www.noufors.com/Documents/Platov.pdf"
+                }
+            ],
+            "inline_links": {
+                "serpapi_cite_link": "https://serpapi.com/search.json?engine=google_scholar_cite&q=ol_HEqgnQ-kJ",
+                "cited_by": {
+                    "total": 1,
+                    "link": "https://scholar.google.com/scholar?cites=16808321837099868066&as_sdt=2005&sciodt=0,5&hl=en&num=20",
+                    "cites_id": "16808321837099868066",
+                    "serpapi_scholar_link": "https://serpapi.com/search.json?as_sdt=2005&cites=16808321837099868066&engine=google_scholar&hl=en&num=20"
+                },
+                "related_pages_link": "https://scholar.google.com/scholar?q=related:ol_HEqgnQ-kJ:scholar.google.com/&scioq=unidentified+anomalous+phenom*&hl=en&num=20&as_sdt=0,5&as_ylo=2000",
+                "serpapi_related_pages_link": "https://serpapi.com/search.json?as_sdt=0%2C5&as_ylo=2000&engine=google_scholar&hl=en&num=20&q=related%3Aol_HEqgnQ-kJ%3Ascholar.google.com%2F",
+                "versions": {
+                    "total": 3,
+                    "link": "https://scholar.google.com/scholar?cluster=16808321837099868066&hl=en&num=20&as_sdt=0,5&as_ylo=2000",
+                    "cluster_id": "16808321837099868066",
+                    "serpapi_scholar_link": "https://serpapi.com/search.json?as_sdt=0%2C5&as_ylo=2000&cluster=16808321837099868066&engine=google_scholar&hl=en&num=20"
+                },
+                "cached_page_link": "http://scholar.googleusercontent.com/scholar?q=cache:ol_HEqgnQ-kJ:scholar.google.com/+unidentified+anomalous+phenom*&hl=en&num=20&as_sdt=0,5&as_ylo=2000"
+            }
+        },
+        {
+            "position": 2,
+            "title": "\" A saucerful of secrets\": an interdisciplinary analysis of UFO experiences",
+            "result_id": "BqYnnGCCNJMJ",
+            "link": "https://scholarlypublishingcollective.org/uip/jaf/article-abstract/119/472/184/229584",
+            "snippet": "\u2026 having a unidentified flying object (UFO)-like experience or \u2026 The presupposition of this article is that a study of anomalous \u2026 By this definition, the larger UFO phenomenon may be seen \u2026",
+            "publication_info": {
+                "summary": "WJ Dewan - Journal of American Folklore, 2006 - scholarlypublishingcollective.org"
+            },
+            "inline_links": {
+                "serpapi_cite_link": "https://serpapi.com/search.json?engine=google_scholar_cite&q=BqYnnGCCNJMJ",
+                "cited_by": {
+                    "total": 36,
+                    "link": "https://scholar.google.com/scholar?cites=10607246373812676102&as_sdt=2005&sciodt=0,5&hl=en&num=20",
+                    "cites_id": "10607246373812676102",
+                    "serpapi_scholar_link": "https://serpapi.com/search.json?as_sdt=2005&cites=10607246373812676102&engine=google_scholar&hl=en&num=20"
+                },
+                "related_pages_link": "https://scholar.google.com/scholar?q=related:BqYnnGCCNJMJ:scholar.google.com/&scioq=unidentified+anomalous+phenom*&hl=en&num=20&as_sdt=0,5&as_ylo=2000",
+                "serpapi_related_pages_link": "https://serpapi.com/search.json?as_sdt=0%2C5&as_ylo=2000&engine=google_scholar&hl=en&num=20&q=related%3ABqYnnGCCNJMJ%3Ascholar.google.com%2F",
+                "versions": {
+                    "total": 5,
+                    "link": "https://scholar.google.com/scholar?cluster=10607246373812676102&hl=en&num=20&as_sdt=0,5&as_ylo=2000",
+                    "cluster_id": "10607246373812676102",
+                    "serpapi_scholar_link": "https://serpapi.com/search.json?as_sdt=0%2C5&as_ylo=2000&cluster=10607246373812676102&engine=google_scholar&hl=en&num=20"
+                }
+            }
+        },
+        {
+            "position": 3,
+            "title": "Anomalistic psychology: A study of magical thinking",
+            "result_id": "Q2dEN2B___0J",
+            "type": "Book",
+            "link": "https://www.taylorfrancis.com/books/mono/10.4324/9781315807706/anomalistic-psychology-leonard-zusne-warren-jones",
+            "snippet": "\u2026 in one eye only are unusual (anomalous) phenom ena because they are rare. \u2026 unidentified flying object is perceived as unusual, the phenomenon may be classified as an anomaly\u2026",
+            "publication_info": {
+                "summary": "L Zusne, WH Jones - 2014 - taylorfrancis.com"
+            },
+            "inline_links": {
+                "serpapi_cite_link": "https://serpapi.com/search.json?engine=google_scholar_cite&q=Q2dEN2B___0J",
+                "cited_by": {
+                    "total": 368,
+                    "link": "https://scholar.google.com/scholar?cites=18302487461877802819&as_sdt=2005&sciodt=0,5&hl=en&num=20",
+                    "cites_id": "18302487461877802819",
+                    "serpapi_scholar_link": "https://serpapi.com/search.json?as_sdt=2005&cites=18302487461877802819&engine=google_scholar&hl=en&num=20"
+                },
+                "related_pages_link": "https://scholar.google.com/scholar?q=related:Q2dEN2B___0J:scholar.google.com/&scioq=unidentified+anomalous+phenom*&hl=en&num=20&as_sdt=0,5&as_ylo=2000",
+                "serpapi_related_pages_link": "https://serpapi.com/search.json?as_sdt=0%2C5&as_ylo=2000&engine=google_scholar&hl=en&num=20&q=related%3AQ2dEN2B___0J%3Ascholar.google.com%2F",
+                "versions": {
+                    "total": 4,
+                    "link": "https://scholar.google.com/scholar?cluster=18302487461877802819&hl=en&num=20&as_sdt=0,5&as_ylo=2000",
+                    "cluster_id": "18302487461877802819",
+                    "serpapi_scholar_link": "https://serpapi.com/search.json?as_sdt=0%2C5&as_ylo=2000&cluster=18302487461877802819&engine=google_scholar&hl=en&num=20"
+                },
+                "cached_page_link": "https://scholar.googleusercontent.com/scholar?q=cache:Q2dEN2B___0J:scholar.google.com/+unidentified+anomalous+phenom*&hl=en&num=20&as_sdt=0,5&as_ylo=2000"
+            }
+        },
+        {
+            "position": 4,
+            "title": "A long-term scientific survey of the Hessdalen phenomenon",
+            "result_id": "I8pUNuspBCIJ",
+            "type": "Pdf",
+            "link": "http://hessdalen.org/reports/scex1802217251.pdf",
+            "snippet": "\u2026 Apart from the rectangular shape, seen only in those specific cases, such kind of phenom\u2026 these anomalous signals as a low-frequency radio phenomenon from an unidentified source. A \u2026",
+            "publication_info": {
+                "summary": "M Teodorani - Journal of Scientific Exploration, 2004 - hessdalen.org"
+            },
+            "resources": [
+                {
+                    "title": "hessdalen.org",
+                    "file_format": "PDF",
+                    "link": "http://hessdalen.org/reports/scex1802217251.pdf"
+                }
+            ],
+            "inline_links": {
+                "serpapi_cite_link": "https://serpapi.com/search.json?engine=google_scholar_cite&q=I8pUNuspBCIJ",
+                "cited_by": {
+                    "total": 66,
+                    "link": "https://scholar.google.com/scholar?cites=2451130187401972259&as_sdt=2005&sciodt=0,5&hl=en&num=20",
+                    "cites_id": "2451130187401972259",
+                    "serpapi_scholar_link": "https://serpapi.com/search.json?as_sdt=2005&cites=2451130187401972259&engine=google_scholar&hl=en&num=20"
+                },
+                "related_pages_link": "https://scholar.google.com/scholar?q=related:I8pUNuspBCIJ:scholar.google.com/&scioq=unidentified+anomalous+phenom*&hl=en&num=20&as_sdt=0,5&as_ylo=2000",
+                "serpapi_related_pages_link": "https://serpapi.com/search.json?as_sdt=0%2C5&as_ylo=2000&engine=google_scholar&hl=en&num=20&q=related%3AI8pUNuspBCIJ%3Ascholar.google.com%2F",
+                "versions": {
+                    "total": 9,
+                    "link": "https://scholar.google.com/scholar?cluster=2451130187401972259&hl=en&num=20&as_sdt=0,5&as_ylo=2000",
+                    "cluster_id": "2451130187401972259",
+                    "serpapi_scholar_link": "https://serpapi.com/search.json?as_sdt=0%2C5&as_ylo=2000&cluster=2451130187401972259&engine=google_scholar&hl=en&num=20"
+                },
+                "cached_page_link": "http://scholar.googleusercontent.com/scholar?q=cache:I8pUNuspBCIJ:scholar.google.com/+unidentified+anomalous+phenom*&hl=en&num=20&as_sdt=0,5&as_ylo=2000"
+            }
+        },
+        {
+            "position": 5,
+            "title": "Transport anomalies and marginal-Fermi-liquid effects at a quantum critical point",
+            "result_id": "cPkag2QqT44J",
+            "link": "https://journals.aps.org/prl/abstract/10.1103/PhysRevLett.85.4602",
+            "snippet": "\u2026 References [7,8] show how they arise, and that the exact critical behavior is identical with that for an unidentified phase transition discussed before by TR Kirkpatrick and D. Belitz, Phys. \u2026",
+            "publication_info": {
+                "summary": "D Belitz, TR Kirkpatrick, R Narayanan, T Vojta - Physical Review Letters, 2000 - APS",
+                "authors": [
+                    {
+                        "name": "D Belitz",
+                        "link": "https://scholar.google.com/citations?user=DuY2DjoAAAAJ&hl=en&num=20&oi=sra",
+                        "serpapi_scholar_link": "https://serpapi.com/search.json?author_id=DuY2DjoAAAAJ&engine=google_scholar_author&hl=en",
+                        "author_id": "DuY2DjoAAAAJ"
+                    },
+                    {
+                        "name": "TR Kirkpatrick",
+                        "link": "https://scholar.google.com/citations?user=qLe_21sAAAAJ&hl=en&num=20&oi=sra",
+                        "serpapi_scholar_link": "https://serpapi.com/search.json?author_id=qLe_21sAAAAJ&engine=google_scholar_author&hl=en",
+                        "author_id": "qLe_21sAAAAJ"
+                    },
+                    {
+                        "name": "T Vojta",
+                        "link": "https://scholar.google.com/citations?user=69XybXoAAAAJ&hl=en&num=20&oi=sra",
+                        "serpapi_scholar_link": "https://serpapi.com/search.json?author_id=69XybXoAAAAJ&engine=google_scholar_author&hl=en",
+                        "author_id": "69XybXoAAAAJ"
+                    }
+                ]
+            },
+            "resources": [
+                {
+                    "title": "arxiv.org",
+                    "file_format": "PDF",
+                    "link": "https://arxiv.org/pdf/cond-mat/0008431"
+                }
+            ],
+            "inline_links": {
+                "serpapi_cite_link": "https://serpapi.com/search.json?engine=google_scholar_cite&q=cPkag2QqT44J",
+                "cited_by": {
+                    "total": 24,
+                    "link": "https://scholar.google.com/scholar?cites=10254461487730588016&as_sdt=2005&sciodt=0,5&hl=en&num=20",
+                    "cites_id": "10254461487730588016",
+                    "serpapi_scholar_link": "https://serpapi.com/search.json?as_sdt=2005&cites=10254461487730588016&engine=google_scholar&hl=en&num=20"
+                },
+                "related_pages_link": "https://scholar.google.com/scholar?q=related:cPkag2QqT44J:scholar.google.com/&scioq=unidentified+anomalous+phenom*&hl=en&num=20&as_sdt=0,5&as_ylo=2000",
+                "serpapi_related_pages_link": "https://serpapi.com/search.json?as_sdt=0%2C5&as_ylo=2000&engine=google_scholar&hl=en&num=20&q=related%3AcPkag2QqT44J%3Ascholar.google.com%2F",
+                "versions": {
+                    "total": 8,
+                    "link": "https://scholar.google.com/scholar?cluster=10254461487730588016&hl=en&num=20&as_sdt=0,5&as_ylo=2000",
+                    "cluster_id": "10254461487730588016",
+                    "serpapi_scholar_link": "https://serpapi.com/search.json?as_sdt=0%2C5&as_ylo=2000&cluster=10254461487730588016&engine=google_scholar&hl=en&num=20"
+                }
+            }
+        },
+        {
+            "position": 6,
+            "title": "Biological effects of inhaled hydraulic fracturing sand dust. II. Particle characterization and pulmonary effects 30 d following intratracheal instillation",
+            "result_id": "LlqfYIBo0dIJ",
+            "link": "https://www.sciencedirect.com/science/article/pii/S0041008X20304087",
+            "snippet": "\u2026 using software that came with the Phenom SEM. Anomalies were observed in the EDS \u2026 Secondly, more than one spectrum had a small unidentified peak between potassium and \u2026",
+            "publication_info": {
+                "summary": "JS Fedan, AF Hubbs, M Barger\u2026 - Toxicology and applied \u2026, 2020 - Elsevier"
+            },
+            "resources": [
+                {
+                    "title": "nih.gov",
+                    "file_format": "HTML",
+                    "link": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7818045/"
+                }
+            ],
+            "inline_links": {
+                "serpapi_cite_link": "https://serpapi.com/search.json?engine=google_scholar_cite&q=LlqfYIBo0dIJ",
+                "html_version": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7818045/",
+                "cited_by": {
+                    "total": 2,
+                    "link": "https://scholar.google.com/scholar?cites=15191037918683552302&as_sdt=2005&sciodt=0,5&hl=en&num=20",
+                    "cites_id": "15191037918683552302",
+                    "serpapi_scholar_link": "https://serpapi.com/search.json?as_sdt=2005&cites=15191037918683552302&engine=google_scholar&hl=en&num=20"
+                },
+                "related_pages_link": "https://scholar.google.com/scholar?q=related:LlqfYIBo0dIJ:scholar.google.com/&scioq=unidentified+anomalous+phenom*&hl=en&num=20&as_sdt=0,5&as_ylo=2000",
+                "serpapi_related_pages_link": "https://serpapi.com/search.json?as_sdt=0%2C5&as_ylo=2000&engine=google_scholar&hl=en&num=20&q=related%3ALlqfYIBo0dIJ%3Ascholar.google.com%2F",
+                "versions": {
+                    "total": 7,
+                    "link": "https://scholar.google.com/scholar?cluster=15191037918683552302&hl=en&num=20&as_sdt=0,5&as_ylo=2000",
+                    "cluster_id": "15191037918683552302",
+                    "serpapi_scholar_link": "https://serpapi.com/search.json?as_sdt=0%2C5&as_ylo=2000&cluster=15191037918683552302&engine=google_scholar&hl=en&num=20"
+                }
+            }
+        },
+        {
+            "position": 7,
+            "title": "Content analysis of an anomalous experience collection: Evaluating evolutionary perspectives",
+            "result_id": "upPT1RxVKIsJ",
+            "link": "https://search.proquest.com/openview/ed8b0feb3f7f091a8db028d67c9705f6/1?pq-origsite=gscholar&cbl=42308",
+            "snippet": "\u2026 through content analysis of 1,215 anomalous experience narratives. The direct benefit \u2026 anomalous experience. These 2 theories are not mutually exclusive, and both portray anomalous \u2026",
+            "publication_info": {
+                "summary": "J McClenon - The Journal of Parapsychology, 2002 - search.proquest.com"
+            },
+            "inline_links": {
+                "serpapi_cite_link": "https://serpapi.com/search.json?engine=google_scholar_cite&q=upPT1RxVKIsJ",
+                "cited_by": {
+                    "total": 18,
+                    "link": "https://scholar.google.com/scholar?cites=10027358152675267514&as_sdt=2005&sciodt=0,5&hl=en&num=20",
+                    "cites_id": "10027358152675267514",
+                    "serpapi_scholar_link": "https://serpapi.com/search.json?as_sdt=2005&cites=10027358152675267514&engine=google_scholar&hl=en&num=20"
+                },
+                "related_pages_link": "https://scholar.google.com/scholar?q=related:upPT1RxVKIsJ:scholar.google.com/&scioq=unidentified+anomalous+phenom*&hl=en&num=20&as_sdt=0,5&as_ylo=2000",
+                "serpapi_related_pages_link": "https://serpapi.com/search.json?as_sdt=0%2C5&as_ylo=2000&engine=google_scholar&hl=en&num=20&q=related%3AupPT1RxVKIsJ%3Ascholar.google.com%2F",
+                "versions": {
+                    "total": 3,
+                    "link": "https://scholar.google.com/scholar?cluster=10027358152675267514&hl=en&num=20&as_sdt=0,5&as_ylo=2000",
+                    "cluster_id": "10027358152675267514",
+                    "serpapi_scholar_link": "https://serpapi.com/search.json?as_sdt=0%2C5&as_ylo=2000&cluster=10027358152675267514&engine=google_scholar&hl=en&num=20"
+                }
+            }
+        },
+        {
+            "position": 8,
+            "title": "New reproductive anomalies in fruitless\u2010mutant Drosophila males: Extreme lengthening of mating durations and infertility correlated with defective serotonergic \u2026",
+            "result_id": "RKL2Xl8cQwwJ",
+            "link": "https://onlinelibrary.wiley.com/doi/abs/10.1002/neu.1021",
+            "snippet": "\u2026 Against a backdrop of sperm and an accessory-gland protein that is apparently normal within the mutant males (see above), we suggest that the anomalies associated with their mating \u2026",
+            "publication_info": {
+                "summary": "G Lee, A Villella, BJ Taylor, JC Hall - Journal of neurobiology, 2001 - Wiley Online Library"
+            },
+            "inline_links": {
+                "serpapi_cite_link": "https://serpapi.com/search.json?engine=google_scholar_cite&q=RKL2Xl8cQwwJ",
+                "cited_by": {
+                    "total": 104,
+                    "link": "https://scholar.google.com/scholar?cites=883581147835441732&as_sdt=2005&sciodt=0,5&hl=en&num=20",
+                    "cites_id": "883581147835441732",
+                    "serpapi_scholar_link": "https://serpapi.com/search.json?as_sdt=2005&cites=883581147835441732&engine=google_scholar&hl=en&num=20"
+                },
+                "related_pages_link": "https://scholar.google.com/scholar?q=related:RKL2Xl8cQwwJ:scholar.google.com/&scioq=unidentified+anomalous+phenom*&hl=en&num=20&as_sdt=0,5&as_ylo=2000",
+                "serpapi_related_pages_link": "https://serpapi.com/search.json?as_sdt=0%2C5&as_ylo=2000&engine=google_scholar&hl=en&num=20&q=related%3ARKL2Xl8cQwwJ%3Ascholar.google.com%2F",
+                "versions": {
+                    "total": 5,
+                    "link": "https://scholar.google.com/scholar?cluster=883581147835441732&hl=en&num=20&as_sdt=0,5&as_ylo=2000",
+                    "cluster_id": "883581147835441732",
+                    "serpapi_scholar_link": "https://serpapi.com/search.json?as_sdt=0%2C5&as_ylo=2000&cluster=883581147835441732&engine=google_scholar&hl=en&num=20"
+                }
+            }
+        },
+        {
+            "position": 9,
+            "title": "\u201cThe rabbis maintained that it was Flaxseed\u201d: The identification and interpretation of unidentified Biblical plants in aggadic homilies",
+            "result_id": "U7u8rBPgHMkJ",
+            "link": "https://journals.sagepub.com/doi/pdf/10.1177/0146107919852274",
+            "snippet": "\u2026 The purpose of the article is to follow the literary phenomenon of proposed identifications of \u2026 The anomalous principle of healing a disease by means of a substance capable of causing \u2026",
+            "publication_info": {
+                "summary": "AO Shemesh - Biblical Theology Bulletin, 2019 - journals.sagepub.com",
+                "authors": [
+                    {
+                        "name": "AO Shemesh",
+                        "link": "https://scholar.google.com/citations?user=jA3n5YYAAAAJ&hl=en&num=20&oi=sra",
+                        "serpapi_scholar_link": "https://serpapi.com/search.json?author_id=jA3n5YYAAAAJ&engine=google_scholar_author&hl=en",
+                        "author_id": "jA3n5YYAAAAJ"
+                    }
+                ]
+            },
+            "inline_links": {
+                "serpapi_cite_link": "https://serpapi.com/search.json?engine=google_scholar_cite&q=U7u8rBPgHMkJ",
+                "cited_by": {
+                    "total": 2,
+                    "link": "https://scholar.google.com/scholar?cites=14491704076078463827&as_sdt=2005&sciodt=0,5&hl=en&num=20",
+                    "cites_id": "14491704076078463827",
+                    "serpapi_scholar_link": "https://serpapi.com/search.json?as_sdt=2005&cites=14491704076078463827&engine=google_scholar&hl=en&num=20"
+                },
+                "related_pages_link": "https://scholar.google.com/scholar?q=related:U7u8rBPgHMkJ:scholar.google.com/&scioq=unidentified+anomalous+phenom*&hl=en&num=20&as_sdt=0,5&as_ylo=2000",
+                "serpapi_related_pages_link": "https://serpapi.com/search.json?as_sdt=0%2C5&as_ylo=2000&engine=google_scholar&hl=en&num=20&q=related%3AU7u8rBPgHMkJ%3Ascholar.google.com%2F",
+                "versions": {
+                    "total": 2,
+                    "link": "https://scholar.google.com/scholar?cluster=14491704076078463827&hl=en&num=20&as_sdt=0,5&as_ylo=2000",
+                    "cluster_id": "14491704076078463827",
+                    "serpapi_scholar_link": "https://serpapi.com/search.json?as_sdt=0%2C5&as_ylo=2000&cluster=14491704076078463827&engine=google_scholar&hl=en&num=20"
+                }
+            }
+        },
+        {
+            "position": 10,
+            "title": "Linking Anomalous Behaviour with Stellar Properties: An Unsupervised Exploration of TESS Light Curves",
+            "result_id": "KNayHcU-2VQJ",
+            "link": "https://arxiv.org/abs/2301.10264",
+            "snippet": "\u2026 Our catalogue of anomalies contains previously unidentified objects of this rare class. In the lower panel of Figure 15, we show examples of binary transits with various orbital periods \u2026",
+            "publication_info": {
+                "summary": "DA Crake, JR Mart\u00ednez-Galarza - arXiv preprint arXiv:2301.10264, 2023 - arxiv.org",
+                "authors": [
+                    {
+                        "name": "JR Mart\u00ednez-Galarza",
+                        "link": "https://scholar.google.com/citations?user=uL75PPwAAAAJ&hl=en&num=20&oi=sra",
+                        "serpapi_scholar_link": "https://serpapi.com/search.json?author_id=uL75PPwAAAAJ&engine=google_scholar_author&hl=en",
+                        "author_id": "uL75PPwAAAAJ"
+                    }
+                ]
+            },
+            "resources": [
+                {
+                    "title": "arxiv.org",
+                    "file_format": "PDF",
+                    "link": "https://arxiv.org/pdf/2301.10264"
+                }
+            ],
+            "inline_links": {
+                "serpapi_cite_link": "https://serpapi.com/search.json?engine=google_scholar_cite&q=KNayHcU-2VQJ",
+                "versions": {
+                    "total": 2,
+                    "link": "https://scholar.google.com/scholar?cluster=6113986985459897896&hl=en&num=20&as_sdt=0,5&as_ylo=2000",
+                    "cluster_id": "6113986985459897896",
+                    "serpapi_scholar_link": "https://serpapi.com/search.json?as_sdt=0%2C5&as_ylo=2000&cluster=6113986985459897896&engine=google_scholar&hl=en&num=20"
+                },
+                "cached_page_link": "https://scholar.googleusercontent.com/scholar?q=cache:KNayHcU-2VQJ:scholar.google.com/+unidentified+anomalous+phenom*&hl=en&num=20&as_sdt=0,5&as_ylo=2000"
+            }
+        },
+        {
+            "position": 11,
+            "title": "origin for water's thermodynamic and dynamic anomalies. Journal of Chemical Physics, 149 (22),. https://doi. org/10.1063/1.5055908",
+            "result_id": "5-mQMbIYQX0J",
+            "type": "Citation",
+            "snippet": "",
+            "publication_info": {
+                "summary": "R Shi, J Russo, H Tanaka",
+                "authors": [
+                    {
+                        "name": "R Shi",
+                        "link": "https://scholar.google.com/citations?user=V7R-eTIAAAAJ&hl=en&num=20&oi=sra",
+                        "serpapi_scholar_link": "https://serpapi.com/search.json?author_id=V7R-eTIAAAAJ&engine=google_scholar_author&hl=en",
+                        "author_id": "V7R-eTIAAAAJ"
+                    },
+                    {
+                        "name": "J Russo",
+                        "link": "https://scholar.google.com/citations?user=ysbXMk4AAAAJ&hl=en&num=20&oi=sra",
+                        "serpapi_scholar_link": "https://serpapi.com/search.json?author_id=ysbXMk4AAAAJ&engine=google_scholar_author&hl=en",
+                        "author_id": "ysbXMk4AAAAJ"
+                    },
+                    {
+                        "name": "H Tanaka",
+                        "link": "https://scholar.google.com/citations?user=CFq7IpUAAAAJ&hl=en&num=20&oi=sra",
+                        "serpapi_scholar_link": "https://serpapi.com/search.json?author_id=CFq7IpUAAAAJ&engine=google_scholar_author&hl=en",
+                        "author_id": "CFq7IpUAAAAJ"
+                    }
+                ]
+            },
+            "inline_links": {
+                "serpapi_cite_link": "https://serpapi.com/search.json?engine=google_scholar_cite&q=5-mQMbIYQX0J",
+                "related_pages_link": "https://scholar.google.com/scholar?q=related:5-mQMbIYQX0J:scholar.google.com/&scioq=unidentified+anomalous+phenom*&hl=en&num=20&as_sdt=0,5&as_ylo=2000",
+                "serpapi_related_pages_link": "https://serpapi.com/search.json?as_sdt=0%2C5&as_ylo=2000&engine=google_scholar&hl=en&num=20&q=related%3A5-mQMbIYQX0J%3Ascholar.google.com%2F"
+            }
+        },
+        {
+            "position": 12,
+            "title": "Effect of chemical vapor deposition energy sources on the structure of SiC prepared by carbon nanotubes-confined reaction",
+            "result_id": "7UYDrT8kO-0J",
+            "link": "https://avs.scitation.org/doi/abs/10.1116/1.1577571",
+            "snippet": "\u2026 It is an anomalous phenomenon that the CNT undergoes a structural transformation from \u2026 At present, it is considered that the unidentified peak is due to the formation of defects in the \u2026",
+            "publication_info": {
+                "summary": "M Shajahan, YH Mo, KS Nahm - Journal of Vacuum Science & \u2026, 2003 - avs.scitation.org",
+                "authors": [
+                    {
+                        "name": "M Shajahan",
+                        "link": "https://scholar.google.com/citations?user=aAyibY0AAAAJ&hl=en&num=20&oi=sra",
+                        "serpapi_scholar_link": "https://serpapi.com/search.json?author_id=aAyibY0AAAAJ&engine=google_scholar_author&hl=en",
+                        "author_id": "aAyibY0AAAAJ"
+                    }
+                ]
+            },
+            "inline_links": {
+                "serpapi_cite_link": "https://serpapi.com/search.json?engine=google_scholar_cite&q=7UYDrT8kO-0J",
+                "cited_by": {
+                    "total": 7,
+                    "link": "https://scholar.google.com/scholar?cites=17094296666519062253&as_sdt=2005&sciodt=0,5&hl=en&num=20",
+                    "cites_id": "17094296666519062253",
+                    "serpapi_scholar_link": "https://serpapi.com/search.json?as_sdt=2005&cites=17094296666519062253&engine=google_scholar&hl=en&num=20"
+                },
+                "related_pages_link": "https://scholar.google.com/scholar?q=related:7UYDrT8kO-0J:scholar.google.com/&scioq=unidentified+anomalous+phenom*&hl=en&num=20&as_sdt=0,5&as_ylo=2000",
+                "serpapi_related_pages_link": "https://serpapi.com/search.json?as_sdt=0%2C5&as_ylo=2000&engine=google_scholar&hl=en&num=20&q=related%3A7UYDrT8kO-0J%3Ascholar.google.com%2F",
+                "versions": {
+                    "total": 3,
+                    "link": "https://scholar.google.com/scholar?cluster=17094296666519062253&hl=en&num=20&as_sdt=0,5&as_ylo=2000",
+                    "cluster_id": "17094296666519062253",
+                    "serpapi_scholar_link": "https://serpapi.com/search.json?as_sdt=0%2C5&as_ylo=2000&cluster=17094296666519062253&engine=google_scholar&hl=en&num=20"
+                }
+            }
+        },
+        {
+            "position": 13,
+            "title": "Not Good Enough or Not Man Enough? Beryl Gilroy as the Anomaly in the Evolving 'Black British Canon'",
+            "result_id": "hSyf7vXqHt4J",
+            "type": "Book",
+            "link": "https://link.springer.com/chapter/10.1057/9780230625693_4",
+            "snippet": "\u2026 Gilroy may be considered anomalous because, during the \u2026 The \u2018Anomaly\u2019 in the title of this essay is a descriptive term \u2026 and its consequent presentation as anomalous\u2019. The tradition from \u2026",
+            "publication_info": {
+                "summary": "S Courtman - 2006 - Springer"
+            },
+            "inline_links": {
+                "serpapi_cite_link": "https://serpapi.com/search.json?engine=google_scholar_cite&q=hSyf7vXqHt4J",
+                "cited_by": {
+                    "total": 11,
+                    "link": "https://scholar.google.com/scholar?cites=16005488467712617605&as_sdt=2005&sciodt=0,5&hl=en&num=20",
+                    "cites_id": "16005488467712617605",
+                    "serpapi_scholar_link": "https://serpapi.com/search.json?as_sdt=2005&cites=16005488467712617605&engine=google_scholar&hl=en&num=20"
+                },
+                "related_pages_link": "https://scholar.google.com/scholar?q=related:hSyf7vXqHt4J:scholar.google.com/&scioq=unidentified+anomalous+phenom*&hl=en&num=20&as_sdt=0,5&as_ylo=2000",
+                "serpapi_related_pages_link": "https://serpapi.com/search.json?as_sdt=0%2C5&as_ylo=2000&engine=google_scholar&hl=en&num=20&q=related%3AhSyf7vXqHt4J%3Ascholar.google.com%2F"
+            }
+        },
+        {
+            "position": 14,
+            "title": "Climatic effects and impacts of the 1815 eruption of Mount Tambora in the Czech Lands",
+            "result_id": "F_HW1wNFQGcJ",
+            "link": "https://cp.copernicus.org/articles/12/1361/2016/",
+            "snippet": "\u2026 histories reporting various climatic and weather anomalies, their impacts and consequences \u2026 This section describes climate, weather and related phenomena in the Czech Lands during \u2026",
+            "publication_info": {
+                "summary": "R Br\u00e1zdil, L \u0158ezn\u00ed\u010dkov\u00e1, H Val\u00e1\u0161ek, L Dol\u00e1k\u2026 - Climate of the \u2026, 2016 - cp.copernicus.org",
+                "authors": [
+                    {
+                        "name": "L Dol\u00e1k",
+                        "link": "https://scholar.google.com/citations?user=dfjq9kgAAAAJ&hl=en&num=20&oi=sra",
+                        "serpapi_scholar_link": "https://serpapi.com/search.json?author_id=dfjq9kgAAAAJ&engine=google_scholar_author&hl=en",
+                        "author_id": "dfjq9kgAAAAJ"
+                    }
+                ]
+            },
+            "resources": [
+                {
+                    "title": "copernicus.org",
+                    "file_format": "PDF",
+                    "link": "https://cp.copernicus.org/preprints/cp-2016-22/cp-2016-22.pdf"
+                }
+            ],
+            "inline_links": {
+                "serpapi_cite_link": "https://serpapi.com/search.json?engine=google_scholar_cite&q=F_HW1wNFQGcJ",
+                "cited_by": {
+                    "total": 25,
+                    "link": "https://scholar.google.com/scholar?cites=7440022467224465687&as_sdt=2005&sciodt=0,5&hl=en&num=20",
+                    "cites_id": "7440022467224465687",
+                    "serpapi_scholar_link": "https://serpapi.com/search.json?as_sdt=2005&cites=7440022467224465687&engine=google_scholar&hl=en&num=20"
+                },
+                "related_pages_link": "https://scholar.google.com/scholar?q=related:F_HW1wNFQGcJ:scholar.google.com/&scioq=unidentified+anomalous+phenom*&hl=en&num=20&as_sdt=0,5&as_ylo=2000",
+                "serpapi_related_pages_link": "https://serpapi.com/search.json?as_sdt=0%2C5&as_ylo=2000&engine=google_scholar&hl=en&num=20&q=related%3AF_HW1wNFQGcJ%3Ascholar.google.com%2F",
+                "versions": {
+                    "total": 9,
+                    "link": "https://scholar.google.com/scholar?cluster=7440022467224465687&hl=en&num=20&as_sdt=0,5&as_ylo=2000",
+                    "cluster_id": "7440022467224465687",
+                    "serpapi_scholar_link": "https://serpapi.com/search.json?as_sdt=0%2C5&as_ylo=2000&cluster=7440022467224465687&engine=google_scholar&hl=en&num=20"
+                },
+                "cached_page_link": "https://scholar.googleusercontent.com/scholar?q=cache:F_HW1wNFQGcJ:scholar.google.com/+unidentified+anomalous+phenom*&hl=en&num=20&as_sdt=0,5&as_ylo=2000"
+            }
+        },
+        {
+            "position": 15,
+            "title": "\u201cStrange Particles\u201d: Plasmoids and the Need for Paradigm Change in Physics",
+            "result_id": "sB6TnDmJ1mYJ",
+            "type": "Pdf",
+            "link": "http://tc38.metawerx.com.au/oldsite/2019/IEnergy2019art.pdf",
+            "snippet": "\u2026 and anomalous ball lightning as being in a state of matter that was previously unidentified \u2026 to rebuild the entire theoretical basis for each such phenomenon (or process)? If you take this \u2026",
+            "publication_info": {
+                "summary": "E Lewis - tc38.metawerx.com.au"
+            },
+            "resources": [
+                {
+                    "title": "metawerx.com.au",
+                    "file_format": "PDF",
+                    "link": "http://tc38.metawerx.com.au/oldsite/2019/IEnergy2019art.pdf"
+                }
+            ],
+            "inline_links": {
+                "serpapi_cite_link": "https://serpapi.com/search.json?engine=google_scholar_cite&q=sB6TnDmJ1mYJ",
+                "related_pages_link": "https://scholar.google.com/scholar?q=related:sB6TnDmJ1mYJ:scholar.google.com/&scioq=unidentified+anomalous+phenom*&hl=en&num=20&as_sdt=0,5&as_ylo=2000",
+                "serpapi_related_pages_link": "https://serpapi.com/search.json?as_sdt=0%2C5&as_ylo=2000&engine=google_scholar&hl=en&num=20&q=related%3AsB6TnDmJ1mYJ%3Ascholar.google.com%2F",
+                "cached_page_link": "http://scholar.googleusercontent.com/scholar?q=cache:sB6TnDmJ1mYJ:scholar.google.com/+unidentified+anomalous+phenom*&hl=en&num=20&as_sdt=0,5&as_ylo=2000"
+            }
+        },
+        {
+            "position": 16,
+            "title": "An independently dated 2000-yr volcanic record from Law Dome, East Antarctica, including a new perspective on the dating of the 1450s CE eruption of Kuwae \u2026",
+            "result_id": "_l5P5LX4UTIJ",
+            "link": "https://cp.copernicus.org/articles/8/1929/2012/",
+            "snippet": "\u2026 Unknown events are those not previously reported; unidentified are those previously \u2026 We contend this earlier eruption was likely responsible for the anomalous NH tree ring growth and \u2026",
+            "publication_info": {
+                "summary": "CT Plummer, MAJ Curran, TD van Ommen\u2026 - Climate of the \u2026, 2012 - cp.copernicus.org",
+                "authors": [
+                    {
+                        "name": "TD van Ommen",
+                        "link": "https://scholar.google.com/citations?user=wgOCkUcAAAAJ&hl=en&num=20&oi=sra",
+                        "serpapi_scholar_link": "https://serpapi.com/search.json?author_id=wgOCkUcAAAAJ&engine=google_scholar_author&hl=en",
+                        "author_id": "wgOCkUcAAAAJ"
+                    }
+                ]
+            },
+            "resources": [
+                {
+                    "title": "copernicus.org",
+                    "file_format": "PDF",
+                    "link": "https://cp.copernicus.org/articles/8/1929/2012/cp-8-1929-2012.pdf"
+                }
+            ],
+            "inline_links": {
+                "serpapi_cite_link": "https://serpapi.com/search.json?engine=google_scholar_cite&q=_l5P5LX4UTIJ",
+                "cited_by": {
+                    "total": 131,
+                    "link": "https://scholar.google.com/scholar?cites=3625952635113135870&as_sdt=2005&sciodt=0,5&hl=en&num=20",
+                    "cites_id": "3625952635113135870",
+                    "serpapi_scholar_link": "https://serpapi.com/search.json?as_sdt=2005&cites=3625952635113135870&engine=google_scholar&hl=en&num=20"
+                },
+                "related_pages_link": "https://scholar.google.com/scholar?q=related:_l5P5LX4UTIJ:scholar.google.com/&scioq=unidentified+anomalous+phenom*&hl=en&num=20&as_sdt=0,5&as_ylo=2000",
+                "serpapi_related_pages_link": "https://serpapi.com/search.json?as_sdt=0%2C5&as_ylo=2000&engine=google_scholar&hl=en&num=20&q=related%3A_l5P5LX4UTIJ%3Ascholar.google.com%2F",
+                "versions": {
+                    "total": 15,
+                    "link": "https://scholar.google.com/scholar?cluster=3625952635113135870&hl=en&num=20&as_sdt=0,5&as_ylo=2000",
+                    "cluster_id": "3625952635113135870",
+                    "serpapi_scholar_link": "https://serpapi.com/search.json?as_sdt=0%2C5&as_ylo=2000&cluster=3625952635113135870&engine=google_scholar&hl=en&num=20"
+                },
+                "cached_page_link": "https://scholar.googleusercontent.com/scholar?q=cache:_l5P5LX4UTIJ:scholar.google.com/+unidentified+anomalous+phenom*&hl=en&num=20&as_sdt=0,5&as_ylo=2000"
+            }
+        },
+        {
+            "position": 17,
+            "title": "Electronic Voice Phenomena: A Tool for Validating Personal Survival.",
+            "result_id": "MQYd5x8yynsJ",
+            "link": "https://search.ebscohost.com/login.aspx?direct=true&profile=ehost&scope=site&authtype=crawler&jrnl=07312148&AN=8635811&h=UDPUYYptuLwMqKfdNGwV4hXZ%2F4aAMh3ht9SiMvKMC8zljxEJu5g3FBH6JxfDclXe9%2FX6b3nhcTN%2Fd8jgAvpw1Q%3D%3D&crl=c",
+            "snippet": "\u2026 For instance, the persistent reports of unidentified objects in our \u2026 While many of these anomalous signals have proven to be \u2026 known as Electronic oice Phenomena. Early encounters \u2026",
+            "publication_info": {
+                "summary": "T Butler - Journal of Religion & Psychical Research, 2002 - search.ebscohost.com",
+                "authors": [
+                    {
+                        "name": "T Butler",
+                        "link": "https://scholar.google.com/citations?user=pnAQTZIAAAAJ&hl=en&num=20&oi=sra",
+                        "serpapi_scholar_link": "https://serpapi.com/search.json?author_id=pnAQTZIAAAAJ&engine=google_scholar_author&hl=en",
+                        "author_id": "pnAQTZIAAAAJ"
+                    }
+                ]
+            },
+            "inline_links": {
+                "serpapi_cite_link": "https://serpapi.com/search.json?engine=google_scholar_cite&q=MQYd5x8yynsJ",
+                "cited_by": {
+                    "total": 3,
+                    "link": "https://scholar.google.com/scholar?cites=8919997124563502641&as_sdt=2005&sciodt=0,5&hl=en&num=20",
+                    "cites_id": "8919997124563502641",
+                    "serpapi_scholar_link": "https://serpapi.com/search.json?as_sdt=2005&cites=8919997124563502641&engine=google_scholar&hl=en&num=20"
+                },
+                "related_pages_link": "https://scholar.google.com/scholar?q=related:MQYd5x8yynsJ:scholar.google.com/&scioq=unidentified+anomalous+phenom*&hl=en&num=20&as_sdt=0,5&as_ylo=2000",
+                "serpapi_related_pages_link": "https://serpapi.com/search.json?as_sdt=0%2C5&as_ylo=2000&engine=google_scholar&hl=en&num=20&q=related%3AMQYd5x8yynsJ%3Ascholar.google.com%2F",
+                "versions": {
+                    "total": 2,
+                    "link": "https://scholar.google.com/scholar?cluster=8919997124563502641&hl=en&num=20&as_sdt=0,5&as_ylo=2000",
+                    "cluster_id": "8919997124563502641",
+                    "serpapi_scholar_link": "https://serpapi.com/search.json?as_sdt=0%2C5&as_ylo=2000&cluster=8919997124563502641&engine=google_scholar&hl=en&num=20"
+                }
+            }
+        },
+        {
+            "position": 18,
+            "title": "Comparative analysis of unidentified aerial phenomena (UAP).",
+            "result_id": "51s6g4eHVwMJ",
+            "type": "Pdf",
+            "link": "https://www.researchgate.net/profile/Mikhail-Kovalyov/publication/361741891_On_the_origins_of_unidentified_aerial_phenomena_UAP/links/63729ca337878b3e87aec742/On-the-origins-of-unidentified-aerial-phenomena-UAP.pdf",
+            "snippet": "Following Rayleigh's Principle of Similitude, different aspects of reported UAP sightings are compared to natural phenomena to show that the vast majority of UAP are of terrestrial or \u2026",
+            "publication_info": {
+                "summary": "M Kovalyov - 2022 - researchgate.net"
+            },
+            "resources": [
+                {
+                    "title": "researchgate.net",
+                    "file_format": "PDF",
+                    "link": "https://www.researchgate.net/profile/Mikhail-Kovalyov/publication/361741891_On_the_origins_of_unidentified_aerial_phenomena_UAP/links/63729ca337878b3e87aec742/On-the-origins-of-unidentified-aerial-phenomena-UAP.pdf"
+                }
+            ],
+            "inline_links": {
+                "serpapi_cite_link": "https://serpapi.com/search.json?engine=google_scholar_cite&q=51s6g4eHVwMJ",
+                "related_pages_link": "https://scholar.google.com/scholar?q=related:51s6g4eHVwMJ:scholar.google.com/&scioq=unidentified+anomalous+phenom*&hl=en&num=20&as_sdt=0,5&as_ylo=2000",
+                "serpapi_related_pages_link": "https://serpapi.com/search.json?as_sdt=0%2C5&as_ylo=2000&engine=google_scholar&hl=en&num=20&q=related%3A51s6g4eHVwMJ%3Ascholar.google.com%2F",
+                "cached_page_link": "https://scholar.googleusercontent.com/scholar?q=cache:51s6g4eHVwMJ:scholar.google.com/+unidentified+anomalous+phenom*&hl=en&num=20&as_sdt=0,5&as_ylo=2000"
+            }
+        },
+        {
+            "position": 19,
+            "title": "Phase Competition in the Palmer-Chalker Pyrochlore",
+            "result_id": "eGGuac5nTk0J",
+            "link": "https://journals.aps.org/prl/abstract/10.1103/PhysRevLett.119.187201",
+            "snippet": "\u2026 basis of their crystal electric field phenomenology, where in both cases \u2026 and Yb2Ge2O7 have as-of-yet unidentified ordered states \u2026 We can associate the broad specific heat anomaly at T \u2026",
+            "publication_info": {
+                "summary": "AM Hallas, J Gaudet, NP Butch, G Xu, M Tachibana\u2026 - Physical Review Letters, 2017 - APS",
+                "authors": [
+                    {
+                        "name": "AM Hallas",
+                        "link": "https://scholar.google.com/citations?user=2GDwNmcAAAAJ&hl=en&num=20&oi=sra",
+                        "serpapi_scholar_link": "https://serpapi.com/search.json?author_id=2GDwNmcAAAAJ&engine=google_scholar_author&hl=en",
+                        "author_id": "2GDwNmcAAAAJ"
+                    },
+                    {
+                        "name": "J Gaudet",
+                        "link": "https://scholar.google.com/citations?user=zRRROHwAAAAJ&hl=en&num=20&oi=sra",
+                        "serpapi_scholar_link": "https://serpapi.com/search.json?author_id=zRRROHwAAAAJ&engine=google_scholar_author&hl=en",
+                        "author_id": "zRRROHwAAAAJ"
+                    },
+                    {
+                        "name": "NP Butch",
+                        "link": "https://scholar.google.com/citations?user=p1HQk-QAAAAJ&hl=en&num=20&oi=sra",
+                        "serpapi_scholar_link": "https://serpapi.com/search.json?author_id=p1HQk-QAAAAJ&engine=google_scholar_author&hl=en",
+                        "author_id": "p1HQk-QAAAAJ"
+                    },
+                    {
+                        "name": "G Xu",
+                        "link": "https://scholar.google.com/citations?user=ZjZYUrUAAAAJ&hl=en&num=20&oi=sra",
+                        "serpapi_scholar_link": "https://serpapi.com/search.json?author_id=ZjZYUrUAAAAJ&engine=google_scholar_author&hl=en",
+                        "author_id": "ZjZYUrUAAAAJ"
+                    }
+                ]
+            },
+            "resources": [
+                {
+                    "title": "aps.org",
+                    "file_format": "PDF",
+                    "link": "https://link.aps.org/accepted/10.1103/PhysRevLett.119.187201"
+                }
+            ],
+            "inline_links": {
+                "serpapi_cite_link": "https://serpapi.com/search.json?engine=google_scholar_cite&q=eGGuac5nTk0J",
+                "cited_by": {
+                    "total": 25,
+                    "link": "https://scholar.google.com/scholar?cites=5570503925337842040&as_sdt=2005&sciodt=0,5&hl=en&num=20",
+                    "cites_id": "5570503925337842040",
+                    "serpapi_scholar_link": "https://serpapi.com/search.json?as_sdt=2005&cites=5570503925337842040&engine=google_scholar&hl=en&num=20"
+                },
+                "related_pages_link": "https://scholar.google.com/scholar?q=related:eGGuac5nTk0J:scholar.google.com/&scioq=unidentified+anomalous+phenom*&hl=en&num=20&as_sdt=0,5&as_ylo=2000",
+                "serpapi_related_pages_link": "https://serpapi.com/search.json?as_sdt=0%2C5&as_ylo=2000&engine=google_scholar&hl=en&num=20&q=related%3AeGGuac5nTk0J%3Ascholar.google.com%2F",
+                "versions": {
+                    "total": 12,
+                    "link": "https://scholar.google.com/scholar?cluster=5570503925337842040&hl=en&num=20&as_sdt=0,5&as_ylo=2000",
+                    "cluster_id": "5570503925337842040",
+                    "serpapi_scholar_link": "https://serpapi.com/search.json?as_sdt=0%2C5&as_ylo=2000&cluster=5570503925337842040&engine=google_scholar&hl=en&num=20"
+                }
+            }
+        }
+    ],
+    "pagination": {
+        "current": 1,
+        "next": "https://scholar.google.com/scholar?start=20&q=unidentified+anomalous+phenom*&hl=en&num=20&as_sdt=0,5&as_ylo=2000",
+        "other_pages": {
+            "2": "https://scholar.google.com/scholar?start=20&q=unidentified+anomalous+phenom*&hl=en&num=20&as_sdt=0,5&as_ylo=2000",
+            "3": "https://scholar.google.com/scholar?start=40&q=unidentified+anomalous+phenom*&hl=en&num=20&as_sdt=0,5&as_ylo=2000",
+            "4": "https://scholar.google.com/scholar?start=60&q=unidentified+anomalous+phenom*&hl=en&num=20&as_sdt=0,5&as_ylo=2000",
+            "5": "https://scholar.google.com/scholar?start=80&q=unidentified+anomalous+phenom*&hl=en&num=20&as_sdt=0,5&as_ylo=2000",
+            "6": "https://scholar.google.com/scholar?start=100&q=unidentified+anomalous+phenom*&hl=en&num=20&as_sdt=0,5&as_ylo=2000",
+            "7": "https://scholar.google.com/scholar?start=120&q=unidentified+anomalous+phenom*&hl=en&num=20&as_sdt=0,5&as_ylo=2000",
+            "8": "https://scholar.google.com/scholar?start=140&q=unidentified+anomalous+phenom*&hl=en&num=20&as_sdt=0,5&as_ylo=2000",
+            "9": "https://scholar.google.com/scholar?start=160&q=unidentified+anomalous+phenom*&hl=en&num=20&as_sdt=0,5&as_ylo=2000",
+            "10": "https://scholar.google.com/scholar?start=180&q=unidentified+anomalous+phenom*&hl=en&num=20&as_sdt=0,5&as_ylo=2000"
+        }
+    },
+    "serpapi_pagination": {
+        "current": 1,
+        "next_link": "https://serpapi.com/search.json?as_sdt=0%2C5&as_ylo=2000&engine=google_scholar&hl=en&num=20&q=unidentified+anomalous+phenom%2A&start=20",
+        "next": "https://serpapi.com/search.json?as_sdt=0%2C5&as_ylo=2000&engine=google_scholar&hl=en&num=20&q=unidentified+anomalous+phenom%2A&start=20",
+        "other_pages": {
+            "2": "https://serpapi.com/search.json?as_sdt=0%2C5&as_ylo=2000&engine=google_scholar&hl=en&num=20&q=unidentified+anomalous+phenom%2A&start=20",
+            "3": "https://serpapi.com/search.json?as_sdt=0%2C5&as_ylo=2000&engine=google_scholar&hl=en&num=20&q=unidentified+anomalous+phenom%2A&start=40",
+            "4": "https://serpapi.com/search.json?as_sdt=0%2C5&as_ylo=2000&engine=google_scholar&hl=en&num=20&q=unidentified+anomalous+phenom%2A&start=60",
+            "5": "https://serpapi.com/search.json?as_sdt=0%2C5&as_ylo=2000&engine=google_scholar&hl=en&num=20&q=unidentified+anomalous+phenom%2A&start=80",
+            "6": "https://serpapi.com/search.json?as_sdt=0%2C5&as_ylo=2000&engine=google_scholar&hl=en&num=20&q=unidentified+anomalous+phenom%2A&start=100",
+            "7": "https://serpapi.com/search.json?as_sdt=0%2C5&as_ylo=2000&engine=google_scholar&hl=en&num=20&q=unidentified+anomalous+phenom%2A&start=120",
+            "8": "https://serpapi.com/search.json?as_sdt=0%2C5&as_ylo=2000&engine=google_scholar&hl=en&num=20&q=unidentified+anomalous+phenom%2A&start=140",
+            "9": "https://serpapi.com/search.json?as_sdt=0%2C5&as_ylo=2000&engine=google_scholar&hl=en&num=20&q=unidentified+anomalous+phenom%2A&start=160",
+            "10": "https://serpapi.com/search.json?as_sdt=0%2C5&as_ylo=2000&engine=google_scholar&hl=en&num=20&q=unidentified+anomalous+phenom%2A&start=180"
+        }
+    }
+}

@@ -3,17 +3,23 @@
 # 2. Make a non-Zotero-specific version
 # 3. Add other formats, support for middle initials / suffixes
 
+import contextlib
 import datetime
+import io
 import json
 import math
 import os
 import re
 import subprocess
+import sys
 from collections import Counter
+from contextlib import contextmanager
 from datetime import date
 from io import BytesIO
+from lib2to3.pytree import convert
 from pathlib import Path
 from tabnanny import verbose
+from traceback import print_tb
 from urllib.parse import urlencode
 
 import arxiv
@@ -28,6 +34,24 @@ from bs4 import BeautifulSoup
 from habanero import Crossref
 from pyzotero import zotero
 from serpapi import GoogleScholarSearch, GoogleSearch
+
+
+@contextmanager
+def nullify_output(suppress_stdout=True, suppress_stderr=True):
+    stdout = sys.stdout
+    stderr = sys.stderr
+    devnull = open(os.devnull, "w")
+    try:
+        if suppress_stdout:
+            sys.stdout = devnull
+        if suppress_stderr:
+            sys.stderr = devnull
+        yield
+    finally:
+        if suppress_stdout:
+            sys.stdout = stdout
+        if suppress_stderr:
+            sys.stderr = stderr
 
 
 def clean_mml(mml_input: str):
@@ -91,7 +115,6 @@ class serpZot:
         self.ZOT_ID = ZOT_ID
         self.ZOT_KEY = ZOT_KEY
         self.DOWNLOAD_DEST = DOWNLOAD_DEST
-        # self.clear_auto_bib()
         self._search_scholar_done = False
 
     @staticmethod
@@ -134,7 +157,6 @@ class serpZot:
         """
         with open("auto_cite.bib", "w") as f:
             f.write("")
-        return self
 
     # Search for RIS Result Id's on Google Scholar
     def searchScholar(self, TERM="", MIN_YEAR="", SAVE_BIB=False):
@@ -155,31 +177,32 @@ class serpZot:
             "engine": "google_scholar",
             "q": TERM,
             "hl": "en",
-            "num": "3",
+            "num": "20",
             "as_ylo": MIN_YEAR,
         }
 
         # Search
-        search = GoogleSearch(params)
+        with nullify_output():
+            search = GoogleSearch(params)
+            results = search.get_dict()
 
         # Set SAVE_BIB for search2Zotero
         self.SAVE_BIB = SAVE_BIB
 
         # Scrape Results, Extract Result Id's
-        try:
-            results = search.get_dict()
-            json.dump(results, open("results.json", "w"), indent=4)
-            print(f"Search results saved to results.json.")
+        #! Can remove try/except because GoogleSearch will raise an error if no results
 
-            ris = results["organic_results"]["result_id"]
-            self.ris = ris
-        except:
-            "ERROR: The initial search failed because Google sucks..."
+        json.dump(results, open("scholar_search_results.json", "w"), indent=4)
+        print(f"Search results saved to scholar_search_results.json.")
 
-        return self
+        organic_results = results["organic_results"]
+        ris = [result["result_id"] for result in organic_results]
+        self.ris = ris
+
+        self._search_scholar_done = True
 
     # Convert RIS Result Id to Bibtex Citation
-    def convert_ris_to_bib(self, use_saved_ris=False, saved_ris_file: str = ""):
+    def convert_ris_to_apa_citation(self, use_saved_ris=False, saved_ris_file: Path = Path("ris.txt")):
         """
         Convert RIS to BibTeX
 
@@ -191,176 +214,141 @@ class serpZot:
             raise ValueError("You must run searchScholar() before search2Zotero() or use use_saved_ris=True")
 
         if not self._search_scholar_done and use_saved_ris:
-            with open(saved_ris_file) as f:
+            with open(saved_ris_file, "r") as f:
                 ris = f.readlines()
             self.ris = ris
 
         ris = self.ris
 
+        all_google_api_citations = []
         for i, ind_ris in enumerate(ris):
             # Announce status
             print("Now processing: " + str(ind_ris))
 
             # Get the Citation!
-            params = {"api_key": self.API_KEY, "device": "desktop", "engine": "google_scholar_cite", "q": i}
+            params = {"api_key": self.API_KEY, "device": "desktop", "engine": "google_scholar_cite", "q": ind_ris}
 
-            search = GoogleSearch(params)
-            citation = search.get_dict()
+            with nullify_output():
+                search = GoogleSearch(params)
+                citation = search.get_dict()
 
-            ## google search don't print to console
-            # print(citation)
+            all_google_api_citations.append(citation)
 
-            self.citation = citation
+            self.all_citations = all_google_api_citations
 
-            print(citation)
+        # dump all citations to json
+        json.dump(all_google_api_citations, open("all_google_api_citations.json", "w"), indent=4)
+        print("All citations saved to all_google_api_citations.json")
+        # # Get APA Format Citation and Parse
 
-            # Get APA Format Citation and Parse
-            try:
-                print(citation["citations"][0]["snippet"])
-            except:
-                continue
+        all_apa_citations = []
+        for citation in all_google_api_citations:
+            citations_json = citation["citations"]
+            for citation_json in citations_json:
+                if citation_json["title"] == "APA":
+                    apa_citation = citation_json["snippet"]
+                    all_apa_citations.append(apa_citation)
+                    break
 
+        self.all_apa_citations = all_apa_citations
+
+    def make_bib_from_apa_cross_ref(self, default_file_name: str = "auto_cite.bib", overwrite_if_exists: bool = False):
+        """
+        Get Crossref from APA Citation
+        """
+        all_crossref_results = []
+        all_dx_doi_org_results = []
+        all_apa_citations = self.all_apa_citations
+        for i, apa_citation in enumerate(all_apa_citations):
             # Cross-reference the Citation with Crossref to Get Bibtext
             base = "https://api.crossref.org/works?query."
-            api_url = {"bibliographic": citation["citations"][0]["snippet"]}
+            api_url = {"bibliographic": apa_citation}
             url = urlencode(api_url)
             url = base + url
-            response = requests.get(url)
+            with nullify_output():
+                response = requests.get(url)
+
+            all_crossref_results.append(response)
 
             # Parse Bibtext from Crossref
 
-            try:
-                jsonResponse = response.json()
-                jsonResponse = jsonResponse["message"]
-                jsonResponse = jsonResponse["items"]
-                jsonResponse = jsonResponse[0]
-            except:
-                continue
-            curl_str = 'curl -LH "Accept: application/x-bibtex" http://dx.doi.org/' + jsonResponse["DOI"]
+            jsonResponse = response.json()
+            jsonResponse = jsonResponse["message"]
+            jsonResponse = jsonResponse["items"]
+            jsonResponse = jsonResponse[0]
+
+            ## combine two components into URL and wrap in quotes
+            base = "http://dx.doi.org/"
+            doi = jsonResponse["DOI"]
+            url = base + doi
+            url = '"' + url + '"'  # wrap in quotes
+
+            arg1 = "Accept: application/x-bibtex"
+            arg2 = f"http://dx.doi.org/{doi}"
+            base_curl_cmd = "curl -s -LH"
+
+            curl_str = f"""{base_curl_cmd} "{arg1}" "{arg2}" """
+
+            self.curl_str = curl_str
+
             # run curl command with no output
             #! This line controls output that i suppressed
-            result = subprocess.check_output(curl_str, shell=True).decode("utf-8")
+            with nullify_output():
+                result = subprocess.check_output(curl_str, shell=True).decode("utf-8")
+            if i == 0:
+                mode = "w"
+            else:
+                mode = "a"
+            with open(default_file_name, mode) as f:
+                f.write(result)
+                print("Wrote entry to file. Loop number: " + str(i))
 
-            # Write bibtext file
-            with open("auto_cite.bib", "a") as text_file:
-                text_file.write("\n")
-                text_file.write(result)
+            all_dx_doi_org_results.append(result)
 
-            # Parse bibtext
-            with open("auto_cite.bib") as bibtex_file:
-                parser = BibTexParser()
-                parser.customization = bibtexparser.customization.author
-                bib_database = bibtexparser.load(bibtex_file, parser=parser)
-            try:
-                self.bib_dict = bib_database.entries[0]
-            except:
-                continue
-            try:  # test to make sure it worked
-                len(self.bib_dict["author"]) > 0
-            except:
-                continue
+        print(f"Saved bibtext to {default_file_name}")
 
-            # parse bibtext to readable format
-            bib_dict = self.bib_dict
-            bib_dict["author"] = bib_dict["author"][0]
-            bib_dict["author"] = bib_dict["author"].replace(" and ", ", ")
-            bib_dict["author"] = bib_dict["author"].replace(" ", ", ")
-            bib_dict["author"] = bib_dict["author"].replace(",,", ",")
-            bib_dict["author"] = bib_dict["author"].replace(",,", ",")
+    def make_zot_template_from_bib(self, default_file_name: str = "auto_cite.bib"):
+        """
+        Make Zotero Template from Bibtext
+        """
+        # Parse bibtext
+        with open(default_file_name, "r") as bibtex_file:
+            parser = BibTexParser()
+            parser.customization = bibtexparser.customization.author
+            self.bib_database = bibtexparser.load(bibtex_file, parser=parser)
 
-            self.bib_dict = bib_dict
+        MAPPINGS_FROM_BIBTEXT_TO_ZOTERO = {
+            "journal": "publicationTitle",
+            "title": "title",
+            "doi": "DOI",
+            "url": "url",
+            "volume": "volume",
+            "number": "issue",
+            "snippet": "extra",
+        }
 
-            return self
+        # apply mapping if key exists, otherwise leave blank
+        entry_dict_list = []
+        for entry in self.bib_database.entries:
+            matched_keys = dict(
+                (MAPPINGS_FROM_BIBTEXT_TO_ZOTERO[k], v)
+                for k, v in entry.items()
+                if MAPPINGS_FROM_BIBTEXT_TO_ZOTERO.get(k) is not None
+            )
+            # add itemType to dict
+            matched_keys["itemType"] = "journalArticle"
+            # add today as accessDate
+            matched_keys["accessDate"] = datetime.date.today().strftime("%Y-%m-%d")
 
-        def search2Zotero(self):
-            """
-            Search for journal articles
-            """
+            entry_dict_list.append(matched_keys)
 
-            # Connect to Zotero
-            zot = zotero.Zotero(self.ZOT_ID, "user", self.ZOT_KEY)
-            template = zot.item_template("journalArticle")  # Set Template
-            print(template)
-
-            # Retreive DOI numbers of existing articles to avoid duplication of citations
-            items = zot.items()  #
-            doi_holder = []
-            for idx in range(len(items)):
-                try:
-                    doi_holder.append(items[idx]["data"]["DOI"])
-                    if str(jsonResponse["DOI"]) in doi_holder:
-                        next
-                    else:
-                        pass
-                except:
-                    next
-
-                # Populate Zotero Template with Data
-                try:
-                    template["publicationTitle"] = bib_dict["journal"]
-                except:
-                    pass
-                try:
-                    template[FIELD] = bib_dict[FIELD]
-                except:
-                    pass
-                try:
-                    template["DOI"] = str(jsonResponse["DOI"])
-                except:
-                    pass
-                try:
-                    template["accessDate"] = str(date.today())
-                except:
-                    pass
-                try:
-                    template["extra"] = str(bib_database.comments)
-                except:
-                    pass
-                try:
-                    template["url"] = bib_dict["url"]
-                except:
-                    pass
-                try:
-                    template["volume"] = bib_dict["volume"]
-                except:
-                    pass
-                try:
-                    template["issue"] = bib_dict["number"]
-                except:
-                    pass
-                try:
-                    template["abstractNote"] = df["snippet"][0]
-                except:
-                    pass
-
-                # Fix Date
-                try:
-                    mydate = bib_dict["month"] + " " + bib_dict["year"]
-                    template["date"] = str(datetime.datetime.strptime(mydate, "%b %Y").date())
-                except:
-                    try:
-                        mydate = bib_dict["year"]
-                        template["date"] = str(bib_dict["year"])
-                    except:
-                        continue
-
-                # Parse Names into Template/Data
-                try:
-                    num_authors = len(bib_dict["author"])
-                    template["creators"] = []
-
-                    for a in bib_dict["author"]:
-                        split = bibtexparser.customization.splitname(a, strict_mode=False)
-                        template["creators"].append(
-                            {"creatorType": "author", "firstName": split["first"][0], "lastName": split["last"][0]}
-                        )
-
-                    print(template)
-                    zot.create_items([template])
-                except:
-                    continue
-
-                return 0
+        # Connect to Zotero
+        print(f"entry_dict_list: {entry_dict_list}")
+        zot = zotero.Zotero(self.ZOT_ID, "user", self.ZOT_KEY)
+        for zot_item in entry_dict_list:
+            print(zot_item)
+            zot.check_items([zot_item])
+            zot.create_items([zot_item])
 
     def cleanZot(self, ZOT_ID="", ZOT_KEY="", SEARCH_TERM="", FIELD="title"):
         # Get keys / id from Self

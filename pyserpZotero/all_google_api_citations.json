@@ -1,0 +1,1142 @@
+[
+    {
+        "search_metadata": {
+            "id": "63f522405119a6142bded313",
+            "status": "Success",
+            "json_endpoint": "https://serpapi.com/searches/786eacd159a880c3/63f522405119a6142bded313.json",
+            "created_at": "2023-02-21 19:57:52 UTC",
+            "processed_at": "2023-02-21 19:57:52 UTC",
+            "google_scholar_cite_url": "https://scholar.google.com/scholar?output=cite&q=info:M0zeEcuDRKUJ:scholar.google.com",
+            "raw_html_file": "https://serpapi.com/searches/786eacd159a880c3/63f522405119a6142bded313.html",
+            "prettify_html_file": "https://serpapi.com/searches/786eacd159a880c3/63f522405119a6142bded313.prettify",
+            "total_time_taken": 0.88
+        },
+        "search_parameters": {
+            "engine": "google_scholar_cite",
+            "q": "M0zeEcuDRKUJ"
+        },
+        "citations": [
+            {
+                "title": "MLA",
+                "snippet": "Paxton, Charles GM. \"The plural of \u2018anecdote\u2019can be \u2018data\u2019: statistical analysis of viewing distances in reports of unidentified large marine animals 1758\u20132000.\" Journal of Zoology 279.4 (2009): 381-387."
+            },
+            {
+                "title": "APA",
+                "snippet": "Paxton, C. G. (2009). The plural of \u2018anecdote\u2019can be \u2018data\u2019: statistical analysis of viewing distances in reports of unidentified large marine animals 1758\u20132000. Journal of Zoology, 279(4), 381-387."
+            },
+            {
+                "title": "Chicago",
+                "snippet": "Paxton, Charles GM. \"The plural of \u2018anecdote\u2019can be \u2018data\u2019: statistical analysis of viewing distances in reports of unidentified large marine animals 1758\u20132000.\" Journal of Zoology 279, no. 4 (2009): 381-387."
+            },
+            {
+                "title": "Harvard",
+                "snippet": "Paxton, C.G., 2009. The plural of \u2018anecdote\u2019can be \u2018data\u2019: statistical analysis of viewing distances in reports of unidentified large marine animals 1758\u20132000. Journal of Zoology, 279(4), pp.381-387."
+            },
+            {
+                "title": "Vancouver",
+                "snippet": "Paxton CG. The plural of \u2018anecdote\u2019can be \u2018data\u2019: statistical analysis of viewing distances in reports of unidentified large marine animals 1758\u20132000. Journal of Zoology. 2009 Dec;279(4):381-7."
+            }
+        ],
+        "links": [
+            {
+                "name": "BibTeX",
+                "link": "https://scholar.googleusercontent.com/scholar.bib?q=info:M0zeEcuDRKUJ:scholar.google.com/&output=citation&scisdr=CgUdHl4LGAA:AAGBfm0AAAAAY_UkmWGix8tD1WpD3JOiDy4U5yI-skQ3&scisig=AAGBfm0AAAAAY_UkmSyX2-S2YIYwrCQtjb_FTnnA11gY&scisf=4&ct=citation&cd=-1&hl=en"
+            },
+            {
+                "name": "EndNote",
+                "link": "https://scholar.googleusercontent.com/scholar.enw?q=info:M0zeEcuDRKUJ:scholar.google.com/&output=citation&scisdr=CgUdHl4LGAA:AAGBfm0AAAAAY_UkmWGix8tD1WpD3JOiDy4U5yI-skQ3&scisig=AAGBfm0AAAAAY_UkmSyX2-S2YIYwrCQtjb_FTnnA11gY&scisf=3&ct=citation&cd=-1&hl=en"
+            },
+            {
+                "name": "RefMan",
+                "link": "https://scholar.googleusercontent.com/scholar.ris?q=info:M0zeEcuDRKUJ:scholar.google.com/&output=citation&scisdr=CgUdHl4LGAA:AAGBfm0AAAAAY_UkmWGix8tD1WpD3JOiDy4U5yI-skQ3&scisig=AAGBfm0AAAAAY_UkmSyX2-S2YIYwrCQtjb_FTnnA11gY&scisf=2&ct=citation&cd=-1&hl=en"
+            },
+            {
+                "name": "RefWorks",
+                "link": "https://scholar.googleusercontent.com/scholar.rfw?q=info:M0zeEcuDRKUJ:scholar.google.com/&output=citation&scisdr=CgUdHl4LGAA:AAGBfm0AAAAAY_UkmWGix8tD1WpD3JOiDy4U5yI-skQ3&scisig=AAGBfm0AAAAAY_UkmSyX2-S2YIYwrCQtjb_FTnnA11gY&scisf=1&ct=citation&cd=-1&hl=en"
+            }
+        ]
+    },
+    {
+        "search_metadata": {
+            "id": "63f52241c90e0a60f4a51bc3",
+            "status": "Success",
+            "json_endpoint": "https://serpapi.com/searches/1d65d33a6c43e885/63f52241c90e0a60f4a51bc3.json",
+            "created_at": "2023-02-21 19:57:53 UTC",
+            "processed_at": "2023-02-21 19:57:53 UTC",
+            "google_scholar_cite_url": "https://scholar.google.com/scholar?output=cite&q=info:ol_HEqgnQ-kJ:scholar.google.com",
+            "raw_html_file": "https://serpapi.com/searches/1d65d33a6c43e885/63f52241c90e0a60f4a51bc3.html",
+            "prettify_html_file": "https://serpapi.com/searches/1d65d33a6c43e885/63f52241c90e0a60f4a51bc3.prettify",
+            "total_time_taken": 0.27
+        },
+        "search_parameters": {
+            "engine": "google_scholar_cite",
+            "q": "ol_HEqgnQ-kJ"
+        },
+        "citations": [
+            {
+                "title": "MLA",
+                "snippet": "Platov, Yu V., and B. A. Sokolov. \"The Study of Unidentified Flying Objects in the Soviet Union.\" HERALD-RUSSIAN ACADEMY OF SCIENCES C/C OF VESTNIK-ROSSIISKAIA AKADEMIIA NAUK 70.3 (2000): 244-251."
+            },
+            {
+                "title": "APA",
+                "snippet": "Platov, Y. V., & Sokolov, B. A. (2000). The Study of Unidentified Flying Objects in the Soviet Union. HERALD-RUSSIAN ACADEMY OF SCIENCES C/C OF VESTNIK-ROSSIISKAIA AKADEMIIA NAUK, 70(3), 244-251."
+            },
+            {
+                "title": "Chicago",
+                "snippet": "Platov, Yu V., and B. A. Sokolov. \"The Study of Unidentified Flying Objects in the Soviet Union.\" HERALD-RUSSIAN ACADEMY OF SCIENCES C/C OF VESTNIK-ROSSIISKAIA AKADEMIIA NAUK 70, no. 3 (2000): 244-251."
+            },
+            {
+                "title": "Harvard",
+                "snippet": "Platov, Y.V. and Sokolov, B.A., 2000. The Study of Unidentified Flying Objects in the Soviet Union. HERALD-RUSSIAN ACADEMY OF SCIENCES C/C OF VESTNIK-ROSSIISKAIA AKADEMIIA NAUK, 70(3), pp.244-251."
+            },
+            {
+                "title": "Vancouver",
+                "snippet": "Platov YV, Sokolov BA. The Study of Unidentified Flying Objects in the Soviet Union. HERALD-RUSSIAN ACADEMY OF SCIENCES C/C OF VESTNIK-ROSSIISKAIA AKADEMIIA NAUK. 2000;70(3):244-51."
+            }
+        ],
+        "links": [
+            {
+                "name": "BibTeX",
+                "link": "https://scholar.googleusercontent.com/scholar.bib?q=info:ol_HEqgnQ-kJ:scholar.google.com/&output=citation&scisdr=CgU4tMDqGAA:AAGBfm0AAAAAY_UkmrdOwoVr1V3MlRVolANGRN0_kZil&scisig=AAGBfm0AAAAAY_UkmvxNVhQc6hJix6ddWsuaIrRJq9PT&scisf=4&ct=citation&cd=-1&hl=en"
+            },
+            {
+                "name": "EndNote",
+                "link": "https://scholar.googleusercontent.com/scholar.enw?q=info:ol_HEqgnQ-kJ:scholar.google.com/&output=citation&scisdr=CgU4tMDqGAA:AAGBfm0AAAAAY_UkmrdOwoVr1V3MlRVolANGRN0_kZil&scisig=AAGBfm0AAAAAY_UkmvxNVhQc6hJix6ddWsuaIrRJq9PT&scisf=3&ct=citation&cd=-1&hl=en"
+            },
+            {
+                "name": "RefMan",
+                "link": "https://scholar.googleusercontent.com/scholar.ris?q=info:ol_HEqgnQ-kJ:scholar.google.com/&output=citation&scisdr=CgU4tMDqGAA:AAGBfm0AAAAAY_UkmrdOwoVr1V3MlRVolANGRN0_kZil&scisig=AAGBfm0AAAAAY_UkmvxNVhQc6hJix6ddWsuaIrRJq9PT&scisf=2&ct=citation&cd=-1&hl=en"
+            },
+            {
+                "name": "RefWorks",
+                "link": "https://scholar.googleusercontent.com/scholar.rfw?q=info:ol_HEqgnQ-kJ:scholar.google.com/&output=citation&scisdr=CgU4tMDqGAA:AAGBfm0AAAAAY_UkmrdOwoVr1V3MlRVolANGRN0_kZil&scisig=AAGBfm0AAAAAY_UkmvxNVhQc6hJix6ddWsuaIrRJq9PT&scisf=1&ct=citation&cd=-1&hl=en"
+            }
+        ]
+    },
+    {
+        "search_metadata": {
+            "id": "63f522423bea7bd5c5103102",
+            "status": "Success",
+            "json_endpoint": "https://serpapi.com/searches/cd463e323c2a2b28/63f522423bea7bd5c5103102.json",
+            "created_at": "2023-02-21 19:57:54 UTC",
+            "processed_at": "2023-02-21 19:57:54 UTC",
+            "google_scholar_cite_url": "https://scholar.google.com/scholar?output=cite&q=info:BqYnnGCCNJMJ:scholar.google.com",
+            "raw_html_file": "https://serpapi.com/searches/cd463e323c2a2b28/63f522423bea7bd5c5103102.html",
+            "prettify_html_file": "https://serpapi.com/searches/cd463e323c2a2b28/63f522423bea7bd5c5103102.prettify",
+            "total_time_taken": 0.44
+        },
+        "search_parameters": {
+            "engine": "google_scholar_cite",
+            "q": "BqYnnGCCNJMJ"
+        },
+        "citations": [
+            {
+                "title": "MLA",
+                "snippet": "Dewan, William J. \"\" A saucerful of secrets\": an interdisciplinary analysis of UFO experiences.\" Journal of American Folklore 119.472 (2006): 184-202."
+            },
+            {
+                "title": "APA",
+                "snippet": "Dewan, W. J. (2006). \" A saucerful of secrets\": an interdisciplinary analysis of UFO experiences. Journal of American Folklore, 119(472), 184-202."
+            },
+            {
+                "title": "Chicago",
+                "snippet": "Dewan, William J. \"\" A saucerful of secrets\": an interdisciplinary analysis of UFO experiences.\" Journal of American Folklore 119, no. 472 (2006): 184-202."
+            },
+            {
+                "title": "Harvard",
+                "snippet": "Dewan, W.J., 2006. \" A saucerful of secrets\": an interdisciplinary analysis of UFO experiences. Journal of American Folklore, 119(472), pp.184-202."
+            },
+            {
+                "title": "Vancouver",
+                "snippet": "Dewan WJ. \" A saucerful of secrets\": an interdisciplinary analysis of UFO experiences. Journal of American Folklore. 2006 Apr 1;119(472):184-202."
+            }
+        ],
+        "links": [
+            {
+                "name": "BibTeX",
+                "link": "https://scholar.googleusercontent.com/scholar.bib?q=info:BqYnnGCCNJMJ:scholar.google.com/&output=citation&scisdr=CgUslgydGAA:AAGBfm0AAAAAY_UkmreVMFZ2nhtx7YS4I7P0S5a4_2qD&scisig=AAGBfm0AAAAAY_Ukmq1uLSq-40KRxMW8l2svcu6DIpAT&scisf=4&ct=citation&cd=-1&hl=en"
+            },
+            {
+                "name": "EndNote",
+                "link": "https://scholar.googleusercontent.com/scholar.enw?q=info:BqYnnGCCNJMJ:scholar.google.com/&output=citation&scisdr=CgUslgydGAA:AAGBfm0AAAAAY_UkmreVMFZ2nhtx7YS4I7P0S5a4_2qD&scisig=AAGBfm0AAAAAY_Ukmq1uLSq-40KRxMW8l2svcu6DIpAT&scisf=3&ct=citation&cd=-1&hl=en"
+            },
+            {
+                "name": "RefMan",
+                "link": "https://scholar.googleusercontent.com/scholar.ris?q=info:BqYnnGCCNJMJ:scholar.google.com/&output=citation&scisdr=CgUslgydGAA:AAGBfm0AAAAAY_UkmreVMFZ2nhtx7YS4I7P0S5a4_2qD&scisig=AAGBfm0AAAAAY_Ukmq1uLSq-40KRxMW8l2svcu6DIpAT&scisf=2&ct=citation&cd=-1&hl=en"
+            },
+            {
+                "name": "RefWorks",
+                "link": "https://scholar.googleusercontent.com/scholar.rfw?q=info:BqYnnGCCNJMJ:scholar.google.com/&output=citation&scisdr=CgUslgydGAA:AAGBfm0AAAAAY_UkmreVMFZ2nhtx7YS4I7P0S5a4_2qD&scisig=AAGBfm0AAAAAY_Ukmq1uLSq-40KRxMW8l2svcu6DIpAT&scisf=1&ct=citation&cd=-1&hl=en"
+            }
+        ]
+    },
+    {
+        "search_metadata": {
+            "id": "63f52242ada54bf2883c8082",
+            "status": "Success",
+            "json_endpoint": "https://serpapi.com/searches/e3212dc244601efb/63f52242ada54bf2883c8082.json",
+            "created_at": "2023-02-21 19:57:54 UTC",
+            "processed_at": "2023-02-21 19:57:54 UTC",
+            "google_scholar_cite_url": "https://scholar.google.com/scholar?output=cite&q=info:Q2dEN2B___0J:scholar.google.com",
+            "raw_html_file": "https://serpapi.com/searches/e3212dc244601efb/63f52242ada54bf2883c8082.html",
+            "prettify_html_file": "https://serpapi.com/searches/e3212dc244601efb/63f52242ada54bf2883c8082.prettify",
+            "total_time_taken": 4.74
+        },
+        "search_parameters": {
+            "engine": "google_scholar_cite",
+            "q": "Q2dEN2B___0J"
+        },
+        "citations": [
+            {
+                "title": "MLA",
+                "snippet": "Zusne, Leonard, and Warren H. Jones. Anomalistic psychology: A study of magical thinking. Psychology Press, 2014."
+            },
+            {
+                "title": "APA",
+                "snippet": "Zusne, L., & Jones, W. H. (2014). Anomalistic psychology: A study of magical thinking. Psychology Press."
+            },
+            {
+                "title": "Chicago",
+                "snippet": "Zusne, Leonard, and Warren H. Jones. Anomalistic psychology: A study of magical thinking. Psychology Press, 2014."
+            },
+            {
+                "title": "Harvard",
+                "snippet": "Zusne, L. and Jones, W.H., 2014. Anomalistic psychology: A study of magical thinking. Psychology Press."
+            },
+            {
+                "title": "Vancouver",
+                "snippet": "Zusne L, Jones WH. Anomalistic psychology: A study of magical thinking. Psychology Press; 2014 Jan 14."
+            }
+        ],
+        "links": [
+            {
+                "name": "BibTeX",
+                "link": "https://scholar.googleusercontent.com/scholar.bib?q=info:Q2dEN2B___0J:scholar.google.com/&output=citation&scisdr=CgW-3AOoGAA:AAGBfm0AAAAAY_Ukn0MM5A8JiGUHPzFctifY0-WBUTjz&scisig=AAGBfm0AAAAAY_Ukn7XYjuwQxOOxMA4QNqZWvSN50CJf&scisf=4&ct=citation&cd=-1&hl=en"
+            },
+            {
+                "name": "EndNote",
+                "link": "https://scholar.googleusercontent.com/scholar.enw?q=info:Q2dEN2B___0J:scholar.google.com/&output=citation&scisdr=CgW-3AOoGAA:AAGBfm0AAAAAY_Ukn0MM5A8JiGUHPzFctifY0-WBUTjz&scisig=AAGBfm0AAAAAY_Ukn7XYjuwQxOOxMA4QNqZWvSN50CJf&scisf=3&ct=citation&cd=-1&hl=en"
+            },
+            {
+                "name": "RefMan",
+                "link": "https://scholar.googleusercontent.com/scholar.ris?q=info:Q2dEN2B___0J:scholar.google.com/&output=citation&scisdr=CgW-3AOoGAA:AAGBfm0AAAAAY_Ukn0MM5A8JiGUHPzFctifY0-WBUTjz&scisig=AAGBfm0AAAAAY_Ukn7XYjuwQxOOxMA4QNqZWvSN50CJf&scisf=2&ct=citation&cd=-1&hl=en"
+            },
+            {
+                "name": "RefWorks",
+                "link": "https://scholar.googleusercontent.com/scholar.rfw?q=info:Q2dEN2B___0J:scholar.google.com/&output=citation&scisdr=CgW-3AOoGAA:AAGBfm0AAAAAY_Ukn0MM5A8JiGUHPzFctifY0-WBUTjz&scisig=AAGBfm0AAAAAY_Ukn7XYjuwQxOOxMA4QNqZWvSN50CJf&scisf=1&ct=citation&cd=-1&hl=en"
+            }
+        ]
+    },
+    {
+        "search_metadata": {
+            "id": "63f5224737014ce5d4fbe6ad",
+            "status": "Success",
+            "json_endpoint": "https://serpapi.com/searches/2e8a1bc8a49c5f8c/63f5224737014ce5d4fbe6ad.json",
+            "created_at": "2023-02-21 19:57:59 UTC",
+            "processed_at": "2023-02-21 19:57:59 UTC",
+            "google_scholar_cite_url": "https://scholar.google.com/scholar?output=cite&q=info:I8pUNuspBCIJ:scholar.google.com",
+            "raw_html_file": "https://serpapi.com/searches/2e8a1bc8a49c5f8c/63f5224737014ce5d4fbe6ad.html",
+            "prettify_html_file": "https://serpapi.com/searches/2e8a1bc8a49c5f8c/63f5224737014ce5d4fbe6ad.prettify",
+            "total_time_taken": 0.55
+        },
+        "search_parameters": {
+            "engine": "google_scholar_cite",
+            "q": "I8pUNuspBCIJ"
+        },
+        "citations": [
+            {
+                "title": "MLA",
+                "snippet": "Teodorani, Massimo. \"A long-term scientific survey of the Hessdalen phenomenon.\" Journal of Scientific Exploration 18.2 (2004): 217-251."
+            },
+            {
+                "title": "APA",
+                "snippet": "Teodorani, M. (2004). A long-term scientific survey of the Hessdalen phenomenon. Journal of Scientific Exploration, 18(2), 217-251."
+            },
+            {
+                "title": "Chicago",
+                "snippet": "Teodorani, Massimo. \"A long-term scientific survey of the Hessdalen phenomenon.\" Journal of Scientific Exploration 18, no. 2 (2004): 217-251."
+            },
+            {
+                "title": "Harvard",
+                "snippet": "Teodorani, M., 2004. A long-term scientific survey of the Hessdalen phenomenon. Journal of Scientific Exploration, 18(2), pp.217-251."
+            },
+            {
+                "title": "Vancouver",
+                "snippet": "Teodorani M. A long-term scientific survey of the Hessdalen phenomenon. Journal of Scientific Exploration. 2004 Jun;18(2):217-51."
+            }
+        ],
+        "links": [
+            {
+                "name": "BibTeX",
+                "link": "https://scholar.googleusercontent.com/scholar.bib?q=info:I8pUNuspBCIJ:scholar.google.com/&output=citation&scisdr=CgUbcqyaGAA:AAGBfm0AAAAAY_UkoMbv6lZsL5LHEgR4fAd6pTGQ9djl&scisig=AAGBfm0AAAAAY_UkoPlVzgUS-bLjnO-WgjS7kHFskiYK&scisf=4&ct=citation&cd=-1&hl=en"
+            },
+            {
+                "name": "EndNote",
+                "link": "https://scholar.googleusercontent.com/scholar.enw?q=info:I8pUNuspBCIJ:scholar.google.com/&output=citation&scisdr=CgUbcqyaGAA:AAGBfm0AAAAAY_UkoMbv6lZsL5LHEgR4fAd6pTGQ9djl&scisig=AAGBfm0AAAAAY_UkoPlVzgUS-bLjnO-WgjS7kHFskiYK&scisf=3&ct=citation&cd=-1&hl=en"
+            },
+            {
+                "name": "RefMan",
+                "link": "https://scholar.googleusercontent.com/scholar.ris?q=info:I8pUNuspBCIJ:scholar.google.com/&output=citation&scisdr=CgUbcqyaGAA:AAGBfm0AAAAAY_UkoMbv6lZsL5LHEgR4fAd6pTGQ9djl&scisig=AAGBfm0AAAAAY_UkoPlVzgUS-bLjnO-WgjS7kHFskiYK&scisf=2&ct=citation&cd=-1&hl=en"
+            },
+            {
+                "name": "RefWorks",
+                "link": "https://scholar.googleusercontent.com/scholar.rfw?q=info:I8pUNuspBCIJ:scholar.google.com/&output=citation&scisdr=CgUbcqyaGAA:AAGBfm0AAAAAY_UkoMbv6lZsL5LHEgR4fAd6pTGQ9djl&scisig=AAGBfm0AAAAAY_UkoPlVzgUS-bLjnO-WgjS7kHFskiYK&scisf=1&ct=citation&cd=-1&hl=en"
+            }
+        ]
+    },
+    {
+        "search_metadata": {
+            "id": "63f522485119a6142bded314",
+            "status": "Success",
+            "json_endpoint": "https://serpapi.com/searches/6962f849cc9de6ba/63f522485119a6142bded314.json",
+            "created_at": "2023-02-21 19:58:00 UTC",
+            "processed_at": "2023-02-21 19:58:00 UTC",
+            "google_scholar_cite_url": "https://scholar.google.com/scholar?output=cite&q=info:cPkag2QqT44J:scholar.google.com",
+            "raw_html_file": "https://serpapi.com/searches/6962f849cc9de6ba/63f522485119a6142bded314.html",
+            "prettify_html_file": "https://serpapi.com/searches/6962f849cc9de6ba/63f522485119a6142bded314.prettify",
+            "total_time_taken": 0.89
+        },
+        "search_parameters": {
+            "engine": "google_scholar_cite",
+            "q": "cPkag2QqT44J"
+        },
+        "citations": [
+            {
+                "title": "MLA",
+                "snippet": "Belitz, Dietrich, et al. \"Transport anomalies and marginal-Fermi-liquid effects at a quantum critical point.\" Physical Review Letters 85.21 (2000): 4602."
+            },
+            {
+                "title": "APA",
+                "snippet": "Belitz, D., Kirkpatrick, T. R., Narayanan, R., & Vojta, T. (2000). Transport anomalies and marginal-Fermi-liquid effects at a quantum critical point. Physical Review Letters, 85(21), 4602."
+            },
+            {
+                "title": "Chicago",
+                "snippet": "Belitz, Dietrich, Theodore R. Kirkpatrick, R. Narayanan, and Thomas Vojta. \"Transport anomalies and marginal-Fermi-liquid effects at a quantum critical point.\" Physical Review Letters 85, no. 21 (2000): 4602."
+            },
+            {
+                "title": "Harvard",
+                "snippet": "Belitz, D., Kirkpatrick, T.R., Narayanan, R. and Vojta, T., 2000. Transport anomalies and marginal-Fermi-liquid effects at a quantum critical point. Physical Review Letters, 85(21), p.4602."
+            },
+            {
+                "title": "Vancouver",
+                "snippet": "Belitz D, Kirkpatrick TR, Narayanan R, Vojta T. Transport anomalies and marginal-Fermi-liquid effects at a quantum critical point. Physical Review Letters. 2000 Nov 20;85(21):4602."
+            }
+        ],
+        "links": [
+            {
+                "name": "BibTeX",
+                "link": "https://scholar.googleusercontent.com/scholar.bib?q=info:cPkag2QqT44J:scholar.google.com/&output=citation&scisdr=CgUjgbw8GAA:AAGBfm0AAAAAY_UkobApCwwNrZWjf_eqxFyl0JLZ8FX2&scisig=AAGBfm0AAAAAY_UkoRFySlVoHsQTwPg44AaY4jAM2vjn&scisf=4&ct=citation&cd=-1&hl=en"
+            },
+            {
+                "name": "EndNote",
+                "link": "https://scholar.googleusercontent.com/scholar.enw?q=info:cPkag2QqT44J:scholar.google.com/&output=citation&scisdr=CgUjgbw8GAA:AAGBfm0AAAAAY_UkobApCwwNrZWjf_eqxFyl0JLZ8FX2&scisig=AAGBfm0AAAAAY_UkoRFySlVoHsQTwPg44AaY4jAM2vjn&scisf=3&ct=citation&cd=-1&hl=en"
+            },
+            {
+                "name": "RefMan",
+                "link": "https://scholar.googleusercontent.com/scholar.ris?q=info:cPkag2QqT44J:scholar.google.com/&output=citation&scisdr=CgUjgbw8GAA:AAGBfm0AAAAAY_UkobApCwwNrZWjf_eqxFyl0JLZ8FX2&scisig=AAGBfm0AAAAAY_UkoRFySlVoHsQTwPg44AaY4jAM2vjn&scisf=2&ct=citation&cd=-1&hl=en"
+            },
+            {
+                "name": "RefWorks",
+                "link": "https://scholar.googleusercontent.com/scholar.rfw?q=info:cPkag2QqT44J:scholar.google.com/&output=citation&scisdr=CgUjgbw8GAA:AAGBfm0AAAAAY_UkobApCwwNrZWjf_eqxFyl0JLZ8FX2&scisig=AAGBfm0AAAAAY_UkoRFySlVoHsQTwPg44AaY4jAM2vjn&scisf=1&ct=citation&cd=-1&hl=en"
+            }
+        ]
+    },
+    {
+        "search_metadata": {
+            "id": "63f52249d036a7583f61b5b5",
+            "status": "Success",
+            "json_endpoint": "https://serpapi.com/searches/9ebc8e9c7269d83c/63f52249d036a7583f61b5b5.json",
+            "created_at": "2023-02-21 19:58:01 UTC",
+            "processed_at": "2023-02-21 19:58:01 UTC",
+            "google_scholar_cite_url": "https://scholar.google.com/scholar?output=cite&q=info:LlqfYIBo0dIJ:scholar.google.com",
+            "raw_html_file": "https://serpapi.com/searches/9ebc8e9c7269d83c/63f52249d036a7583f61b5b5.html",
+            "prettify_html_file": "https://serpapi.com/searches/9ebc8e9c7269d83c/63f52249d036a7583f61b5b5.prettify",
+            "total_time_taken": 0.87
+        },
+        "search_parameters": {
+            "engine": "google_scholar_cite",
+            "q": "LlqfYIBo0dIJ"
+        },
+        "citations": [
+            {
+                "title": "MLA",
+                "snippet": "Fedan, Jeffrey S., et al. \"Biological effects of inhaled hydraulic fracturing sand dust. II. Particle characterization and pulmonary effects 30 d following intratracheal instillation.\" Toxicology and applied pharmacology 409 (2020): 115282."
+            },
+            {
+                "title": "APA",
+                "snippet": "Fedan, J. S., Hubbs, A. F., Barger, M., Schwegler-Berry, D., Friend, S. A., Leonard, S. S., ... & Roberts, J. R. (2020). Biological effects of inhaled hydraulic fracturing sand dust. II. Particle characterization and pulmonary effects 30 d following intratracheal instillation. Toxicology and applied pharmacology, 409, 115282."
+            },
+            {
+                "title": "Chicago",
+                "snippet": "Fedan, Jeffrey S., Ann F. Hubbs, Mark Barger, Diane Schwegler-Berry, Sherri A. Friend, Stephen S. Leonard, Janet A. Thompson et al. \"Biological effects of inhaled hydraulic fracturing sand dust. II. Particle characterization and pulmonary effects 30 d following intratracheal instillation.\" Toxicology and applied pharmacology 409 (2020): 115282."
+            },
+            {
+                "title": "Harvard",
+                "snippet": "Fedan, J.S., Hubbs, A.F., Barger, M., Schwegler-Berry, D., Friend, S.A., Leonard, S.S., Thompson, J.A., Jackson, M.C., Snawder, J.E., Dozier, A.K. and Coyle, J., 2020. Biological effects of inhaled hydraulic fracturing sand dust. II. Particle characterization and pulmonary effects 30 d following intratracheal instillation. Toxicology and applied pharmacology, 409, p.115282."
+            },
+            {
+                "title": "Vancouver",
+                "snippet": "Fedan JS, Hubbs AF, Barger M, Schwegler-Berry D, Friend SA, Leonard SS, Thompson JA, Jackson MC, Snawder JE, Dozier AK, Coyle J. Biological effects of inhaled hydraulic fracturing sand dust. II. Particle characterization and pulmonary effects 30 d following intratracheal instillation. Toxicology and applied pharmacology. 2020 Dec 15;409:115282."
+            }
+        ],
+        "links": [
+            {
+                "name": "BibTeX",
+                "link": "https://scholar.googleusercontent.com/scholar.bib?q=info:LlqfYIBo0dIJ:scholar.google.com/&output=citation&scisdr=CgU-HvkZGAA:AAGBfm0AAAAAY_UkorR3TfSD2saaDprUcMm8BwEtLfqa&scisig=AAGBfm0AAAAAY_Ukoh9x-cc2cLHUecY_Rs32PlbrZ1g_&scisf=4&ct=citation&cd=-1&hl=en"
+            },
+            {
+                "name": "EndNote",
+                "link": "https://scholar.googleusercontent.com/scholar.enw?q=info:LlqfYIBo0dIJ:scholar.google.com/&output=citation&scisdr=CgU-HvkZGAA:AAGBfm0AAAAAY_UkorR3TfSD2saaDprUcMm8BwEtLfqa&scisig=AAGBfm0AAAAAY_Ukoh9x-cc2cLHUecY_Rs32PlbrZ1g_&scisf=3&ct=citation&cd=-1&hl=en"
+            },
+            {
+                "name": "RefMan",
+                "link": "https://scholar.googleusercontent.com/scholar.ris?q=info:LlqfYIBo0dIJ:scholar.google.com/&output=citation&scisdr=CgU-HvkZGAA:AAGBfm0AAAAAY_UkorR3TfSD2saaDprUcMm8BwEtLfqa&scisig=AAGBfm0AAAAAY_Ukoh9x-cc2cLHUecY_Rs32PlbrZ1g_&scisf=2&ct=citation&cd=-1&hl=en"
+            },
+            {
+                "name": "RefWorks",
+                "link": "https://scholar.googleusercontent.com/scholar.rfw?q=info:LlqfYIBo0dIJ:scholar.google.com/&output=citation&scisdr=CgU-HvkZGAA:AAGBfm0AAAAAY_UkorR3TfSD2saaDprUcMm8BwEtLfqa&scisig=AAGBfm0AAAAAY_Ukoh9x-cc2cLHUecY_Rs32PlbrZ1g_&scisf=1&ct=citation&cd=-1&hl=en"
+            }
+        ]
+    },
+    {
+        "search_metadata": {
+            "id": "63f5224a49ecdb7c44375869",
+            "status": "Success",
+            "json_endpoint": "https://serpapi.com/searches/94df31bb189a9e1a/63f5224a49ecdb7c44375869.json",
+            "created_at": "2023-02-21 19:58:02 UTC",
+            "processed_at": "2023-02-21 19:58:02 UTC",
+            "google_scholar_cite_url": "https://scholar.google.com/scholar?output=cite&q=info:upPT1RxVKIsJ:scholar.google.com",
+            "raw_html_file": "https://serpapi.com/searches/94df31bb189a9e1a/63f5224a49ecdb7c44375869.html",
+            "prettify_html_file": "https://serpapi.com/searches/94df31bb189a9e1a/63f5224a49ecdb7c44375869.prettify",
+            "total_time_taken": 0.19
+        },
+        "search_parameters": {
+            "engine": "google_scholar_cite",
+            "q": "upPT1RxVKIsJ"
+        },
+        "citations": [
+            {
+                "title": "MLA",
+                "snippet": "McClenon, James. \"Content analysis of an anomalous experience collection: Evaluating evolutionary perspectives.\" The Journal of Parapsychology 66.3 (2002): 291."
+            },
+            {
+                "title": "APA",
+                "snippet": "McClenon, J. (2002). Content analysis of an anomalous experience collection: Evaluating evolutionary perspectives. The Journal of Parapsychology, 66(3), 291."
+            },
+            {
+                "title": "Chicago",
+                "snippet": "McClenon, James. \"Content analysis of an anomalous experience collection: Evaluating evolutionary perspectives.\" The Journal of Parapsychology 66, no. 3 (2002): 291."
+            },
+            {
+                "title": "Harvard",
+                "snippet": "McClenon, J., 2002. Content analysis of an anomalous experience collection: Evaluating evolutionary perspectives. The Journal of Parapsychology, 66(3), p.291."
+            },
+            {
+                "title": "Vancouver",
+                "snippet": "McClenon J. Content analysis of an anomalous experience collection: Evaluating evolutionary perspectives. The Journal of Parapsychology. 2002 Sep 1;66(3):291."
+            }
+        ],
+        "links": [
+            {
+                "name": "BibTeX",
+                "link": "https://scholar.googleusercontent.com/scholar.bib?q=info:upPT1RxVKIsJ:scholar.google.com/&output=citation&scisdr=CgXBxY49GAA:AAGBfm0AAAAAY_UkosHZ_0EvFmNSuMMNcMbr_itQqKZF&scisig=AAGBfm0AAAAAY_Ukog_Vfp43A49bFgQPZEf1D6BXnHC8&scisf=4&ct=citation&cd=-1&hl=en"
+            },
+            {
+                "name": "EndNote",
+                "link": "https://scholar.googleusercontent.com/scholar.enw?q=info:upPT1RxVKIsJ:scholar.google.com/&output=citation&scisdr=CgXBxY49GAA:AAGBfm0AAAAAY_UkosHZ_0EvFmNSuMMNcMbr_itQqKZF&scisig=AAGBfm0AAAAAY_Ukog_Vfp43A49bFgQPZEf1D6BXnHC8&scisf=3&ct=citation&cd=-1&hl=en"
+            },
+            {
+                "name": "RefMan",
+                "link": "https://scholar.googleusercontent.com/scholar.ris?q=info:upPT1RxVKIsJ:scholar.google.com/&output=citation&scisdr=CgXBxY49GAA:AAGBfm0AAAAAY_UkosHZ_0EvFmNSuMMNcMbr_itQqKZF&scisig=AAGBfm0AAAAAY_Ukog_Vfp43A49bFgQPZEf1D6BXnHC8&scisf=2&ct=citation&cd=-1&hl=en"
+            },
+            {
+                "name": "RefWorks",
+                "link": "https://scholar.googleusercontent.com/scholar.rfw?q=info:upPT1RxVKIsJ:scholar.google.com/&output=citation&scisdr=CgXBxY49GAA:AAGBfm0AAAAAY_UkosHZ_0EvFmNSuMMNcMbr_itQqKZF&scisig=AAGBfm0AAAAAY_Ukog_Vfp43A49bFgQPZEf1D6BXnHC8&scisf=1&ct=citation&cd=-1&hl=en"
+            }
+        ]
+    },
+    {
+        "search_metadata": {
+            "id": "63f5224afe41d01f7d93fc4b",
+            "status": "Success",
+            "json_endpoint": "https://serpapi.com/searches/f925a5812e00c2be/63f5224afe41d01f7d93fc4b.json",
+            "created_at": "2023-02-21 19:58:02 UTC",
+            "processed_at": "2023-02-21 19:58:02 UTC",
+            "google_scholar_cite_url": "https://scholar.google.com/scholar?output=cite&q=info:RKL2Xl8cQwwJ:scholar.google.com",
+            "raw_html_file": "https://serpapi.com/searches/f925a5812e00c2be/63f5224afe41d01f7d93fc4b.html",
+            "prettify_html_file": "https://serpapi.com/searches/f925a5812e00c2be/63f5224afe41d01f7d93fc4b.prettify",
+            "total_time_taken": 0.54
+        },
+        "search_parameters": {
+            "engine": "google_scholar_cite",
+            "q": "RKL2Xl8cQwwJ"
+        },
+        "citations": [
+            {
+                "title": "MLA",
+                "snippet": "Lee, Gyunghee, et al. \"New reproductive anomalies in fruitless\u2010mutant Drosophila males: Extreme lengthening of mating durations and infertility correlated with defective serotonergic innervation of reproductive organs.\" Journal of neurobiology 47.2 (2001): 121-149."
+            },
+            {
+                "title": "APA",
+                "snippet": "Lee, G., Villella, A., Taylor, B. J., & Hall, J. C. (2001). New reproductive anomalies in fruitless\u2010mutant Drosophila males: Extreme lengthening of mating durations and infertility correlated with defective serotonergic innervation of reproductive organs. Journal of neurobiology, 47(2), 121-149."
+            },
+            {
+                "title": "Chicago",
+                "snippet": "Lee, Gyunghee, Adriana Villella, Barbara J. Taylor, and Jeffrey C. Hall. \"New reproductive anomalies in fruitless\u2010mutant Drosophila males: Extreme lengthening of mating durations and infertility correlated with defective serotonergic innervation of reproductive organs.\" Journal of neurobiology 47, no. 2 (2001): 121-149."
+            },
+            {
+                "title": "Harvard",
+                "snippet": "Lee, G., Villella, A., Taylor, B.J. and Hall, J.C., 2001. New reproductive anomalies in fruitless\u2010mutant Drosophila males: Extreme lengthening of mating durations and infertility correlated with defective serotonergic innervation of reproductive organs. Journal of neurobiology, 47(2), pp.121-149."
+            },
+            {
+                "title": "Vancouver",
+                "snippet": "Lee G, Villella A, Taylor BJ, Hall JC. New reproductive anomalies in fruitless\u2010mutant Drosophila males: Extreme lengthening of mating durations and infertility correlated with defective serotonergic innervation of reproductive organs. Journal of neurobiology. 2001 May;47(2):121-49."
+            }
+        ],
+        "links": [
+            {
+                "name": "BibTeX",
+                "link": "https://scholar.googleusercontent.com/scholar.bib?q=info:RKL2Xl8cQwwJ:scholar.google.com/&output=citation&scisdr=CgXI7b67GAA:AAGBfm0AAAAAY_UkowvdrZ8CcD-KdnVsgRSVNQDdK4ZB&scisig=AAGBfm0AAAAAY_Uko3DJnt42TgDy3L9VkEopAf_f5I3R&scisf=4&ct=citation&cd=-1&hl=en"
+            },
+            {
+                "name": "EndNote",
+                "link": "https://scholar.googleusercontent.com/scholar.enw?q=info:RKL2Xl8cQwwJ:scholar.google.com/&output=citation&scisdr=CgXI7b67GAA:AAGBfm0AAAAAY_UkowvdrZ8CcD-KdnVsgRSVNQDdK4ZB&scisig=AAGBfm0AAAAAY_Uko3DJnt42TgDy3L9VkEopAf_f5I3R&scisf=3&ct=citation&cd=-1&hl=en"
+            },
+            {
+                "name": "RefMan",
+                "link": "https://scholar.googleusercontent.com/scholar.ris?q=info:RKL2Xl8cQwwJ:scholar.google.com/&output=citation&scisdr=CgXI7b67GAA:AAGBfm0AAAAAY_UkowvdrZ8CcD-KdnVsgRSVNQDdK4ZB&scisig=AAGBfm0AAAAAY_Uko3DJnt42TgDy3L9VkEopAf_f5I3R&scisf=2&ct=citation&cd=-1&hl=en"
+            },
+            {
+                "name": "RefWorks",
+                "link": "https://scholar.googleusercontent.com/scholar.rfw?q=info:RKL2Xl8cQwwJ:scholar.google.com/&output=citation&scisdr=CgXI7b67GAA:AAGBfm0AAAAAY_UkowvdrZ8CcD-KdnVsgRSVNQDdK4ZB&scisig=AAGBfm0AAAAAY_Uko3DJnt42TgDy3L9VkEopAf_f5I3R&scisf=1&ct=citation&cd=-1&hl=en"
+            }
+        ]
+    },
+    {
+        "search_metadata": {
+            "id": "63f5224bf716eeff105c2989",
+            "status": "Success",
+            "json_endpoint": "https://serpapi.com/searches/15304639645b55fd/63f5224bf716eeff105c2989.json",
+            "created_at": "2023-02-21 19:58:03 UTC",
+            "processed_at": "2023-02-21 19:58:03 UTC",
+            "google_scholar_cite_url": "https://scholar.google.com/scholar?output=cite&q=info:U7u8rBPgHMkJ:scholar.google.com",
+            "raw_html_file": "https://serpapi.com/searches/15304639645b55fd/63f5224bf716eeff105c2989.html",
+            "prettify_html_file": "https://serpapi.com/searches/15304639645b55fd/63f5224bf716eeff105c2989.prettify",
+            "total_time_taken": 0.9
+        },
+        "search_parameters": {
+            "engine": "google_scholar_cite",
+            "q": "U7u8rBPgHMkJ"
+        },
+        "citations": [
+            {
+                "title": "MLA",
+                "snippet": "Shemesh, Abraham Ofir. \"\u201cThe rabbis maintained that it was Flaxseed\u201d: The identification and interpretation of unidentified Biblical plants in aggadic homilies.\" Biblical Theology Bulletin 49.3 (2019): 156-168."
+            },
+            {
+                "title": "APA",
+                "snippet": "Shemesh, A. O. (2019). \u201cThe rabbis maintained that it was Flaxseed\u201d: The identification and interpretation of unidentified Biblical plants in aggadic homilies. Biblical Theology Bulletin, 49(3), 156-168."
+            },
+            {
+                "title": "Chicago",
+                "snippet": "Shemesh, Abraham Ofir. \"\u201cThe rabbis maintained that it was Flaxseed\u201d: The identification and interpretation of unidentified Biblical plants in aggadic homilies.\" Biblical Theology Bulletin 49, no. 3 (2019): 156-168."
+            },
+            {
+                "title": "Harvard",
+                "snippet": "Shemesh, A.O., 2019. \u201cThe rabbis maintained that it was Flaxseed\u201d: The identification and interpretation of unidentified Biblical plants in aggadic homilies. Biblical Theology Bulletin, 49(3), pp.156-168."
+            },
+            {
+                "title": "Vancouver",
+                "snippet": "Shemesh AO. \u201cThe rabbis maintained that it was Flaxseed\u201d: The identification and interpretation of unidentified Biblical plants in aggadic homilies. Biblical Theology Bulletin. 2019 Aug;49(3):156-68."
+            }
+        ],
+        "links": [
+            {
+                "name": "BibTeX",
+                "link": "https://scholar.googleusercontent.com/scholar.bib?q=info:U7u8rBPgHMkJ:scholar.google.com/&output=citation&scisdr=CgVBAOPzGAA:AAGBfm0AAAAAY_UkpD-D_fDvPzxD7FUmwCvfviTIekaU&scisig=AAGBfm0AAAAAY_UkpDw2jfjguEigxIqrVBsPEsUWN4PF&scisf=4&ct=citation&cd=-1&hl=en"
+            },
+            {
+                "name": "EndNote",
+                "link": "https://scholar.googleusercontent.com/scholar.enw?q=info:U7u8rBPgHMkJ:scholar.google.com/&output=citation&scisdr=CgVBAOPzGAA:AAGBfm0AAAAAY_UkpD-D_fDvPzxD7FUmwCvfviTIekaU&scisig=AAGBfm0AAAAAY_UkpDw2jfjguEigxIqrVBsPEsUWN4PF&scisf=3&ct=citation&cd=-1&hl=en"
+            },
+            {
+                "name": "RefMan",
+                "link": "https://scholar.googleusercontent.com/scholar.ris?q=info:U7u8rBPgHMkJ:scholar.google.com/&output=citation&scisdr=CgVBAOPzGAA:AAGBfm0AAAAAY_UkpD-D_fDvPzxD7FUmwCvfviTIekaU&scisig=AAGBfm0AAAAAY_UkpDw2jfjguEigxIqrVBsPEsUWN4PF&scisf=2&ct=citation&cd=-1&hl=en"
+            },
+            {
+                "name": "RefWorks",
+                "link": "https://scholar.googleusercontent.com/scholar.rfw?q=info:U7u8rBPgHMkJ:scholar.google.com/&output=citation&scisdr=CgVBAOPzGAA:AAGBfm0AAAAAY_UkpD-D_fDvPzxD7FUmwCvfviTIekaU&scisig=AAGBfm0AAAAAY_UkpDw2jfjguEigxIqrVBsPEsUWN4PF&scisf=1&ct=citation&cd=-1&hl=en"
+            }
+        ]
+    },
+    {
+        "search_metadata": {
+            "id": "63f5224c3d69191e6e4cab1f",
+            "status": "Success",
+            "json_endpoint": "https://serpapi.com/searches/a2ad3dbb7c3ffdc8/63f5224c3d69191e6e4cab1f.json",
+            "created_at": "2023-02-21 19:58:04 UTC",
+            "processed_at": "2023-02-21 19:58:04 UTC",
+            "google_scholar_cite_url": "https://scholar.google.com/scholar?output=cite&q=info:KNayHcU-2VQJ:scholar.google.com",
+            "raw_html_file": "https://serpapi.com/searches/a2ad3dbb7c3ffdc8/63f5224c3d69191e6e4cab1f.html",
+            "prettify_html_file": "https://serpapi.com/searches/a2ad3dbb7c3ffdc8/63f5224c3d69191e6e4cab1f.prettify",
+            "total_time_taken": 1.32
+        },
+        "search_parameters": {
+            "engine": "google_scholar_cite",
+            "q": "KNayHcU-2VQJ"
+        },
+        "citations": [
+            {
+                "title": "MLA",
+                "snippet": "Crake, Dennis A., and Juan Rafael Mart\u00ednez-Galarza. \"Linking Anomalous Behaviour with Stellar Properties: An Unsupervised Exploration of TESS Light Curves.\" arXiv preprint arXiv:2301.10264 (2023)."
+            },
+            {
+                "title": "APA",
+                "snippet": "Crake, D. A., & Mart\u00ednez-Galarza, J. R. (2023). Linking Anomalous Behaviour with Stellar Properties: An Unsupervised Exploration of TESS Light Curves. arXiv preprint arXiv:2301.10264."
+            },
+            {
+                "title": "Chicago",
+                "snippet": "Crake, Dennis A., and Juan Rafael Mart\u00ednez-Galarza. \"Linking Anomalous Behaviour with Stellar Properties: An Unsupervised Exploration of TESS Light Curves.\" arXiv preprint arXiv:2301.10264 (2023)."
+            },
+            {
+                "title": "Harvard",
+                "snippet": "Crake, D.A. and Mart\u00ednez-Galarza, J.R., 2023. Linking Anomalous Behaviour with Stellar Properties: An Unsupervised Exploration of TESS Light Curves. arXiv preprint arXiv:2301.10264."
+            },
+            {
+                "title": "Vancouver",
+                "snippet": "Crake DA, Mart\u00ednez-Galarza JR. Linking Anomalous Behaviour with Stellar Properties: An Unsupervised Exploration of TESS Light Curves. arXiv preprint arXiv:2301.10264. 2023 Jan 24."
+            }
+        ],
+        "links": [
+            {
+                "name": "BibTeX",
+                "link": "https://scholar.googleusercontent.com/scholar.bib?q=info:KNayHcU-2VQJ:scholar.google.com/&output=citation&scisdr=CgXHGXYEGAA:AAGBfm0AAAAAY_UkpZHSz8MgZKSBR6IIcDvlg29xi2Xe&scisig=AAGBfm0AAAAAY_Ukpb0oTvWXVFh6R6ITE8O7t5RFm1GT&scisf=4&ct=citation&cd=-1&hl=en"
+            },
+            {
+                "name": "EndNote",
+                "link": "https://scholar.googleusercontent.com/scholar.enw?q=info:KNayHcU-2VQJ:scholar.google.com/&output=citation&scisdr=CgXHGXYEGAA:AAGBfm0AAAAAY_UkpZHSz8MgZKSBR6IIcDvlg29xi2Xe&scisig=AAGBfm0AAAAAY_Ukpb0oTvWXVFh6R6ITE8O7t5RFm1GT&scisf=3&ct=citation&cd=-1&hl=en"
+            },
+            {
+                "name": "RefMan",
+                "link": "https://scholar.googleusercontent.com/scholar.ris?q=info:KNayHcU-2VQJ:scholar.google.com/&output=citation&scisdr=CgXHGXYEGAA:AAGBfm0AAAAAY_UkpZHSz8MgZKSBR6IIcDvlg29xi2Xe&scisig=AAGBfm0AAAAAY_Ukpb0oTvWXVFh6R6ITE8O7t5RFm1GT&scisf=2&ct=citation&cd=-1&hl=en"
+            },
+            {
+                "name": "RefWorks",
+                "link": "https://scholar.googleusercontent.com/scholar.rfw?q=info:KNayHcU-2VQJ:scholar.google.com/&output=citation&scisdr=CgXHGXYEGAA:AAGBfm0AAAAAY_UkpZHSz8MgZKSBR6IIcDvlg29xi2Xe&scisig=AAGBfm0AAAAAY_Ukpb0oTvWXVFh6R6ITE8O7t5RFm1GT&scisf=1&ct=citation&cd=-1&hl=en"
+            }
+        ]
+    },
+    {
+        "search_metadata": {
+            "id": "63f5224e17f92386ece999cf",
+            "status": "Success",
+            "json_endpoint": "https://serpapi.com/searches/52aab29e2090aa29/63f5224e17f92386ece999cf.json",
+            "created_at": "2023-02-21 19:58:06 UTC",
+            "processed_at": "2023-02-21 19:58:06 UTC",
+            "google_scholar_cite_url": "https://scholar.google.com/scholar?output=cite&q=info:5-mQMbIYQX0J:scholar.google.com",
+            "raw_html_file": "https://serpapi.com/searches/52aab29e2090aa29/63f5224e17f92386ece999cf.html",
+            "prettify_html_file": "https://serpapi.com/searches/52aab29e2090aa29/63f5224e17f92386ece999cf.prettify",
+            "total_time_taken": 0.74
+        },
+        "search_parameters": {
+            "engine": "google_scholar_cite",
+            "q": "5-mQMbIYQX0J"
+        },
+        "citations": [
+            {
+                "title": "MLA",
+                "snippet": "Shi, R., J. Russo, and H. Tanaka. \"origin for water's thermodynamic and dynamic anomalies. Journal of Chemical Physics, 149 (22),[224502]. https://doi. org/10.1063/1.5055908.\""
+            },
+            {
+                "title": "APA",
+                "snippet": "Shi, R., Russo, J., & Tanaka, H. origin for water's thermodynamic and dynamic anomalies. Journal of Chemical Physics, 149 (22),[224502]. https://doi. org/10.1063/1.5055908."
+            },
+            {
+                "title": "Chicago",
+                "snippet": "Shi, R., J. Russo, and H. Tanaka. \"origin for water's thermodynamic and dynamic anomalies. Journal of Chemical Physics, 149 (22),[224502]. https://doi. org/10.1063/1.5055908.\""
+            },
+            {
+                "title": "Harvard",
+                "snippet": "Shi, R., Russo, J. and Tanaka, H., origin for water's thermodynamic and dynamic anomalies. Journal of Chemical Physics, 149 (22),[224502]. https://doi. org/10.1063/1.5055908."
+            },
+            {
+                "title": "Vancouver",
+                "snippet": "Shi R, Russo J, Tanaka H. origin for water's thermodynamic and dynamic anomalies. Journal of Chemical Physics, 149 (22),[224502]. https://doi. org/10.1063/1.5055908."
+            }
+        ],
+        "links": [
+            {
+                "name": "BibTeX",
+                "link": "https://scholar.googleusercontent.com/scholar.bib?q=info:5-mQMbIYQX0J:scholar.google.com/&output=citation&scisdr=CgW-3AP3GAA:AAGBfm0AAAAAY_UkptrbD-SHrKN4mif33zskh0bW2Jv9&scisig=AAGBfm0AAAAAY_UkpozL_H8kuWuEyA1IqG13N6GiR3PO&scisf=4&ct=citation&cd=-1&hl=en"
+            },
+            {
+                "name": "EndNote",
+                "link": "https://scholar.googleusercontent.com/scholar.enw?q=info:5-mQMbIYQX0J:scholar.google.com/&output=citation&scisdr=CgW-3AP3GAA:AAGBfm0AAAAAY_UkptrbD-SHrKN4mif33zskh0bW2Jv9&scisig=AAGBfm0AAAAAY_UkpozL_H8kuWuEyA1IqG13N6GiR3PO&scisf=3&ct=citation&cd=-1&hl=en"
+            },
+            {
+                "name": "RefMan",
+                "link": "https://scholar.googleusercontent.com/scholar.ris?q=info:5-mQMbIYQX0J:scholar.google.com/&output=citation&scisdr=CgW-3AP3GAA:AAGBfm0AAAAAY_UkptrbD-SHrKN4mif33zskh0bW2Jv9&scisig=AAGBfm0AAAAAY_UkpozL_H8kuWuEyA1IqG13N6GiR3PO&scisf=2&ct=citation&cd=-1&hl=en"
+            },
+            {
+                "name": "RefWorks",
+                "link": "https://scholar.googleusercontent.com/scholar.rfw?q=info:5-mQMbIYQX0J:scholar.google.com/&output=citation&scisdr=CgW-3AP3GAA:AAGBfm0AAAAAY_UkptrbD-SHrKN4mif33zskh0bW2Jv9&scisig=AAGBfm0AAAAAY_UkpozL_H8kuWuEyA1IqG13N6GiR3PO&scisf=1&ct=citation&cd=-1&hl=en"
+            }
+        ]
+    },
+    {
+        "search_metadata": {
+            "id": "63f5224fe93ff4b0da4c51ec",
+            "status": "Success",
+            "json_endpoint": "https://serpapi.com/searches/cf4e59451b664907/63f5224fe93ff4b0da4c51ec.json",
+            "created_at": "2023-02-21 19:58:07 UTC",
+            "processed_at": "2023-02-21 19:58:07 UTC",
+            "google_scholar_cite_url": "https://scholar.google.com/scholar?output=cite&q=info:7UYDrT8kO-0J:scholar.google.com",
+            "raw_html_file": "https://serpapi.com/searches/cf4e59451b664907/63f5224fe93ff4b0da4c51ec.html",
+            "prettify_html_file": "https://serpapi.com/searches/cf4e59451b664907/63f5224fe93ff4b0da4c51ec.prettify",
+            "total_time_taken": 0.79
+        },
+        "search_parameters": {
+            "engine": "google_scholar_cite",
+            "q": "7UYDrT8kO-0J"
+        },
+        "citations": [
+            {
+                "title": "MLA",
+                "snippet": "Shajahan, Md, Y. H. Mo, and K. S. Nahm. \"Effect of chemical vapor deposition energy sources on the structure of SiC prepared by carbon nanotubes-confined reaction.\" Journal of Vacuum Science & Technology B: Microelectronics and Nanometer Structures Processing, Measurement, and Phenomena 21.3 (2003): 1149-1156."
+            },
+            {
+                "title": "APA",
+                "snippet": "Shajahan, M., Mo, Y. H., & Nahm, K. S. (2003). Effect of chemical vapor deposition energy sources on the structure of SiC prepared by carbon nanotubes-confined reaction. Journal of Vacuum Science & Technology B: Microelectronics and Nanometer Structures Processing, Measurement, and Phenomena, 21(3), 1149-1156."
+            },
+            {
+                "title": "Chicago",
+                "snippet": "Shajahan, Md, Y. H. Mo, and K. S. Nahm. \"Effect of chemical vapor deposition energy sources on the structure of SiC prepared by carbon nanotubes-confined reaction.\" Journal of Vacuum Science & Technology B: Microelectronics and Nanometer Structures Processing, Measurement, and Phenomena 21, no. 3 (2003): 1149-1156."
+            },
+            {
+                "title": "Harvard",
+                "snippet": "Shajahan, M., Mo, Y.H. and Nahm, K.S., 2003. Effect of chemical vapor deposition energy sources on the structure of SiC prepared by carbon nanotubes-confined reaction. Journal of Vacuum Science & Technology B: Microelectronics and Nanometer Structures Processing, Measurement, and Phenomena, 21(3), pp.1149-1156."
+            },
+            {
+                "title": "Vancouver",
+                "snippet": "Shajahan M, Mo YH, Nahm KS. Effect of chemical vapor deposition energy sources on the structure of SiC prepared by carbon nanotubes-confined reaction. Journal of Vacuum Science & Technology B: Microelectronics and Nanometer Structures Processing, Measurement, and Phenomena. 2003 May 27;21(3):1149-56."
+            }
+        ],
+        "links": [
+            {
+                "name": "BibTeX",
+                "link": "https://scholar.googleusercontent.com/scholar.bib?q=info:7UYDrT8kO-0J:scholar.google.com/&output=citation&scisdr=CgWstdeDGAA:AAGBfm0AAAAAY_UkpwPt1iIqVrUx3ROCl_mscJa3PGyy&scisig=AAGBfm0AAAAAY_Ukp8V3B4pahNMN2tOY4yNdz1usB1Lx&scisf=4&ct=citation&cd=-1&hl=en"
+            },
+            {
+                "name": "EndNote",
+                "link": "https://scholar.googleusercontent.com/scholar.enw?q=info:7UYDrT8kO-0J:scholar.google.com/&output=citation&scisdr=CgWstdeDGAA:AAGBfm0AAAAAY_UkpwPt1iIqVrUx3ROCl_mscJa3PGyy&scisig=AAGBfm0AAAAAY_Ukp8V3B4pahNMN2tOY4yNdz1usB1Lx&scisf=3&ct=citation&cd=-1&hl=en"
+            },
+            {
+                "name": "RefMan",
+                "link": "https://scholar.googleusercontent.com/scholar.ris?q=info:7UYDrT8kO-0J:scholar.google.com/&output=citation&scisdr=CgWstdeDGAA:AAGBfm0AAAAAY_UkpwPt1iIqVrUx3ROCl_mscJa3PGyy&scisig=AAGBfm0AAAAAY_Ukp8V3B4pahNMN2tOY4yNdz1usB1Lx&scisf=2&ct=citation&cd=-1&hl=en"
+            },
+            {
+                "name": "RefWorks",
+                "link": "https://scholar.googleusercontent.com/scholar.rfw?q=info:7UYDrT8kO-0J:scholar.google.com/&output=citation&scisdr=CgWstdeDGAA:AAGBfm0AAAAAY_UkpwPt1iIqVrUx3ROCl_mscJa3PGyy&scisig=AAGBfm0AAAAAY_Ukp8V3B4pahNMN2tOY4yNdz1usB1Lx&scisf=1&ct=citation&cd=-1&hl=en"
+            }
+        ]
+    },
+    {
+        "search_metadata": {
+            "id": "63f52250c573d53ab46312ad",
+            "status": "Success",
+            "json_endpoint": "https://serpapi.com/searches/ba0884f5ead73a2c/63f52250c573d53ab46312ad.json",
+            "created_at": "2023-02-21 19:58:08 UTC",
+            "processed_at": "2023-02-21 19:58:08 UTC",
+            "google_scholar_cite_url": "https://scholar.google.com/scholar?output=cite&q=info:hSyf7vXqHt4J:scholar.google.com",
+            "raw_html_file": "https://serpapi.com/searches/ba0884f5ead73a2c/63f52250c573d53ab46312ad.html",
+            "prettify_html_file": "https://serpapi.com/searches/ba0884f5ead73a2c/63f52250c573d53ab46312ad.prettify",
+            "total_time_taken": 0.96
+        },
+        "search_parameters": {
+            "engine": "google_scholar_cite",
+            "q": "hSyf7vXqHt4J"
+        },
+        "citations": [
+            {
+                "title": "MLA",
+                "snippet": "Courtman, Sandra. Not Good Enough or Not Man Enough? Beryl Gilroy as the Anomaly in the Evolving \u2018Black British Canon\u2019. Palgrave Macmillan UK, 2006."
+            },
+            {
+                "title": "APA",
+                "snippet": "Courtman, S. (2006). Not Good Enough or Not Man Enough? Beryl Gilroy as the Anomaly in the Evolving \u2018Black British Canon\u2019 (pp. 50-73). Palgrave Macmillan UK."
+            },
+            {
+                "title": "Chicago",
+                "snippet": "Courtman, Sandra. Not Good Enough or Not Man Enough? Beryl Gilroy as the Anomaly in the Evolving \u2018Black British Canon\u2019. Palgrave Macmillan UK, 2006."
+            },
+            {
+                "title": "Harvard",
+                "snippet": "Courtman, S., 2006. Not Good Enough or Not Man Enough? Beryl Gilroy as the Anomaly in the Evolving \u2018Black British Canon\u2019 (pp. 50-73). Palgrave Macmillan UK."
+            },
+            {
+                "title": "Vancouver",
+                "snippet": "Courtman S. Not Good Enough or Not Man Enough? Beryl Gilroy as the Anomaly in the Evolving \u2018Black British Canon\u2019. Palgrave Macmillan UK; 2006."
+            }
+        ],
+        "links": [
+            {
+                "name": "BibTeX",
+                "link": "https://scholar.googleusercontent.com/scholar.bib?q=info:hSyf7vXqHt4J:scholar.google.com/&output=citation&scisdr=CgXqx4I8GAA:AAGBfm0AAAAAY_UkqVy6Djcdu7nYJSp16JYFgkZx-hTF&scisig=AAGBfm0AAAAAY_UkqWDQJQ-kIe5IzRdXBiDuAArewLAZ&scisf=4&ct=citation&cd=-1&hl=en"
+            },
+            {
+                "name": "EndNote",
+                "link": "https://scholar.googleusercontent.com/scholar.enw?q=info:hSyf7vXqHt4J:scholar.google.com/&output=citation&scisdr=CgXqx4I8GAA:AAGBfm0AAAAAY_UkqVy6Djcdu7nYJSp16JYFgkZx-hTF&scisig=AAGBfm0AAAAAY_UkqWDQJQ-kIe5IzRdXBiDuAArewLAZ&scisf=3&ct=citation&cd=-1&hl=en"
+            },
+            {
+                "name": "RefMan",
+                "link": "https://scholar.googleusercontent.com/scholar.ris?q=info:hSyf7vXqHt4J:scholar.google.com/&output=citation&scisdr=CgXqx4I8GAA:AAGBfm0AAAAAY_UkqVy6Djcdu7nYJSp16JYFgkZx-hTF&scisig=AAGBfm0AAAAAY_UkqWDQJQ-kIe5IzRdXBiDuAArewLAZ&scisf=2&ct=citation&cd=-1&hl=en"
+            },
+            {
+                "name": "RefWorks",
+                "link": "https://scholar.googleusercontent.com/scholar.rfw?q=info:hSyf7vXqHt4J:scholar.google.com/&output=citation&scisdr=CgXqx4I8GAA:AAGBfm0AAAAAY_UkqVy6Djcdu7nYJSp16JYFgkZx-hTF&scisig=AAGBfm0AAAAAY_UkqWDQJQ-kIe5IzRdXBiDuAArewLAZ&scisf=1&ct=citation&cd=-1&hl=en"
+            }
+        ]
+    },
+    {
+        "search_metadata": {
+            "id": "63f52251a1b423fbafbd043a",
+            "status": "Success",
+            "json_endpoint": "https://serpapi.com/searches/3598771a1c975699/63f52251a1b423fbafbd043a.json",
+            "created_at": "2023-02-21 19:58:09 UTC",
+            "processed_at": "2023-02-21 19:58:09 UTC",
+            "google_scholar_cite_url": "https://scholar.google.com/scholar?output=cite&q=info:F_HW1wNFQGcJ:scholar.google.com",
+            "raw_html_file": "https://serpapi.com/searches/3598771a1c975699/63f52251a1b423fbafbd043a.html",
+            "prettify_html_file": "https://serpapi.com/searches/3598771a1c975699/63f52251a1b423fbafbd043a.prettify",
+            "total_time_taken": 0.75
+        },
+        "search_parameters": {
+            "engine": "google_scholar_cite",
+            "q": "F_HW1wNFQGcJ"
+        },
+        "citations": [
+            {
+                "title": "MLA",
+                "snippet": "Br\u00e1zdil, Rudolf, et al. \"Climatic effects and impacts of the 1815 eruption of Mount Tambora in the Czech Lands.\" Climate of the Past 12.6 (2016): 1361-1374."
+            },
+            {
+                "title": "APA",
+                "snippet": "Br\u00e1zdil, R., \u0158ezn\u00ed\u010dkov\u00e1, L., Val\u00e1\u0161ek, H., Dol\u00e1k, L., & Kotyza, O. (2016). Climatic effects and impacts of the 1815 eruption of Mount Tambora in the Czech Lands. Climate of the Past, 12(6), 1361-1374."
+            },
+            {
+                "title": "Chicago",
+                "snippet": "Br\u00e1zdil, Rudolf, Ladislava \u0158ezn\u00ed\u010dkov\u00e1, Hubert Val\u00e1\u0161ek, Luk\u00e1\u0161 Dol\u00e1k, and Old\u0159ich Kotyza. \"Climatic effects and impacts of the 1815 eruption of Mount Tambora in the Czech Lands.\" Climate of the Past 12, no. 6 (2016): 1361-1374."
+            },
+            {
+                "title": "Harvard",
+                "snippet": "Br\u00e1zdil, R., \u0158ezn\u00ed\u010dkov\u00e1, L., Val\u00e1\u0161ek, H., Dol\u00e1k, L. and Kotyza, O., 2016. Climatic effects and impacts of the 1815 eruption of Mount Tambora in the Czech Lands. Climate of the Past, 12(6), pp.1361-1374."
+            },
+            {
+                "title": "Vancouver",
+                "snippet": "Br\u00e1zdil R, \u0158ezn\u00ed\u010dkov\u00e1 L, Val\u00e1\u0161ek H, Dol\u00e1k L, Kotyza O. Climatic effects and impacts of the 1815 eruption of Mount Tambora in the Czech Lands. Climate of the Past. 2016 Jun 22;12(6):1361-74."
+            }
+        ],
+        "links": [
+            {
+                "name": "BibTeX",
+                "link": "https://scholar.googleusercontent.com/scholar.bib?q=info:F_HW1wNFQGcJ:scholar.google.com/&output=citation&scisdr=CgUba0BxGAA:AAGBfm0AAAAAY_Ukqv6PPp0h3xLN8VYarJB8vN2im9gX&scisig=AAGBfm0AAAAAY_UkqkvIXCmO8ptXlgCOVuYnPRl5gEuH&scisf=4&ct=citation&cd=-1&hl=en"
+            },
+            {
+                "name": "EndNote",
+                "link": "https://scholar.googleusercontent.com/scholar.enw?q=info:F_HW1wNFQGcJ:scholar.google.com/&output=citation&scisdr=CgUba0BxGAA:AAGBfm0AAAAAY_Ukqv6PPp0h3xLN8VYarJB8vN2im9gX&scisig=AAGBfm0AAAAAY_UkqkvIXCmO8ptXlgCOVuYnPRl5gEuH&scisf=3&ct=citation&cd=-1&hl=en"
+            },
+            {
+                "name": "RefMan",
+                "link": "https://scholar.googleusercontent.com/scholar.ris?q=info:F_HW1wNFQGcJ:scholar.google.com/&output=citation&scisdr=CgUba0BxGAA:AAGBfm0AAAAAY_Ukqv6PPp0h3xLN8VYarJB8vN2im9gX&scisig=AAGBfm0AAAAAY_UkqkvIXCmO8ptXlgCOVuYnPRl5gEuH&scisf=2&ct=citation&cd=-1&hl=en"
+            },
+            {
+                "name": "RefWorks",
+                "link": "https://scholar.googleusercontent.com/scholar.rfw?q=info:F_HW1wNFQGcJ:scholar.google.com/&output=citation&scisdr=CgUba0BxGAA:AAGBfm0AAAAAY_Ukqv6PPp0h3xLN8VYarJB8vN2im9gX&scisig=AAGBfm0AAAAAY_UkqkvIXCmO8ptXlgCOVuYnPRl5gEuH&scisf=1&ct=citation&cd=-1&hl=en"
+            }
+        ]
+    },
+    {
+        "search_metadata": {
+            "id": "63f5225296f5d7e7bb66ac2e",
+            "status": "Success",
+            "json_endpoint": "https://serpapi.com/searches/d8a4fa3c934e52b5/63f5225296f5d7e7bb66ac2e.json",
+            "created_at": "2023-02-21 19:58:10 UTC",
+            "processed_at": "2023-02-21 19:58:10 UTC",
+            "google_scholar_cite_url": "https://scholar.google.com/scholar?output=cite&q=info:sB6TnDmJ1mYJ:scholar.google.com",
+            "raw_html_file": "https://serpapi.com/searches/d8a4fa3c934e52b5/63f5225296f5d7e7bb66ac2e.html",
+            "prettify_html_file": "https://serpapi.com/searches/d8a4fa3c934e52b5/63f5225296f5d7e7bb66ac2e.prettify",
+            "total_time_taken": 1.29
+        },
+        "search_parameters": {
+            "engine": "google_scholar_cite",
+            "q": "sB6TnDmJ1mYJ"
+        },
+        "citations": [
+            {
+                "title": "MLA",
+                "snippet": "Lewis, Edward. \"\u201cStrange Particles\u201d: Plasmoids and the Need for Paradigm Change in Physics.\""
+            },
+            {
+                "title": "APA",
+                "snippet": "Lewis, E. \u201cStrange Particles\u201d: Plasmoids and the Need for Paradigm Change in Physics."
+            },
+            {
+                "title": "Chicago",
+                "snippet": "Lewis, Edward. \"\u201cStrange Particles\u201d: Plasmoids and the Need for Paradigm Change in Physics.\""
+            },
+            {
+                "title": "Harvard",
+                "snippet": "Lewis, E., \u201cStrange Particles\u201d: Plasmoids and the Need for Paradigm Change in Physics."
+            },
+            {
+                "title": "Vancouver",
+                "snippet": "Lewis E. \u201cStrange Particles\u201d: Plasmoids and the Need for Paradigm Change in Physics."
+            }
+        ],
+        "links": [
+            {
+                "name": "BibTeX",
+                "link": "https://scholar.googleusercontent.com/scholar.bib?q=info:sB6TnDmJ1mYJ:scholar.google.com/&output=citation&scisdr=CgWnLdvfGAA:AAGBfm0AAAAAY_Ukq6DWSOoTleplJJDhXKZFwq-TH_cV&scisig=AAGBfm0AAAAAY_Ukq1hO8c8WZ9tEC6RLFoTiDvXKIH4D&scisf=4&ct=citation&cd=-1&hl=en"
+            },
+            {
+                "name": "EndNote",
+                "link": "https://scholar.googleusercontent.com/scholar.enw?q=info:sB6TnDmJ1mYJ:scholar.google.com/&output=citation&scisdr=CgWnLdvfGAA:AAGBfm0AAAAAY_Ukq6DWSOoTleplJJDhXKZFwq-TH_cV&scisig=AAGBfm0AAAAAY_Ukq1hO8c8WZ9tEC6RLFoTiDvXKIH4D&scisf=3&ct=citation&cd=-1&hl=en"
+            },
+            {
+                "name": "RefMan",
+                "link": "https://scholar.googleusercontent.com/scholar.ris?q=info:sB6TnDmJ1mYJ:scholar.google.com/&output=citation&scisdr=CgWnLdvfGAA:AAGBfm0AAAAAY_Ukq6DWSOoTleplJJDhXKZFwq-TH_cV&scisig=AAGBfm0AAAAAY_Ukq1hO8c8WZ9tEC6RLFoTiDvXKIH4D&scisf=2&ct=citation&cd=-1&hl=en"
+            },
+            {
+                "name": "RefWorks",
+                "link": "https://scholar.googleusercontent.com/scholar.rfw?q=info:sB6TnDmJ1mYJ:scholar.google.com/&output=citation&scisdr=CgWnLdvfGAA:AAGBfm0AAAAAY_Ukq6DWSOoTleplJJDhXKZFwq-TH_cV&scisig=AAGBfm0AAAAAY_Ukq1hO8c8WZ9tEC6RLFoTiDvXKIH4D&scisf=1&ct=citation&cd=-1&hl=en"
+            }
+        ]
+    },
+    {
+        "search_metadata": {
+            "id": "63f52253d5ecf4e9929db3ec",
+            "status": "Success",
+            "json_endpoint": "https://serpapi.com/searches/c13a7f6adc82d254/63f52253d5ecf4e9929db3ec.json",
+            "created_at": "2023-02-21 19:58:11 UTC",
+            "processed_at": "2023-02-21 19:58:11 UTC",
+            "google_scholar_cite_url": "https://scholar.google.com/scholar?output=cite&q=info:_l5P5LX4UTIJ:scholar.google.com",
+            "raw_html_file": "https://serpapi.com/searches/c13a7f6adc82d254/63f52253d5ecf4e9929db3ec.html",
+            "prettify_html_file": "https://serpapi.com/searches/c13a7f6adc82d254/63f52253d5ecf4e9929db3ec.prettify",
+            "total_time_taken": 0.37
+        },
+        "search_parameters": {
+            "engine": "google_scholar_cite",
+            "q": "_l5P5LX4UTIJ"
+        },
+        "citations": [
+            {
+                "title": "MLA",
+                "snippet": "Plummer, Christopher T., et al. \"An independently dated 2000-yr volcanic record from Law Dome, East Antarctica, including a new perspective on the dating of the 1450s CE eruption of Kuwae, Vanuatu.\" Climate of the Past 8.6 (2012): 1929-1940."
+            },
+            {
+                "title": "APA",
+                "snippet": "Plummer, C. T., Curran, M. A., van Ommen, T. D., Rasmussen, S. O., Moy, A. D., Vance, T. R., ... & Mayewski, P. A. (2012). An independently dated 2000-yr volcanic record from Law Dome, East Antarctica, including a new perspective on the dating of the 1450s CE eruption of Kuwae, Vanuatu. Climate of the Past, 8(6), 1929-1940."
+            },
+            {
+                "title": "Chicago",
+                "snippet": "Plummer, Christopher T., Mark AJ Curran, T. D. van Ommen, Sune O. Rasmussen, Andrew D. Moy, Tessa R. Vance, Henrik B. Clausen, Bo M. Vinther, and Paul A. Mayewski. \"An independently dated 2000-yr volcanic record from Law Dome, East Antarctica, including a new perspective on the dating of the 1450s CE eruption of Kuwae, Vanuatu.\" Climate of the Past 8, no. 6 (2012): 1929-1940."
+            },
+            {
+                "title": "Harvard",
+                "snippet": "Plummer, C.T., Curran, M.A., van Ommen, T.D., Rasmussen, S.O., Moy, A.D., Vance, T.R., Clausen, H.B., Vinther, B.M. and Mayewski, P.A., 2012. An independently dated 2000-yr volcanic record from Law Dome, East Antarctica, including a new perspective on the dating of the 1450s CE eruption of Kuwae, Vanuatu. Climate of the Past, 8(6), pp.1929-1940."
+            },
+            {
+                "title": "Vancouver",
+                "snippet": "Plummer CT, Curran MA, van Ommen TD, Rasmussen SO, Moy AD, Vance TR, Clausen HB, Vinther BM, Mayewski PA. An independently dated 2000-yr volcanic record from Law Dome, East Antarctica, including a new perspective on the dating of the 1450s CE eruption of Kuwae, Vanuatu. Climate of the Past. 2012 Nov 28;8(6):1929-40."
+            }
+        ],
+        "links": [
+            {
+                "name": "BibTeX",
+                "link": "https://scholar.googleusercontent.com/scholar.bib?q=info:_l5P5LX4UTIJ:scholar.google.com/&output=citation&scisdr=CgUsQXlBGAA:AAGBfm0AAAAAY_UkrDJrAO3Ftc0wQNXUADYJ3P3LOrhq&scisig=AAGBfm0AAAAAY_UkrNPNOtIYCpz_pyz3xqP9lAuLgIsm&scisf=4&ct=citation&cd=-1&hl=en"
+            },
+            {
+                "name": "EndNote",
+                "link": "https://scholar.googleusercontent.com/scholar.enw?q=info:_l5P5LX4UTIJ:scholar.google.com/&output=citation&scisdr=CgUsQXlBGAA:AAGBfm0AAAAAY_UkrDJrAO3Ftc0wQNXUADYJ3P3LOrhq&scisig=AAGBfm0AAAAAY_UkrNPNOtIYCpz_pyz3xqP9lAuLgIsm&scisf=3&ct=citation&cd=-1&hl=en"
+            },
+            {
+                "name": "RefMan",
+                "link": "https://scholar.googleusercontent.com/scholar.ris?q=info:_l5P5LX4UTIJ:scholar.google.com/&output=citation&scisdr=CgUsQXlBGAA:AAGBfm0AAAAAY_UkrDJrAO3Ftc0wQNXUADYJ3P3LOrhq&scisig=AAGBfm0AAAAAY_UkrNPNOtIYCpz_pyz3xqP9lAuLgIsm&scisf=2&ct=citation&cd=-1&hl=en"
+            },
+            {
+                "name": "RefWorks",
+                "link": "https://scholar.googleusercontent.com/scholar.rfw?q=info:_l5P5LX4UTIJ:scholar.google.com/&output=citation&scisdr=CgUsQXlBGAA:AAGBfm0AAAAAY_UkrDJrAO3Ftc0wQNXUADYJ3P3LOrhq&scisig=AAGBfm0AAAAAY_UkrNPNOtIYCpz_pyz3xqP9lAuLgIsm&scisf=1&ct=citation&cd=-1&hl=en"
+            }
+        ]
+    },
+    {
+        "search_metadata": {
+            "id": "63f5225424e88e8c9317a56f",
+            "status": "Success",
+            "json_endpoint": "https://serpapi.com/searches/74ddc6cfe8347aff/63f5225424e88e8c9317a56f.json",
+            "created_at": "2023-02-21 19:58:12 UTC",
+            "processed_at": "2023-02-21 19:58:12 UTC",
+            "google_scholar_cite_url": "https://scholar.google.com/scholar?output=cite&q=info:MQYd5x8yynsJ:scholar.google.com",
+            "raw_html_file": "https://serpapi.com/searches/74ddc6cfe8347aff/63f5225424e88e8c9317a56f.html",
+            "prettify_html_file": "https://serpapi.com/searches/74ddc6cfe8347aff/63f5225424e88e8c9317a56f.prettify",
+            "total_time_taken": 0.35
+        },
+        "search_parameters": {
+            "engine": "google_scholar_cite",
+            "q": "MQYd5x8yynsJ"
+        },
+        "citations": [
+            {
+                "title": "MLA",
+                "snippet": "Butler, Tom. \"Electronic Voice Phenomena: A Tool for Validating Personal Survival.\" Journal of Religion & Psychical Research 25.4 (2002)."
+            },
+            {
+                "title": "APA",
+                "snippet": "Butler, T. (2002). Electronic Voice Phenomena: A Tool for Validating Personal Survival. Journal of Religion & Psychical Research, 25(4)."
+            },
+            {
+                "title": "Chicago",
+                "snippet": "Butler, Tom. \"Electronic Voice Phenomena: A Tool for Validating Personal Survival.\" Journal of Religion & Psychical Research 25, no. 4 (2002)."
+            },
+            {
+                "title": "Harvard",
+                "snippet": "Butler, T., 2002. Electronic Voice Phenomena: A Tool for Validating Personal Survival. Journal of Religion & Psychical Research, 25(4)."
+            },
+            {
+                "title": "Vancouver",
+                "snippet": "Butler T. Electronic Voice Phenomena: A Tool for Validating Personal Survival. Journal of Religion & Psychical Research. 2002 Oct 1;25(4)."
+            }
+        ],
+        "links": [
+            {
+                "name": "BibTeX",
+                "link": "https://scholar.googleusercontent.com/scholar.bib?q=info:MQYd5x8yynsJ:scholar.google.com/&output=citation&scisdr=CgU4wYp1GAA:AAGBfm0AAAAAY_UkrNpvS3kBpozbC-2yrRqgNhzuEPUt&scisig=AAGBfm0AAAAAY_UkrE-cTCBG8u8JIvHbQg_pauSoXMDr&scisf=4&ct=citation&cd=-1&hl=en"
+            },
+            {
+                "name": "EndNote",
+                "link": "https://scholar.googleusercontent.com/scholar.enw?q=info:MQYd5x8yynsJ:scholar.google.com/&output=citation&scisdr=CgU4wYp1GAA:AAGBfm0AAAAAY_UkrNpvS3kBpozbC-2yrRqgNhzuEPUt&scisig=AAGBfm0AAAAAY_UkrE-cTCBG8u8JIvHbQg_pauSoXMDr&scisf=3&ct=citation&cd=-1&hl=en"
+            },
+            {
+                "name": "RefMan",
+                "link": "https://scholar.googleusercontent.com/scholar.ris?q=info:MQYd5x8yynsJ:scholar.google.com/&output=citation&scisdr=CgU4wYp1GAA:AAGBfm0AAAAAY_UkrNpvS3kBpozbC-2yrRqgNhzuEPUt&scisig=AAGBfm0AAAAAY_UkrE-cTCBG8u8JIvHbQg_pauSoXMDr&scisf=2&ct=citation&cd=-1&hl=en"
+            },
+            {
+                "name": "RefWorks",
+                "link": "https://scholar.googleusercontent.com/scholar.rfw?q=info:MQYd5x8yynsJ:scholar.google.com/&output=citation&scisdr=CgU4wYp1GAA:AAGBfm0AAAAAY_UkrNpvS3kBpozbC-2yrRqgNhzuEPUt&scisig=AAGBfm0AAAAAY_UkrE-cTCBG8u8JIvHbQg_pauSoXMDr&scisf=1&ct=citation&cd=-1&hl=en"
+            }
+        ]
+    },
+    {
+        "search_metadata": {
+            "id": "63f522541e803f28d129af1b",
+            "status": "Success",
+            "json_endpoint": "https://serpapi.com/searches/20e60c0c2a3db656/63f522541e803f28d129af1b.json",
+            "created_at": "2023-02-21 19:58:12 UTC",
+            "processed_at": "2023-02-21 19:58:12 UTC",
+            "google_scholar_cite_url": "https://scholar.google.com/scholar?output=cite&q=info:51s6g4eHVwMJ:scholar.google.com",
+            "raw_html_file": "https://serpapi.com/searches/20e60c0c2a3db656/63f522541e803f28d129af1b.html",
+            "prettify_html_file": "https://serpapi.com/searches/20e60c0c2a3db656/63f522541e803f28d129af1b.prettify",
+            "total_time_taken": 4.6
+        },
+        "search_parameters": {
+            "engine": "google_scholar_cite",
+            "q": "51s6g4eHVwMJ"
+        },
+        "citations": [
+            {
+                "title": "MLA",
+                "snippet": "Kovalyov, Mikhail. \"Comparative analysis of unidentified aerial phenomena (UAP).\" (2022)."
+            },
+            {
+                "title": "APA",
+                "snippet": "Kovalyov, M. (2022). Comparative analysis of unidentified aerial phenomena (UAP)."
+            },
+            {
+                "title": "Chicago",
+                "snippet": "Kovalyov, Mikhail. \"Comparative analysis of unidentified aerial phenomena (UAP).\" (2022)."
+            },
+            {
+                "title": "Harvard",
+                "snippet": "Kovalyov, M., 2022. Comparative analysis of unidentified aerial phenomena (UAP)."
+            },
+            {
+                "title": "Vancouver",
+                "snippet": "Kovalyov M. Comparative analysis of unidentified aerial phenomena (UAP)."
+            }
+        ],
+        "links": [
+            {
+                "name": "BibTeX",
+                "link": "https://scholar.googleusercontent.com/scholar.bib?q=info:51s6g4eHVwMJ:scholar.google.com/&output=citation&scisdr=CgXqoAfFGAA:AAGBfm0AAAAAY_UksU_eGM54U9Sf1OZLQEQo7h5n6bGU&scisig=AAGBfm0AAAAAY_UksTKrixMBKSFR2Bk-bfe99Cry36aZ&scisf=4&ct=citation&cd=-1&hl=en"
+            },
+            {
+                "name": "EndNote",
+                "link": "https://scholar.googleusercontent.com/scholar.enw?q=info:51s6g4eHVwMJ:scholar.google.com/&output=citation&scisdr=CgXqoAfFGAA:AAGBfm0AAAAAY_UksU_eGM54U9Sf1OZLQEQo7h5n6bGU&scisig=AAGBfm0AAAAAY_UksTKrixMBKSFR2Bk-bfe99Cry36aZ&scisf=3&ct=citation&cd=-1&hl=en"
+            },
+            {
+                "name": "RefMan",
+                "link": "https://scholar.googleusercontent.com/scholar.ris?q=info:51s6g4eHVwMJ:scholar.google.com/&output=citation&scisdr=CgXqoAfFGAA:AAGBfm0AAAAAY_UksU_eGM54U9Sf1OZLQEQo7h5n6bGU&scisig=AAGBfm0AAAAAY_UksTKrixMBKSFR2Bk-bfe99Cry36aZ&scisf=2&ct=citation&cd=-1&hl=en"
+            },
+            {
+                "name": "RefWorks",
+                "link": "https://scholar.googleusercontent.com/scholar.rfw?q=info:51s6g4eHVwMJ:scholar.google.com/&output=citation&scisdr=CgXqoAfFGAA:AAGBfm0AAAAAY_UksU_eGM54U9Sf1OZLQEQo7h5n6bGU&scisig=AAGBfm0AAAAAY_UksTKrixMBKSFR2Bk-bfe99Cry36aZ&scisf=1&ct=citation&cd=-1&hl=en"
+            }
+        ]
+    },
+    {
+        "search_metadata": {
+            "id": "63f522590b50620a9b6969e8",
+            "status": "Success",
+            "json_endpoint": "https://serpapi.com/searches/e2bda73b27682353/63f522590b50620a9b6969e8.json",
+            "created_at": "2023-02-21 19:58:17 UTC",
+            "processed_at": "2023-02-21 19:58:17 UTC",
+            "google_scholar_cite_url": "https://scholar.google.com/scholar?output=cite&q=info:eGGuac5nTk0J:scholar.google.com",
+            "raw_html_file": "https://serpapi.com/searches/e2bda73b27682353/63f522590b50620a9b6969e8.html",
+            "prettify_html_file": "https://serpapi.com/searches/e2bda73b27682353/63f522590b50620a9b6969e8.prettify",
+            "total_time_taken": 0.18
+        },
+        "search_parameters": {
+            "engine": "google_scholar_cite",
+            "q": "eGGuac5nTk0J"
+        },
+        "citations": [
+            {
+                "title": "MLA",
+                "snippet": "Hallas, A. M., et al. \"Phase Competition in the Palmer-Chalker X Y Pyrochlore Er 2 Pt 2 O 7.\" Physical Review Letters 119.18 (2017): 187201."
+            },
+            {
+                "title": "APA",
+                "snippet": "Hallas, A. M., Gaudet, J., Butch, N. P., Xu, G., Tachibana, M., Wiebe, C. R., ... & Gaulin, B. D. (2017). Phase Competition in the Palmer-Chalker X Y Pyrochlore Er 2 Pt 2 O 7. Physical Review Letters, 119(18), 187201."
+            },
+            {
+                "title": "Chicago",
+                "snippet": "Hallas, A. M., Jonathan Gaudet, N. P. Butch, Guangyong Xu, Makoto Tachibana, C. R. Wiebe, Graeme M. Luke, and Bruce D. Gaulin. \"Phase Competition in the Palmer-Chalker X Y Pyrochlore Er 2 Pt 2 O 7.\" Physical Review Letters 119, no. 18 (2017): 187201."
+            },
+            {
+                "title": "Harvard",
+                "snippet": "Hallas, A.M., Gaudet, J., Butch, N.P., Xu, G., Tachibana, M., Wiebe, C.R., Luke, G.M. and Gaulin, B.D., 2017. Phase Competition in the Palmer-Chalker X Y Pyrochlore Er 2 Pt 2 O 7. Physical Review Letters, 119(18), p.187201."
+            },
+            {
+                "title": "Vancouver",
+                "snippet": "Hallas AM, Gaudet J, Butch NP, Xu G, Tachibana M, Wiebe CR, Luke GM, Gaulin BD. Phase Competition in the Palmer-Chalker X Y Pyrochlore Er 2 Pt 2 O 7. Physical Review Letters. 2017 Oct 30;119(18):187201."
+            }
+        ],
+        "links": [
+            {
+                "name": "BibTeX",
+                "link": "https://scholar.googleusercontent.com/scholar.bib?q=info:eGGuac5nTk0J:scholar.google.com/&output=citation&scisdr=CgUtLOo-GAA:AAGBfm0AAAAAY_Ukscgt-uDFjTdIax1WR9l8rsviFgbi&scisig=AAGBfm0AAAAAY_UksSpk720HRboSHrWMgWKb1ECXKGhA&scisf=4&ct=citation&cd=-1&hl=en"
+            },
+            {
+                "name": "EndNote",
+                "link": "https://scholar.googleusercontent.com/scholar.enw?q=info:eGGuac5nTk0J:scholar.google.com/&output=citation&scisdr=CgUtLOo-GAA:AAGBfm0AAAAAY_Ukscgt-uDFjTdIax1WR9l8rsviFgbi&scisig=AAGBfm0AAAAAY_UksSpk720HRboSHrWMgWKb1ECXKGhA&scisf=3&ct=citation&cd=-1&hl=en"
+            },
+            {
+                "name": "RefMan",
+                "link": "https://scholar.googleusercontent.com/scholar.ris?q=info:eGGuac5nTk0J:scholar.google.com/&output=citation&scisdr=CgUtLOo-GAA:AAGBfm0AAAAAY_Ukscgt-uDFjTdIax1WR9l8rsviFgbi&scisig=AAGBfm0AAAAAY_UksSpk720HRboSHrWMgWKb1ECXKGhA&scisf=2&ct=citation&cd=-1&hl=en"
+            },
+            {
+                "name": "RefWorks",
+                "link": "https://scholar.googleusercontent.com/scholar.rfw?q=info:eGGuac5nTk0J:scholar.google.com/&output=citation&scisdr=CgUtLOo-GAA:AAGBfm0AAAAAY_Ukscgt-uDFjTdIax1WR9l8rsviFgbi&scisig=AAGBfm0AAAAAY_UksSpk720HRboSHrWMgWKb1ECXKGhA&scisf=1&ct=citation&cd=-1&hl=en"
+            }
+        ]
+    }
+]
