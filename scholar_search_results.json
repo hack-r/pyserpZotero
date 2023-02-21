@@ -1,0 +1,171 @@
+{
+    "search_metadata": {
+        "id": "63f53593af5af1783d856253",
+        "status": "Success",
+        "json_endpoint": "https://serpapi.com/searches/b21010a6c0693663/63f53593af5af1783d856253.json",
+        "created_at": "2023-02-21 21:20:19 UTC",
+        "processed_at": "2023-02-21 21:20:19 UTC",
+        "google_scholar_url": "https://scholar.google.com/scholar?q=Riemann+Hypothesis&hl=en&num=3&as_ylo=2020",
+        "raw_html_file": "https://serpapi.com/searches/b21010a6c0693663/63f53593af5af1783d856253.html",
+        "total_time_taken": 0.94
+    },
+    "search_parameters": {
+        "engine": "google_scholar",
+        "q": "Riemann Hypothesis",
+        "hl": "en",
+        "num": "3",
+        "as_ylo": "2020"
+    },
+    "search_information": {
+        "organic_results_state": "Results for exact spelling",
+        "total_results": 19600,
+        "time_taken_displayed": 0.06,
+        "query_displayed": "Riemann Hypothesis"
+    },
+    "organic_results": [
+        {
+            "position": 0,
+            "title": "The Riemann hypothesis is true up to",
+            "result_id": "tI7WGgIa8z4J",
+            "link": "https://londmathsoc.onlinelibrary.wiley.com/doi/abs/10.1112/blms.12460",
+            "snippet": "\u2026 We verify numerically, in a rigorous way using interval arithmetic, that the Riemann hypothesis is true up to height 3 \u00b7 10 12 . That is, all zeroes \u03b2 + i \u03b3 of the Riemann zeta-function \u2026",
+            "publication_info": {
+                "summary": "D Platt, T Trudgian - Bulletin of the London Mathematical \u2026, 2021 - Wiley Online Library",
+                "authors": [
+                    {
+                        "name": "T Trudgian",
+                        "link": "https://scholar.google.com/citations?user=EtDxmBUAAAAJ&hl=en&num=3&oi=sra",
+                        "serpapi_scholar_link": "https://serpapi.com/search.json?author_id=EtDxmBUAAAAJ&engine=google_scholar_author&hl=en",
+                        "author_id": "EtDxmBUAAAAJ"
+                    }
+                ]
+            },
+            "resources": [
+                {
+                    "title": "arxiv.org",
+                    "file_format": "PDF",
+                    "link": "https://arxiv.org/pdf/2004.09765"
+                }
+            ],
+            "inline_links": {
+                "serpapi_cite_link": "https://serpapi.com/search.json?engine=google_scholar_cite&q=tI7WGgIa8z4J",
+                "cited_by": {
+                    "total": 48,
+                    "link": "https://scholar.google.com/scholar?cites=4535997846034747060&as_sdt=2005&sciodt=0,5&hl=en&num=3",
+                    "cites_id": "4535997846034747060",
+                    "serpapi_scholar_link": "https://serpapi.com/search.json?as_sdt=2005&cites=4535997846034747060&engine=google_scholar&hl=en&num=3"
+                },
+                "related_pages_link": "https://scholar.google.com/scholar?q=related:tI7WGgIa8z4J:scholar.google.com/&scioq=Riemann+Hypothesis&hl=en&num=3&as_sdt=0,5&as_ylo=2020",
+                "serpapi_related_pages_link": "https://serpapi.com/search.json?as_sdt=0%2C5&as_ylo=2020&engine=google_scholar&hl=en&num=3&q=related%3AtI7WGgIa8z4J%3Ascholar.google.com%2F",
+                "versions": {
+                    "total": 6,
+                    "link": "https://scholar.google.com/scholar?cluster=4535997846034747060&hl=en&num=3&as_sdt=0,5&as_ylo=2020",
+                    "cluster_id": "4535997846034747060",
+                    "serpapi_scholar_link": "https://serpapi.com/search.json?as_sdt=0%2C5&as_ylo=2020&cluster=4535997846034747060&engine=google_scholar&hl=en&num=3"
+                }
+            }
+        },
+        {
+            "position": 1,
+            "title": "A note on series equivalent of the Riemann hypothesis",
+            "result_id": "_tK9UKtlPf8J",
+            "link": "https://link.springer.com/article/10.1007/s13226-022-00237-6",
+            "snippet": "\u2026 zeros of Riemann zeta function (or over the zeros of Riemann\u2019s \u2026 We prove a result that the Riemann Hypothesis is true if and \u2026 The Riemann Hypothesis states that all the non trivial zeros \u2026",
+            "publication_info": {
+                "summary": "S Suman, RK Das - Indian Journal of Pure and Applied Mathematics, 2022 - Springer",
+                "authors": [
+                    {
+                        "name": "S Suman",
+                        "link": "https://scholar.google.com/citations?user=DXS8l0UAAAAJ&hl=en&num=3&oi=sra",
+                        "serpapi_scholar_link": "https://serpapi.com/search.json?author_id=DXS8l0UAAAAJ&engine=google_scholar_author&hl=en",
+                        "author_id": "DXS8l0UAAAAJ"
+                    }
+                ]
+            },
+            "inline_links": {
+                "serpapi_cite_link": "https://serpapi.com/search.json?engine=google_scholar_cite&q=_tK9UKtlPf8J",
+                "cited_by": {
+                    "total": 10,
+                    "link": "https://scholar.google.com/scholar?cites=18391968239719404286&as_sdt=2005&sciodt=0,5&hl=en&num=3",
+                    "cites_id": "18391968239719404286",
+                    "serpapi_scholar_link": "https://serpapi.com/search.json?as_sdt=2005&cites=18391968239719404286&engine=google_scholar&hl=en&num=3"
+                },
+                "related_pages_link": "https://scholar.google.com/scholar?q=related:_tK9UKtlPf8J:scholar.google.com/&scioq=Riemann+Hypothesis&hl=en&num=3&as_sdt=0,5&as_ylo=2020",
+                "serpapi_related_pages_link": "https://serpapi.com/search.json?as_sdt=0%2C5&as_ylo=2020&engine=google_scholar&hl=en&num=3&q=related%3A_tK9UKtlPf8J%3Ascholar.google.com%2F"
+            }
+        },
+        {
+            "position": 2,
+            "title": "Will a physicist prove the Riemann hypothesis?",
+            "result_id": "OWhdnYLOgosJ",
+            "link": "https://iopscience.iop.org/article/10.1088/1361-6633/ab3de7/meta",
+            "snippet": "\u2026 Despite many efforts the Riemann hypothesis remains unproved. In figure 1 we illustrate the Riemann hypothesis and in the table 1 we give the approximate values of the first 10 non-\u2026",
+            "publication_info": {
+                "summary": "M Wolf - Reports on Progress in Physics, 2020 - iopscience.iop.org",
+                "authors": [
+                    {
+                        "name": "M Wolf",
+                        "link": "https://scholar.google.com/citations?user=EYonTjoAAAAJ&hl=en&num=3&oi=sra",
+                        "serpapi_scholar_link": "https://serpapi.com/search.json?author_id=EYonTjoAAAAJ&engine=google_scholar_author&hl=en",
+                        "author_id": "EYonTjoAAAAJ"
+                    }
+                ]
+            },
+            "resources": [
+                {
+                    "title": "arxiv.org",
+                    "file_format": "PDF",
+                    "link": "https://arxiv.org/pdf/1410.1214"
+                }
+            ],
+            "inline_links": {
+                "serpapi_cite_link": "https://serpapi.com/search.json?engine=google_scholar_cite&q=OWhdnYLOgosJ",
+                "cited_by": {
+                    "total": 27,
+                    "link": "https://scholar.google.com/scholar?cites=10052824378625583161&as_sdt=2005&sciodt=0,5&hl=en&num=3",
+                    "cites_id": "10052824378625583161",
+                    "serpapi_scholar_link": "https://serpapi.com/search.json?as_sdt=2005&cites=10052824378625583161&engine=google_scholar&hl=en&num=3"
+                },
+                "related_pages_link": "https://scholar.google.com/scholar?q=related:OWhdnYLOgosJ:scholar.google.com/&scioq=Riemann+Hypothesis&hl=en&num=3&as_sdt=0,5&as_ylo=2020",
+                "serpapi_related_pages_link": "https://serpapi.com/search.json?as_sdt=0%2C5&as_ylo=2020&engine=google_scholar&hl=en&num=3&q=related%3AOWhdnYLOgosJ%3Ascholar.google.com%2F",
+                "versions": {
+                    "total": 10,
+                    "link": "https://scholar.google.com/scholar?cluster=10052824378625583161&hl=en&num=3&as_sdt=0,5&as_ylo=2020",
+                    "cluster_id": "10052824378625583161",
+                    "serpapi_scholar_link": "https://serpapi.com/search.json?as_sdt=0%2C5&as_ylo=2020&cluster=10052824378625583161&engine=google_scholar&hl=en&num=3"
+                }
+            }
+        }
+    ],
+    "pagination": {
+        "current": 1,
+        "next": "https://scholar.google.com/scholar?start=3&q=Riemann+Hypothesis&hl=en&num=3&as_sdt=0,5&as_ylo=2020",
+        "other_pages": {
+            "2": "https://scholar.google.com/scholar?start=3&q=Riemann+Hypothesis&hl=en&num=3&as_sdt=0,5&as_ylo=2020",
+            "3": "https://scholar.google.com/scholar?start=6&q=Riemann+Hypothesis&hl=en&num=3&as_sdt=0,5&as_ylo=2020",
+            "4": "https://scholar.google.com/scholar?start=9&q=Riemann+Hypothesis&hl=en&num=3&as_sdt=0,5&as_ylo=2020",
+            "5": "https://scholar.google.com/scholar?start=12&q=Riemann+Hypothesis&hl=en&num=3&as_sdt=0,5&as_ylo=2020",
+            "6": "https://scholar.google.com/scholar?start=15&q=Riemann+Hypothesis&hl=en&num=3&as_sdt=0,5&as_ylo=2020",
+            "7": "https://scholar.google.com/scholar?start=18&q=Riemann+Hypothesis&hl=en&num=3&as_sdt=0,5&as_ylo=2020",
+            "8": "https://scholar.google.com/scholar?start=21&q=Riemann+Hypothesis&hl=en&num=3&as_sdt=0,5&as_ylo=2020",
+            "9": "https://scholar.google.com/scholar?start=24&q=Riemann+Hypothesis&hl=en&num=3&as_sdt=0,5&as_ylo=2020",
+            "10": "https://scholar.google.com/scholar?start=27&q=Riemann+Hypothesis&hl=en&num=3&as_sdt=0,5&as_ylo=2020"
+        }
+    },
+    "serpapi_pagination": {
+        "current": 1,
+        "next_link": "https://serpapi.com/search.json?as_sdt=0%2C5&as_ylo=2020&engine=google_scholar&hl=en&num=3&q=Riemann+Hypothesis&start=3",
+        "next": "https://serpapi.com/search.json?as_sdt=0%2C5&as_ylo=2020&engine=google_scholar&hl=en&num=3&q=Riemann+Hypothesis&start=3",
+        "other_pages": {
+            "2": "https://serpapi.com/search.json?as_sdt=0%2C5&as_ylo=2020&engine=google_scholar&hl=en&num=3&q=Riemann+Hypothesis&start=3",
+            "3": "https://serpapi.com/search.json?as_sdt=0%2C5&as_ylo=2020&engine=google_scholar&hl=en&num=3&q=Riemann+Hypothesis&start=6",
+            "4": "https://serpapi.com/search.json?as_sdt=0%2C5&as_ylo=2020&engine=google_scholar&hl=en&num=3&q=Riemann+Hypothesis&start=9",
+            "5": "https://serpapi.com/search.json?as_sdt=0%2C5&as_ylo=2020&engine=google_scholar&hl=en&num=3&q=Riemann+Hypothesis&start=12",
+            "6": "https://serpapi.com/search.json?as_sdt=0%2C5&as_ylo=2020&engine=google_scholar&hl=en&num=3&q=Riemann+Hypothesis&start=15",
+            "7": "https://serpapi.com/search.json?as_sdt=0%2C5&as_ylo=2020&engine=google_scholar&hl=en&num=3&q=Riemann+Hypothesis&start=18",
+            "8": "https://serpapi.com/search.json?as_sdt=0%2C5&as_ylo=2020&engine=google_scholar&hl=en&num=3&q=Riemann+Hypothesis&start=21",
+            "9": "https://serpapi.com/search.json?as_sdt=0%2C5&as_ylo=2020&engine=google_scholar&hl=en&num=3&q=Riemann+Hypothesis&start=24",
+            "10": "https://serpapi.com/search.json?as_sdt=0%2C5&as_ylo=2020&engine=google_scholar&hl=en&num=3&q=Riemann+Hypothesis&start=27"
+        }
+    }
+}

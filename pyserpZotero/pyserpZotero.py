@@ -448,3 +448,11 @@ class serpZot:
                             zot.attachment_simple([newest], item["key"])
             except:
                 pass
+
+    def search2Zotero(self):
+        """
+        Backwards compatibility. Combine new methods to do the same thing.
+        """
+        self.convert_ris_to_apa_citation()
+        self.make_bib_from_apa_cross_ref()
+        self.make_zot_template_from_bib()
