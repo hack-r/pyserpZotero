@@ -226,7 +226,12 @@ class serpZot:
             print("Now processing: " + str(ind_ris))
 
             # Get the Citation!
-            params = {"api_key": self.API_KEY, "device": "desktop", "engine": "google_scholar_cite", "q": ind_ris}
+            params = {
+                "api_key": self.API_KEY,
+                "device": "desktop",
+                "engine": "google_scholar_cite",
+                "q": ind_ris,
+            }
 
             with nullify_output():
                 search = GoogleSearch(params)
@@ -237,7 +242,11 @@ class serpZot:
             self.all_citations = all_google_api_citations
 
         # dump all citations to json
-        json.dump(all_google_api_citations, open("all_google_api_citations.json", "w"), indent=4)
+        json.dump(
+            all_google_api_citations,
+            open("all_google_api_citations.json", "w"),
+            indent=4,
+        )
         print("All citations saved to all_google_api_citations.json")
         # # Get APA Format Citation and Parse
 
@@ -252,7 +261,11 @@ class serpZot:
 
         self.all_apa_citations = all_apa_citations
 
-    def make_bib_from_apa_cross_ref(self, default_file_name: str = "auto_cite.bib", overwrite_if_exists: bool = False):
+    def make_bib_from_apa_cross_ref(
+        self,
+        default_file_name: str = "auto_cite.bib",
+        overwrite_if_exists: bool = False,
+    ):
         """
         Get Crossref from APA Citation
         """
@@ -424,7 +437,9 @@ class serpZot:
                     vector1 = self.text_to_vector(string)
 
                     search = arxiv.Search(
-                        query="ti:" + "'" + string + "'", max_results=10, sort_by=arxiv.SortCriterion.Relevance
+                        query="ti:" + "'" + string + "'",
+                        max_results=10,
+                        sort_by=arxiv.SortCriterion.Relevance,
                     )
                     # cosine_holder = []
                     for result in search.results():
