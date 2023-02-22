@@ -191,7 +191,9 @@ class serpZot:
         self._search_scholar_done = True
 
     # Convert RIS Result Id to Bibtex Citation
-    def convert_ris_to_apa_citation(self, use_saved_ris=False, saved_ris_file: Path = Path("ris.txt")):
+    def convert_ris_to_apa_citation(
+        self, use_saved_ris=False, saved_ris_file: Path = Path("ris.txt")
+    ):
         """
         Convert RIS to BibTeX
 
@@ -200,7 +202,9 @@ class serpZot:
         :rtype: _type_
         """
         if not self._search_scholar_done and not use_saved_ris:
-            raise ValueError("You must run searchScholar() before search2Zotero() or use use_saved_ris=True")
+            raise ValueError(
+                "You must run searchScholar() before search2Zotero() or use use_saved_ris=True"
+            )
 
         if not self._search_scholar_done and use_saved_ris:
             with open(saved_ris_file, "r") as f:
@@ -387,7 +391,9 @@ class serpZot:
         # Return 0
         return 0
 
-    def arxivDownload(self, ZOT_ID="", ZOT_KEY="", SEARCH_TERM="", GET_SOURCE=False, DOWNLOAD_DEST="."):
+    def arxivDownload(
+        self, ZOT_ID="", ZOT_KEY="", SEARCH_TERM="", GET_SOURCE=False, DOWNLOAD_DEST="."
+    ):
         """
         :param ZOT_ID: Zotero user (aka library) Id
         :type ZOT_ID: str
@@ -442,7 +448,9 @@ class serpZot:
                             print(result.entry_id)
                             result.download_pdf(dirpath=DOWNLOAD_DEST)
                             files = [
-                                os.path.join(DOWNLOAD_DEST, x) for x in os.listdir(DOWNLOAD_DEST) if x.endswith(".pdf")
+                                os.path.join(DOWNLOAD_DEST, x)
+                                for x in os.listdir(DOWNLOAD_DEST)
+                                if x.endswith(".pdf")
                             ]
                             newest = max(files, key=os.path.getctime)
                             zot.attachment_simple([newest], item["key"])
