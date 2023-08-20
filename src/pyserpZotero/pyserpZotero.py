@@ -1,7 +1,6 @@
 ## To do: 
-# 1. Make this into a proper Python library
-# 2. Make a non-Zotero-specific version
-# 3. Add other formats, support for middle initials / suffixes 
+# 1. Make a non-Zotero-specific version
+# 2. Add other formats, support for middle initials / suffixes 
 
 # Libraries
 from bibtexparser.bparser import BibTexParser
@@ -317,8 +316,8 @@ class serpZot:
                 item['data'][FIELD] = item['data'][FIELD].replace("/scp","")
                 item['data'][FIELD] = item['data'][FIELD].replace("$$","")
                 item['data'][FIELD] = item['data'][FIELD].replace("$","")
-                item['data'][FIELD] = item['data'][FIELD].replace("\\upkappa","k")
-                item['data'][FIELD] = item['data'][FIELD].replace("\\upalpha","α")
+                item['data'][FIELD] = item['data'][FIELD].replace(r'\\upkappa','k')
+                item['data'][FIELD] = item['data'][FIELD].replace(r'\\upalpha','α')
                 item['data'][FIELD] = item['data'][FIELD].replace("\\textdollar","$") # must come after replacement of $
                 item['data'][FIELD] = item['data'][FIELD].replace("\\mathplus","+")
                 item['data'][FIELD] = item['data'][FIELD].replace('\\textquotedblleft','"')
@@ -355,7 +354,7 @@ class serpZot:
                 item['data'][FIELD] = item['data'][FIELD].replace("{\’{\e}}","e") 
                 item['data'][FIELD] = item['data'][FIELD].replace("{\’{\i}}","i") 
                 item['data'][FIELD] = item['data'][FIELD].replace("{\’{\o}}","o") 
-                item['data'][FIELD] = item['data'][FIELD].replace("{\’{\u}}","u") 
+                item['data'][FIELD] = item['data'][FIELD].replace(r'{\’{\u}}','u')
                 item['data'][FIELD] = item['data'][FIELD].replace("{\’{a}}","a") 
                 item['data'][FIELD] = item['data'][FIELD].replace("{\’{e}}","e") 
                 item['data'][FIELD] = item['data'][FIELD].replace("{\’{i}}","i") 
