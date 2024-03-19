@@ -1,6 +1,5 @@
-## To do: 
-# 1. Make a non-Zotero-specific version
-# 2. Add other formats, support for middle initials / suffixes 
+## To do:
+# 1. Add other formats, support for middle initials / suffixes
 
 # Libraries
 from bibtexparser.bparser import BibTexParser
@@ -8,7 +7,6 @@ from bs4 import BeautifulSoup
 from collections import Counter
 from datetime import date
 from habanero import Crossref
-import pdb
 from io import BytesIO
 from pyzotero import zotero
 from serpapi import GoogleSearch
@@ -27,7 +25,6 @@ import requests
 
 
 class serpZot:
-    
     """
     :param API_KEY: serpAPI API key
     :type API_KEY: str
@@ -37,14 +34,14 @@ class serpZot:
 
     :param ZOT_KEY: Zotero API key
     :type ZOT_KEY: str
-    
+
     :param DOWNLOAD_DEST: Optional download directory
     :type DOWNLOAD_DEST: str
     """
- 
+
     def __init__(self, API_KEY  = "", ZOT_ID = "", ZOT_KEY = "",DOWNLOAD_DEST = "."):
         '''
-        Instantiate a serpZot object for API management        
+        Instantiate a serpZot object for API management
         '''
         print("Reminder: Make sure your Zotero key has write permissions.")
         self.API_KEY       = API_KEY
@@ -56,7 +53,7 @@ class serpZot:
     def get_cosine(vec1, vec2):
         '''
         Helper function that takes 2 vectors from text_to_vector
-        
+
         :param vec1: vector from text_to_vector
         :type vec1: ve
         :param vec2: vector from text_to_vector
@@ -77,14 +74,14 @@ class serpZot:
     def text_to_vector(text):
         '''
         Converts strings to vectors
-        
+
         :param text: search term (title, etc)
         :type text: str
         '''
         # Credit: https://stackoverflow.com/questions/15173225/calculate-cosine-similarity-given-2-sentence-strings
         WORD = re.compile(r"\w+")
         words = WORD.findall(text)
-        return Counter(words)       
+        return Counter(words)
 
     # Search for RIS Result Id's on Google Scholar
     def searchScholar(self, TERM = "", MIN_YEAR="",SAVE_BIB=False):
@@ -96,9 +93,9 @@ class serpZot:
 
         :param MIN_YEAR: oldest year to search on
         :type MIN_YEAR: str
-        """    
-        
-        # Search Parameters 
+        """
+
+        # Search Parameters
         params = {
           "api_key": self.API_KEY,
           "device": "desktop",
@@ -114,7 +111,7 @@ class serpZot:
 
         # Set SAVE_BIB for search2Zotero
         self.SAVE_BIB = SAVE_BIB
-        
+
         # Scrape Results, Extract Result Id's
         try:
             json_data = search.get_raw_json()
@@ -124,31 +121,31 @@ class serpZot:
             self.ris = ris
         except:
             "ERROR: The initial search failed because Google sucks..."
-            
+
         return 0
-    
+
     # Convert RIS Result Id to Bibtex Citation
     def search2Zotero(self):
         """
         Add journal articles to your Zotero library.
         """
-        try:        
+        try:
             ris = self.ris
         except:
             print("No results? Or an API key problem, maybe?")
             print("Fatal error!")
             ris = ""
-            
+
         for i in ris:
             # Announce status
             print('Now processing: ' + str(i))
-            
+
             # Get the Citation!
             params = {
-              "api_key": self.API_KEY,
-              "device": "desktop",
-              "engine": "google_scholar_cite",
-              "q": i
+                "api_key": self.API_KEY,
+                "device": "desktop",
+                "engine": "google_scholar_cite",
+                "q": i
             }
 
             search = GoogleSearch(params)
@@ -182,13 +179,13 @@ class serpZot:
             text_file = open("auto_cite.bib", "w")
             n = text_file.write(result)
             text_file.close()
-            
+
             if self.SAVE_BIB:
                 # If the user wants we can save a copy of the BIB
                 # that won't be overwritten later
                 dt = datetime.now()
                 ts = datetime.timestamp(dt)
-                fn = "my_bib_"+str(ts)+".bib"
+                fn = "my_bib_" + str(ts) + ".bib"
                 text_file = open(fn, "w")
                 n = text_file.write(result)
                 text_file.close()
@@ -196,22 +193,22 @@ class serpZot:
             # Parse bibtext
             with open('auto_cite.bib') as bibtex_file:
                 parser = BibTexParser()
-                parser.customization = bibtexparser.customization.author    
+                parser.customization = bibtexparser.customization.author
                 bib_database = bibtexparser.load(bibtex_file, parser=parser)
             try:
                 bib_dict = bib_database.entries[0]
             except:
                 continue
-            try: # test to make sure it worked
+            try:  # test to make sure it worked
                 len(bib_dict['author']) > 0
             except:
                 continue
             # Connect to Zotero
             zot = zotero.Zotero(self.ZOT_ID, 'user', self.ZOT_KEY)
-            template = zot.item_template('journalArticle') # Set Template
-            
+            template = zot.item_template('journalArticle')  # Set Template
+
             # Retreive DOI numbers of existing articles to avoid duplication of citations
-            items = zot.items() #
+            items = zot.items()  #
             doi_holder = []
             for idx in range(len(items)):
                 try:
@@ -222,10 +219,14 @@ class serpZot:
                         pass
                 except:
                     next
-                    
+
             # Populate Zotero Template with Data
             try:
                 template['publicationTitle'] = bib_dict['journal']
+            except:
+                pass
+            try:
+                template['title'] = bib_dict['title']
             except:
                 pass
             try:
@@ -263,7 +264,7 @@ class serpZot:
 
             # Fix Date
             try:
-                mydate = bib_dict['month']+' '+bib_dict['year']
+                mydate = bib_dict['month'] + ' ' + bib_dict['year']
                 template['date'] = str(datetime.datetime.strptime(mydate, '%b %Y').date())
             except:
                 try:
@@ -271,7 +272,6 @@ class serpZot:
                     template['date'] = str(bib_dict['year'])
                 except:
                     continue
-                            
 
             # Parse Names into Template/Data
             try:
@@ -290,11 +290,11 @@ class serpZot:
 
         return 0
 
-    def cleanZot(self, ZOT_ID = "", ZOT_KEY = "",SEARCH_TERM="", FIELD="title"):
+    def cleanZot(self, ZOT_ID="", ZOT_KEY="", SEARCH_TERM="", FIELD="title"):
         # Get keys / id from Self
         ZOT_ID        = self.ZOT_ID
         ZOT_KEY       = self.ZOT_KEY
-        
+
         # Connect to Zotero
         zot = zotero.Zotero(ZOT_ID, 'user', ZOT_KEY)
 
@@ -304,9 +304,9 @@ class serpZot:
         message = "Number of items retreived from your library:" + str(len(items))
         print(message)
 
-        n=0
+        n = 0
         for item in items:
-            n = n+1
+            n = n + 1
             message2 = "Processing number: " + str(n)
             try:
                 # Clean LaTex and similar garbage
@@ -318,8 +318,8 @@ class serpZot:
                 item['data'][FIELD] = item['data'][FIELD].replace("/scp","")
                 item['data'][FIELD] = item['data'][FIELD].replace("$$","")
                 item['data'][FIELD] = item['data'][FIELD].replace("$","")
-                item['data'][FIELD] = item['data'][FIELD].replace(r'\\upkappa','k')
-                item['data'][FIELD] = item['data'][FIELD].replace(r'\\upalpha','α')
+                item['data'][FIELD] = item['data'][FIELD].replace("\\upkappa","k")
+                item['data'][FIELD] = item['data'][FIELD].replace("\\upalpha","α")
                 item['data'][FIELD] = item['data'][FIELD].replace("\\textdollar","$") # must come after replacement of $
                 item['data'][FIELD] = item['data'][FIELD].replace("\\mathplus","+")
                 item['data'][FIELD] = item['data'][FIELD].replace('\\textquotedblleft','"')
@@ -356,14 +356,13 @@ class serpZot:
                 item['data'][FIELD] = item['data'][FIELD].replace("{\’{\e}}","e") 
                 item['data'][FIELD] = item['data'][FIELD].replace("{\’{\i}}","i") 
                 item['data'][FIELD] = item['data'][FIELD].replace("{\’{\o}}","o") 
-                item['data'][FIELD] = item['data'][FIELD].replace(r'{\’{\u}}','u')
                 item['data'][FIELD] = item['data'][FIELD].replace("{\’{a}}","a") 
                 item['data'][FIELD] = item['data'][FIELD].replace("{\’{e}}","e") 
                 item['data'][FIELD] = item['data'][FIELD].replace("{\’{i}}","i") 
                 item['data'][FIELD] = item['data'][FIELD].replace("{\’{o}}","o") 
             except: 
                 pass
-            
+
         # Update the cloud with the improvements
         print("Updating your cloud library...")
         zot.update_items(items)
@@ -371,10 +370,10 @@ class serpZot:
         print("Done! I hope this made things more readable.")
         # Return 0
         return 0
-    
-    def arxivDownload(self, ZOT_ID = "", ZOT_KEY = "",SEARCH_TERM="",GET_SOURCE=False,DOWNLOAD_DEST="."):
+
+    def arxivDownload(self, ZOT_ID="", ZOT_KEY="", SEARCH_TERM="", GET_SOURCE=False, DOWNLOAD_DEST="."):
         FIELD = 'publicationTitle'
-        
+
         '''
         :param ZOT_ID: Zotero user (aka library) Id
         :type ZOT_ID: str
@@ -400,38 +399,37 @@ class serpZot:
         message = "Number of items retreived from your library:" + str(len(items))
         print(message)
 
-        n=0
+        n = 0
         for item in items:
             # Announce status
-            n = n+1
+            n = n + 1
             message2 = "Processing number: " + str(n)
             print(message2)
-            try: 
+            try:
                 if item['data']['itemType'] == 'journalArticle':
                     text1 = item['data'][FIELD]
-                    string = re.sub('[ ](?=[ ])|[^-_,A-Za-z0-9 ]+','',text1)
+                    string = re.sub('[ ](?=[ ])|[^-_,A-Za-z0-9 ]+', '', text1)
                     vector1 = self.text_to_vector(string)
-                   
+
                     search = arxiv.Search(
-                      query = 'ti:'+"'"+string+"'",
+                      query       = 'ti:'+"'"+string+"'",
                       max_results = 10,
-                      sort_by = arxiv.SortCriterion.Relevance
+                      sort_by     = arxiv.SortCriterion.Relevance
                     )
-                    #cosine_holder = []
+                    # cosine_holder = []
                     pdf_downloaded = 0
                     for result in search.results():
                         vector2 = self.text_to_vector(result.title)
                         cosine = self.get_cosine(vector1, vector2)
-                        #cosine_holder.append({result.title:cosine})
+                        # cosine_holder.append({result.title:cosine})
                         if cosine > .9:
-                            #result.doi
+                            # result.doi
                             pdf_downloaded += 1
                             print("Match found!: ")
                             print(text1)
                             print(result.entry_id)
                             result.download_pdf(dirpath=DOWNLOAD_DEST)
-                            
-                            
+
                     if pdf_downloaded == 0:
                         sci_hub_url = "https://sci-hub.se/"
                         # DOI = item['data'].get('DOI')
@@ -439,56 +437,31 @@ class serpZot:
                         sci_hub_url += DOI
 
                         response = requests.get(sci_hub_url)
-                        
-                        
+
                         name = DOI.replace("/", "_") + ".pdf"
                         path = os.path.join(DOWNLOAD_DEST, name)
                         # pdb.set_trace()
-                        
+
                         if response.headers['content-type'] == "application/pdf":
                             with open(path, "wb") as f:
                                 f.write(response.content)
                                 f.close()
                         elif re.findall("application/pdf", response.text):
-                            pdf_link = "https:" + re.findall('src=".*\.pdf.*"', response.text)[0].split('"')[1].split('#')[0]
+                            pdf_link = "https:" + \
+                                       re.findall('src=".*\.pdf.*"', response.text)[0].split('"')[1].split('#')[0]
                             # pdf_link = "https://zero.sci-hub.se/182/46a2ed6f529ae730db224547694eb48b/lee2001.pdf?download=true"
                             pdf_response = requests.get(pdf_link)
                             if pdf_response.headers['content-type'] == "application/pdf":
                                 with open(path, "wb") as pf:
                                     pf.write(pdf_response.content)
                                     pf.close()
-                            
+
                     files = [os.path.join(DOWNLOAD_DEST, x) for x in os.listdir(DOWNLOAD_DEST) if x.endswith(".pdf")]
                     print(files)
-                    newest = max(files , key = os.path.getctime)
-                    zot.attachment_simple([newest],item['key'])
-                        
+                    newest = max(files, key=os.path.getctime)
+                    zot.attachment_simple([newest], item['key'])
+
             except Exception as e:
                 print(e)
                 pass
         return 0
-    
-    
-# """Load libraries"""
-# import os
-# import yaml
-
-# from box import Box
-
-# # Load a YAML with the following 3 values (Optional)
-# with open("/home/perry/Documents/Coding/Upwork/pyserpZotero/src/pyserpZotero/config.yaml", "r") as ymlfile:
-#     cfg = Box(yaml.safe_load(ymlfile), default_box=True, default_box_attr=None)
-    
-# API_KEY = cfg.API_KEY
-# ZOT_ID  = cfg.ZOT_ID
-# ZOT_KEY = cfg.ZOT_KEY
-
-# # Instantiate a serpZot object for API management
-# citeObj = serpZot(API_KEY       = API_KEY, 
-#                                ZOT_ID        = ZOT_ID, 
-#                                ZOT_KEY       = ZOT_KEY,
-#                                DOWNLOAD_DEST = "." # Optional (for destinations other than the current directory)
-#                             )
-
-# # Check Arxiv for Free PDFs of Papers and Attach / Upload Them To Zotero
-# citeObj.arxivDownload()
