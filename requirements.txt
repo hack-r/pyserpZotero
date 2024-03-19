@@ -7,3 +7,4 @@ python-box
 PyYAML
 pyzotero
 urllib3
+pandas
