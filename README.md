@@ -42,6 +42,15 @@ How to Use?
 
 See quickstartDemo.ipynb for a Jupyter notebook demonstration or checkout the example below:
 
+
+What's new?
+----------------
+
+March 2024: Added support for additional PDF sources. Improved matching of citations to Arxiv PDFs. 
+
+Forthcoming: medArxiv and bioRxiv search / PDF integrations.
+
+
 ## Example Usage
 ----------------
 
