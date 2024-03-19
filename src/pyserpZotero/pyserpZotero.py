@@ -8,6 +8,7 @@ from bs4 import BeautifulSoup
 from collections import Counter
 from datetime import date
 from habanero import Crossref
+import pdb
 from io import BytesIO
 from pyzotero import zotero
 from serpapi import GoogleSearch
@@ -26,6 +27,7 @@ import requests
 
 
 class serpZot:
+    
     """
     :param API_KEY: serpAPI API key
     :type API_KEY: str
@@ -371,6 +373,8 @@ class serpZot:
         return 0
     
     def arxivDownload(self, ZOT_ID = "", ZOT_KEY = "",SEARCH_TERM="",GET_SOURCE=False,DOWNLOAD_DEST="."):
+        FIELD = 'publicationTitle'
+        
         '''
         :param ZOT_ID: Zotero user (aka library) Id
         :type ZOT_ID: str
@@ -407,26 +411,84 @@ class serpZot:
                     text1 = item['data'][FIELD]
                     string = re.sub('[ ](?=[ ])|[^-_,A-Za-z0-9 ]+','',text1)
                     vector1 = self.text_to_vector(string)
-
+                   
                     search = arxiv.Search(
                       query = 'ti:'+"'"+string+"'",
                       max_results = 10,
                       sort_by = arxiv.SortCriterion.Relevance
                     )
                     #cosine_holder = []
+                    pdf_downloaded = 0
                     for result in search.results():
                         vector2 = self.text_to_vector(result.title)
                         cosine = self.get_cosine(vector1, vector2)
                         #cosine_holder.append({result.title:cosine})
                         if cosine > .9:
                             #result.doi
+                            pdf_downloaded += 1
                             print("Match found!: ")
                             print(text1)
                             print(result.entry_id)
                             result.download_pdf(dirpath=DOWNLOAD_DEST)
-                            files = [os.path.join(DOWNLOAD_DEST, x) for x in os.listdir(DOWNLOAD_DEST) if x.endswith(".pdf")]
-                            newest = max(files , key = os.path.getctime)
-                            zot.attachment_simple([newest],item['key'])
-            except:
+                            
+                            
+                    if pdf_downloaded == 0:
+                        sci_hub_url = "https://sci-hub.se/"
+                        # DOI = item['data'].get('DOI')
+                        DOI = "10.1002/neu.1021"
+                        sci_hub_url += DOI
+
+                        response = requests.get(sci_hub_url)
+                        
+                        
+                        name = DOI.replace("/", "_") + ".pdf"
+                        path = os.path.join(DOWNLOAD_DEST, name)
+                        # pdb.set_trace()
+                        
+                        if response.headers['content-type'] == "application/pdf":
+                            with open(path, "wb") as f:
+                                f.write(response.content)
+                                f.close()
+                        elif re.findall("application/pdf", response.text):
+                            pdf_link = "https:" + re.findall('src=".*\.pdf.*"', response.text)[0].split('"')[1].split('#')[0]
+                            # pdf_link = "https://zero.sci-hub.se/182/46a2ed6f529ae730db224547694eb48b/lee2001.pdf?download=true"
+                            pdf_response = requests.get(pdf_link)
+                            if pdf_response.headers['content-type'] == "application/pdf":
+                                with open(path, "wb") as pf:
+                                    pf.write(pdf_response.content)
+                                    pf.close()
+                            
+                    files = [os.path.join(DOWNLOAD_DEST, x) for x in os.listdir(DOWNLOAD_DEST) if x.endswith(".pdf")]
+                    print(files)
+                    newest = max(files , key = os.path.getctime)
+                    zot.attachment_simple([newest],item['key'])
+                        
+            except Exception as e:
+                print(e)
                 pass
         return 0
+    
+    
+# """Load libraries"""
+# import os
+# import yaml
+
+# from box import Box
+
+# # Load a YAML with the following 3 values (Optional)
+# with open("/home/perry/Documents/Coding/Upwork/pyserpZotero/src/pyserpZotero/config.yaml", "r") as ymlfile:
+#     cfg = Box(yaml.safe_load(ymlfile), default_box=True, default_box_attr=None)
+    
+# API_KEY = cfg.API_KEY
+# ZOT_ID  = cfg.ZOT_ID
+# ZOT_KEY = cfg.ZOT_KEY
+
+# # Instantiate a serpZot object for API management
+# citeObj = serpZot(API_KEY       = API_KEY, 
+#                                ZOT_ID        = ZOT_ID, 
+#                                ZOT_KEY       = ZOT_KEY,
+#                                DOWNLOAD_DEST = "." # Optional (for destinations other than the current directory)
+#                             )
+
+# # Check Arxiv for Free PDFs of Papers and Attach / Upload Them To Zotero
+# citeObj.arxivDownload()
