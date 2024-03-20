@@ -13,6 +13,7 @@ from io import BytesIO
 from pyzotero import zotero
 from serpapi import GoogleSearch
 from urllib.parse import urlencode
+from wordcloud import STOPWORDS
 
 import arxiv
 import bibtexparser
@@ -61,11 +62,30 @@ class serpZot:
         :type vec1: ve
         :param vec2: vector from text_to_vector
         '''
-        intersection = set(vec1.keys()) & set(vec2.keys())
-        numerator = sum([vec1[x] * vec2[x] for x in intersection])
+        vec1_keys = set(vec1.keys())
+        vec2_keys = set(vec2.keys())
+        vec1_updated = []
+        vec2_updated = []
+        # pdb.set_trace()
+        
+        for word in vec1_keys:
+            if word.lower() in STOPWORDS:
+                continue
+            vec1_updated.append(word)
+                
+        for word in vec2_keys:
+            if word.lower() in STOPWORDS:
+                continue
+            vec2_updated.append(word)
+            
+        vec1_updated = Counter(vec1_updated)
+        vec2_updated = Counter(vec2_updated)
+                
+        intersection = set(vec1_updated.keys()) & set(vec2_updated.keys())
+        numerator = sum([vec1_updated[x] * vec2_updated[x] for x in intersection])
 
-        sum1 = sum([vec1[x] ** 2 for x in list(vec1.keys())])
-        sum2 = sum([vec2[x] ** 2 for x in list(vec2.keys())])
+        sum1 = sum([vec1_updated[x] ** 2 for x in list(vec1_updated.keys())])
+        sum2 = sum([vec2_updated[x] ** 2 for x in list(vec2_updated.keys())])
         denominator = math.sqrt(sum1) * math.sqrt(sum2)
 
         if not denominator:
@@ -423,7 +443,7 @@ class serpZot:
                         vector2 = self.text_to_vector(result.title)
                         cosine = self.get_cosine(vector1, vector2)
                         #cosine_holder.append({result.title:cosine})
-                        if cosine > .9:
+                        if cosine > .8:
                             #result.doi
                             pdf_downloaded += 1
                             print("Match found!: ")
