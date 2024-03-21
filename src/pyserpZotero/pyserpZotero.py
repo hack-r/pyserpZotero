@@ -511,24 +511,3 @@ class serpZot:
                 print(e)
                 pass
         return 0
-
-# Load libraries
-import os
-import yaml
-
-from box import Box
-
-with open("config.yaml", "r") as ymlfile:
-    cfg = Box(yaml.safe_load(ymlfile), default_box=True, default_box_attr=None)
-
-API_KEY = cfg.API_KEY
-ZOT_ID  = cfg.ZOT_ID
-ZOT_KEY = cfg.ZOT_KEY
-
-# Instantiate a serpZot object for API management
-citeObj = serpZot(API_KEY  = API_KEY,
-                             ZOT_ID   = ZOT_ID,
-                             ZOT_KEY  = ZOT_KEY)
-
-# Check Arxiv for Free PDFs of Papers and Attach / Upload Them To Zotero
-citeObj.arxivDownload()
