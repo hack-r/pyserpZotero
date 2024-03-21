@@ -9,3 +9,4 @@ pyzotero
 urllib3
 pandas
 bs4
+wordcloud
