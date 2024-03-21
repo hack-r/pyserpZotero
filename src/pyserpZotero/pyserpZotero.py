@@ -23,7 +23,7 @@ import os
 import pandas as pd
 import re
 import requests
-
+import pdb
 
 class serpZot:
     """
@@ -64,20 +64,20 @@ class serpZot:
         vec1_updated = []
         vec2_updated = []
         # pdb.set_trace()
-        
+
         for word in vec1_keys:
             if word.lower() in STOPWORDS:
                 continue
             vec1_updated.append(word)
-                
+
         for word in vec2_keys:
             if word.lower() in STOPWORDS:
                 continue
             vec2_updated.append(word)
-            
+
         vec1_updated = Counter(vec1_updated)
         vec2_updated = Counter(vec2_updated)
-                
+
         intersection = set(vec1_updated.keys()) & set(vec2_updated.keys())
         numerator = sum([vec1_updated[x] * vec2_updated[x] for x in intersection])
 
@@ -369,18 +369,18 @@ class serpZot:
                 item['data'][FIELD] = item['data'][FIELD].replace("\\textregistered","®")
                 item['data'][FIELD] = item['data'][FIELD].replace("\textregistered","®")
                 item['data'][FIELD] = item['data'][FIELD].replace("\\\textregistered","®")
-                item['data'][FIELD] = item['data'][FIELD].replace("#1I/`","'") 
-                item['data'][FIELD] = item['data'][FIELD].replace("1I/","'") 
+                item['data'][FIELD] = item['data'][FIELD].replace("#1I/`","'")
+                item['data'][FIELD] = item['data'][FIELD].replace("1I/","'")
                 item['data'][FIELD] = item['data'][FIELD].replace("\1I/","'")  #{\’{\i}}   {\’{\a}}   {\’{o}}
-                item['data'][FIELD] = item['data'][FIELD].replace("{\’{\a}}","a") 
-                item['data'][FIELD] = item['data'][FIELD].replace("{\’{\e}}","e") 
-                item['data'][FIELD] = item['data'][FIELD].replace("{\’{\i}}","i") 
-                item['data'][FIELD] = item['data'][FIELD].replace("{\’{\o}}","o") 
-                item['data'][FIELD] = item['data'][FIELD].replace("{\’{a}}","a") 
-                item['data'][FIELD] = item['data'][FIELD].replace("{\’{e}}","e") 
-                item['data'][FIELD] = item['data'][FIELD].replace("{\’{i}}","i") 
-                item['data'][FIELD] = item['data'][FIELD].replace("{\’{o}}","o") 
-            except: 
+                item['data'][FIELD] = item['data'][FIELD].replace("{\’{\a}}","a")
+                item['data'][FIELD] = item['data'][FIELD].replace("{\’{\e}}","e")
+                item['data'][FIELD] = item['data'][FIELD].replace("{\’{\i}}","i")
+                item['data'][FIELD] = item['data'][FIELD].replace("{\’{\o}}","o")
+                item['data'][FIELD] = item['data'][FIELD].replace("{\’{a}}","a")
+                item['data'][FIELD] = item['data'][FIELD].replace("{\’{e}}","e")
+                item['data'][FIELD] = item['data'][FIELD].replace("{\’{i}}","i")
+                item['data'][FIELD] = item['data'][FIELD].replace("{\’{o}}","o")
+            except:
                 pass
 
         # Update the cloud with the improvements
@@ -390,6 +390,48 @@ class serpZot:
         print("Done! I hope this made things more readable.")
         # Return 0
         return 0
+
+    def downloadResponse(self, response, path):
+        if response.headers['content-type'] == "application/pdf":
+            with open(path, "wb") as f:
+                f.write(response.content)
+                f.close()
+            return 1
+        elif re.findall("application/pdf", response.text):
+            pdf_link = "https:" + \
+                re.findall('src=".*\.pdf.*"', response.text)[0].split('"')[1].split('#')[0]
+            pdf_response = requests.get(pdf_link)
+            if pdf_response.headers['content-type'] == "application/pdf":
+                with open(path, "wb") as pf:
+                    pf.write(pdf_response.content)
+                    pf.close()
+                return 1
+        return 0
+
+    def sciHubDownload(self, DOWNLOAD_DEST, DOI):
+        sci_hub_url = "https://sci-hub.se/"
+        sci_hub_url += DOI
+
+        response = requests.get(sci_hub_url)
+
+        name = DOI.replace("/", "_") + ".pdf"
+        path = os.path.join(DOWNLOAD_DEST, name)
+        return self.downloadResponse(response, path)
+
+
+    def medarixDownload( self, DOWNLOAD_DEST, DOI ):
+
+        medUrl = "https://www.medrxiv.org/"
+        # The url looks like https://www.medrxiv.org/content/10.1101/2024.02.03.24302058v1.full.pdf
+        medUrl += "content/"
+        medUrl += DOI + ".pdf"
+
+        response = requests.get(medUrl)
+        name = DOI.replace("/", "_") + ".pdf"
+        path = os.path.join(DOWNLOAD_DEST, name)
+
+        return self.downloadResponse(response, path)
+
 
     def arxivDownload(self, ZOT_ID="", ZOT_KEY="", SEARCH_TERM="", GET_SOURCE=False, DOWNLOAD_DEST="."):
         FIELD = 'publicationTitle'
@@ -436,7 +478,7 @@ class serpZot:
                       max_results = 10,
                       sort_by     = arxiv.SortCriterion.Relevance
                     )
-                    # cosine_holder = []
+                    DOI = item['data'].get('DOI')
                     pdf_downloaded = 0
                     for result in search.results():
                         vector2 = self.text_to_vector(result.title)
@@ -451,37 +493,42 @@ class serpZot:
                             result.download_pdf(dirpath=DOWNLOAD_DEST)
 
                     if pdf_downloaded == 0:
-                        sci_hub_url = "https://sci-hub.se/"
-                        # DOI = item['data'].get('DOI')
-                        DOI = "10.1002/neu.1021"
-                        sci_hub_url += DOI
+                        print("Attempting download from SCI-HUB")
+                        numDownloads = self.sciHubDownload(DOWNLOAD_DEST, DOI=DOI)
 
-                        response = requests.get(sci_hub_url)
-
-                        name = DOI.replace("/", "_") + ".pdf"
-                        path = os.path.join(DOWNLOAD_DEST, name)
-                        # pdb.set_trace()
-
-                        if response.headers['content-type'] == "application/pdf":
-                            with open(path, "wb") as f:
-                                f.write(response.content)
-                                f.close()
-                        elif re.findall("application/pdf", response.text):
-                            pdf_link = "https:" + \
-                                       re.findall('src=".*\.pdf.*"', response.text)[0].split('"')[1].split('#')[0]
-                            # pdf_link = "https://zero.sci-hub.se/182/46a2ed6f529ae730db224547694eb48b/lee2001.pdf?download=true"
-                            pdf_response = requests.get(pdf_link)
-                            if pdf_response.headers['content-type'] == "application/pdf":
-                                with open(path, "wb") as pf:
-                                    pf.write(pdf_response.content)
-                                    pf.close()
+                    if numDownloads == 0:
+                        # call the media one
+                        print("Attempting download from medarxiv")
+                        numDownloads = self.medarixDownload(DOWNLOAD_DEST, DOI=DOI)
 
                     files = [os.path.join(DOWNLOAD_DEST, x) for x in os.listdir(DOWNLOAD_DEST) if x.endswith(".pdf")]
                     print(files)
                     newest = max(files, key=os.path.getctime)
                     zot.attachment_simple([newest], item['key'])
+                    break
 
             except Exception as e:
                 print(e)
                 pass
         return 0
+
+# Load libraries
+import os
+import yaml
+
+from box import Box
+
+with open("config.yaml", "r") as ymlfile:
+    cfg = Box(yaml.safe_load(ymlfile), default_box=True, default_box_attr=None)
+
+API_KEY = cfg.API_KEY
+ZOT_ID  = cfg.ZOT_ID
+ZOT_KEY = cfg.ZOT_KEY
+
+# Instantiate a serpZot object for API management
+citeObj = serpZot(API_KEY  = API_KEY,
+                             ZOT_ID   = ZOT_ID,
+                             ZOT_KEY  = ZOT_KEY)
+
+# Check Arxiv for Free PDFs of Papers and Attach / Upload Them To Zotero
+citeObj.arxivDownload()
