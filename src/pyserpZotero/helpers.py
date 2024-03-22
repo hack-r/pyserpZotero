@@ -1,9 +1,95 @@
 # helpers.py
 from collections import Counter
+from pyzotero import zotero
 from wordcloud import STOPWORDS
 
 import math
 import re
+
+
+def cleanZot(self, SEARCH_TERM="", FIELD="title"):
+    # Get keys / id from Self
+    # Ignore any errors about it not being used
+    id = self.ZOT_ID
+    key = self.ZOT_KEY
+
+    # Connect to Zotero
+    zot = zotero.Zotero(id, 'user', key)
+
+    zot.add_parameters(q=SEARCH_TERM)
+    items = zot.everything(zot.items())
+
+    message = "Number of items retreived from your library:" + str(len(items))
+    print(message)
+
+    n = 0
+    for item in items:
+        n = n + 1
+        message2 = "Processing number: " + str(n)
+        try:
+            # Clean LaTex and similar garbage
+            item['data'][FIELD] = item['data'][FIELD].replace("{", "")
+            item['data'][FIELD] = item['data'][FIELD].replace("}", "")
+            item['data'][FIELD] = item['data'][FIELD].replace("$\less", "")
+            item['data'][FIELD] = item['data'][FIELD].replace("$scp", "")
+            item['data'][FIELD] = item['data'][FIELD].replace("$\greater", "")
+            item['data'][FIELD] = item['data'][FIELD].replace("/scp", "")
+            item['data'][FIELD] = item['data'][FIELD].replace("$$", "")
+            item['data'][FIELD] = item['data'][FIELD].replace("$", "")
+            item['data'][FIELD] = item['data'][FIELD].replace("\\upkappa", "k")
+            item['data'][FIELD] = item['data'][FIELD].replace("\\upalpha", "α")
+            item['data'][FIELD] = item['data'][FIELD].replace("\\textdollar",
+                                                              "$")  # must come after replacement of $
+            item['data'][FIELD] = item['data'][FIELD].replace("\\mathplus", "+")
+            item['data'][FIELD] = item['data'][FIELD].replace('\\textquotedblleft', '"')
+            item['data'][FIELD] = item['data'][FIELD].replace('\\textquotedblright', '"')
+            item['data'][FIELD] = item['data'][FIELD].replace('{\\textquotesingle}', "'")
+            item['data'][FIELD] = item['data'][FIELD].replace('{\\\textquotesingle}', "'")
+            item['data'][FIELD] = item['data'][FIELD].replace('{\\\\textquotesingle}', "'")
+            item['data'][FIELD] = item['data'][FIELD].replace("\\textendash", "-")
+            item['data'][FIELD] = item['data'][FIELD].replace("$\textbackslashsqrt", "")
+            item['data'][FIELD] = item['data'][FIELD].replace("\\textbackslashsqrt", "")
+            item['data'][FIELD] = item['data'][FIELD].replace("\\textbackslash", "")
+            item['data'][FIELD] = item['data'][FIELD].replace("\textemdash", "-")
+            item['data'][FIELD] = item['data'][FIELD].replace("\\lbraces", "")
+            item['data'][FIELD] = item['data'][FIELD].replace("\\lbrace=", "")
+            item['data'][FIELD] = item['data'][FIELD].replace("\\rbrace=", "")
+            item['data'][FIELD] = item['data'][FIELD].replace("\\rbrace", "")
+            item['data'][FIELD] = item['data'][FIELD].replace("\\rbrace", "")
+            item['data'][FIELD] = item['data'][FIELD].replace("$\sim$", "~")
+            item['data'][FIELD] = item['data'][FIELD].replace("$\\sim$", "~")
+            item['data'][FIELD] = item['data'][FIELD].replace("\\&amp", "&")
+            item['data'][FIELD] = item['data'][FIELD].replace("\&amp", "&")
+            item['data'][FIELD] = item['data'][FIELD].replace("\\mathsemicolon", ";")
+            item['data'][FIELD] = item['data'][FIELD].replace("\\mathcolon", ":")
+            item['data'][FIELD] = item['data'][FIELD].replace("\mathsemicolon", ";")
+            item['data'][FIELD] = item['data'][FIELD].replace("\mathcolon", ":")
+            item['data'][FIELD] = item['data'][FIELD].replace("\\#", ":")
+            item['data'][FIELD] = item['data'][FIELD].replace("\\textregistered", "®")
+            item['data'][FIELD] = item['data'][FIELD].replace("\textregistered", "®")
+            item['data'][FIELD] = item['data'][FIELD].replace("\\\textregistered", "®")
+            item['data'][FIELD] = item['data'][FIELD].replace("#1I/`", "'")
+            item['data'][FIELD] = item['data'][FIELD].replace("1I/", "'")
+            item['data'][FIELD] = item['data'][FIELD].replace("\1I/", "'")  # {\’{\i}}   {\’{\a}}   {\’{o}}
+            item['data'][FIELD] = item['data'][FIELD].replace("{\’{\a}}", "a")
+            item['data'][FIELD] = item['data'][FIELD].replace("{\’{\e}}", "e")
+            item['data'][FIELD] = item['data'][FIELD].replace("{\’{\i}}", "i")
+            item['data'][FIELD] = item['data'][FIELD].replace("{\’{\o}}", "o")
+            item['data'][FIELD] = item['data'][FIELD].replace("{\’{a}}", "a")
+            item['data'][FIELD] = item['data'][FIELD].replace("{\’{e}}", "e")
+            item['data'][FIELD] = item['data'][FIELD].replace("{\’{i}}", "i")
+            item['data'][FIELD] = item['data'][FIELD].replace("{\’{o}}", "o")
+        except:
+            pass
+
+    # Update the cloud with the improvements
+    print("Updating your cloud library...")
+    zot.update_items(items)
+
+    print("Done! I hope this made things more readable.")
+    # Return 0
+    return 0
+
 
 def get_cosine(vec1, vec2):
     '''
