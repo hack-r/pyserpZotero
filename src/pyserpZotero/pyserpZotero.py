@@ -1,5 +1,5 @@
 # Libraries
-from arxiv_helpers import downloadResponse, sciHubDownload, medarixDownload, arxivDownload
+from arxiv_helpers import downloadResponse, sciHubDownload, medarxivDownload, arxivDownload
 from bibtexparser.bparser import BibTexParser
 from datetime import date, datetime
 from pyzotero import zotero
@@ -248,7 +248,7 @@ class serpZot:
             except:
                 pass
             try:
-                template[self.FIELD] = bib_dict[self.FIELD]
+                template[self.FIELD] = bib_dict[self.FIELD]  # yes, I know. it's fine.
             except:
                 pass
 

@@ -38,7 +38,7 @@ def sciHubDownload(self, DOWNLOAD_DEST, DOI):
     return self.downloadResponse(response, path)
 
 
-def medarixDownload(self, DOWNLOAD_DEST, DOI):
+def medarxivDownload(self, DOWNLOAD_DEST, DOI):
     medUrl = "https://www.medrxiv.org/"
     # The url looks like https://www.medrxiv.org/content/10.1101/2024.02.03.24302058v1.full.pdf
     medUrl += "content/"
@@ -118,7 +118,7 @@ def arxivDownload(self, ZOT_ID="", ZOT_KEY="", SEARCH_TERM="", GET_SOURCE=False,
                 if numDownloads == 0:
                     # call the media one
                     print("Attempting download from medarxiv")
-                    numDownloads = self.medarixDownload(DOWNLOAD_DEST, DOI=DOI)
+                    numDownloads = self.medarxivDownload(DOWNLOAD_DEST, DOI=DOI)
 
                 files = [os.path.join(DOWNLOAD_DEST, x) for x in os.listdir(DOWNLOAD_DEST) if x.endswith(".pdf")]
                 print(files)
