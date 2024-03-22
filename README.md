@@ -46,9 +46,7 @@ See quickstartDemo.ipynb for a Jupyter notebook demonstration or checkout the ex
 What's new?
 ----------------
 
-March 2024: Added support for additional PDF sources. Improved matching of citations to Arxiv PDFs. 
-
-Forthcoming: medArxiv and bioRxiv search / PDF integrations.
+March 2024: Added support for additional portals and PDF sources, including **medArxiv and bioRxiv**. Improved matching of citations to Arxiv PDFs. 
 
 
 ## Example Usage
