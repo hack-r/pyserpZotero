@@ -86,7 +86,7 @@ See quickstartDemo.ipynb for a Jupyter notebook demonstration or checkout the ex
         print(citeObj.search2Zotero())
 
 
-    #### Clean Ugly Raw LaText (as Much as Possible)
+    #### Clean ugly raw LaText (as much as possible)
     if CLEAN:
         citeObj.cleanZot(ZOT_ID      = ZOT_ID, 
                          ZOT_KEY     = ZOT_KEY,

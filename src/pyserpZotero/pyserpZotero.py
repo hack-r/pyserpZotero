@@ -1,12 +1,14 @@
+# pyserpZotero.py
+
 # Libraries
-from arxiv_helpers import downloadResponse, sciHubDownload, medarxivDownload, arxivDownload
+from arxiv_helpers import sciHubDownload, medarxivDownload, arxivDownload
 from bibtexparser.bparser import BibTexParser
+from box import Box
 from datetime import date, datetime
 from pyzotero import zotero
 from serpapi import GoogleSearch
 from urllib.parse import urlencode
 
-import arxiv
 import bibtexparser
 import json
 import os
@@ -30,20 +32,58 @@ class serpZot:
     :type download_dest: str
     """
 
-    def __init__(self, api_key="", zot_id="", zot_key="", download_dest="."):
+    def __init__(self, api_key="", zot_id="", zot_key="", download_dest=".",enable_pdf_download=True):
         """
         Instantiate a serpZot object for API management
         """
-        self.df = None
-        self.API_KEY = api_key
-        self.DOWNLOAD_DEST = download_dest
-        self.FIELD = "title"
-        self.ZOT_ID = zot_id
-        self.ZOT_KEY = zot_key
+        self.df         = None
+        self.FIELD      = "title"
         self.DOI_HOLDER = set()
-        print("Friendly reminder: Make sure your Zotero key has write permissions. I'm not saying it doesn't - just remdinding you because I can't check it for you.")
+        self.API_KEY    = ""
+        self.ZOT_ID     = ""
+        self.ZOT_KEY    = ""
+        self.DOWNLOAD_DEST       = ""
+        self.enable_pdf_download = ""
 
-    # Search for RIS Result Id's on Google Scholar
+        # Override default values with values from config.yaml
+        config = Box.from_yaml(filename="config.yaml")
+        print(config)
+        if not self.API_KEY:
+            self.API_KEY = config.get('API_KEY', api_key)
+        if not self.ZOT_ID:
+            self.ZOT_ID  = config.get('ZOT_ID', zot_id)
+        if not self.ZOT_KEY:
+            self.ZOT_KEY = config.get('ZOT_KEY', zot_key)
+        if not self.DOWNLOAD_DEST:
+            self.DOWNLOAD_DEST = config.get('DOWNLOAD_DEST', download_dest)
+        if not self.enable_pdf_download:
+            self.enable_pdf_download = config.get('ENABLE_PDF_DOWNLOAD', enable_pdf_download)
+
+        print("\nFriendly reminder: Make sure your Zotero key has write permissions. I'm not saying it doesn't, but I can't check it for you.\n")
+
+    def attempt_pdf_download(self, doi, zotero_item_key):
+        """
+        Attempts to download a PDF for a given DOI and attach it to a Zotero item.
+        :param doi: DOI of the article to download.
+        :param zotero_item_key: Zotero item key to attach the downloaded PDF to.
+        :return: True if the PDF was downloaded and attached, False otherwise.
+        """
+        # Try to download PDF from various sources
+        download_dest = self.DOWNLOAD_DEST
+        downloaded, pdf_path = arxivDownload(doi, download_dest)
+        if not downloaded:
+            downloaded, pdf_path = sciHubDownload(doi, download_dest)
+        if not downloaded:
+            downloaded, pdf_path = medarxivDownload(doi, download_dest)
+
+        # If a PDF was downloaded, attach it to the Zotero item
+        if downloaded:
+            zot = zotero.Zotero(self.ZOT_ID, 'user', self.ZOT_KEY)
+            zot.attachment_simple([pdf_path], zotero_item_key)
+            return True
+        return False
+
+    # Search for RIS Result ID's on Google Scholar
     def searchScholar(self, term="", min_year="", save_bib=False):
         """
         Search for journal articles
@@ -86,7 +126,7 @@ class serpZot:
 
         return 0
 
-    # Convert RIS Result Id to Bibtex Citation
+    # Convert RIS Result ID to Bibtex Citation
     def search2Zotero(self, FIELD="title"):
         """
         Add journal articles to your Zotero library.
@@ -103,14 +143,21 @@ class serpZot:
         zot = zotero.Zotero(self.ZOT_ID, 'user', self.ZOT_KEY)
         template = zot.item_template('journalArticle')  # Set Template
 
-        # Retreive DOI numbers of existing articles to avoid duplication of citations
-        items = zot.items()
+        # Retrieve DOI numbers of existing articles to avoid duplication of citations
+        print("Downloading your library's citations for deduping (not the attachments)...")
+        items0 = zot.everything(zot.items(q='DOI'))
+        items1 = zot.everything(zot.items(q='doi'))
+        items  = items0 + items1
+
         if not self.DOI_HOLDER:  # Populate it only if it's empty
             for item in items:
                 try:
                     self.DOI_HOLDER.add(item['data']['DOI'])
                 except KeyError:
-                    continue  # Skip items without a DOI
+                    try:
+                        self.DOI_HOLDER.add(item['data']['url'])
+                    except:
+                        continue
 
         try:
             ris = self.ris
@@ -135,32 +182,11 @@ class serpZot:
             search = GoogleSearch(params)
             citation = search.get_dict()
 
-            # Get APA Format Citation and Parse
-            try:
-                print(citation['citations'][1]['snippet'])
-                citation_text = citation['citations'][1]['snippet']
-                doi_pattern = re.compile(r'\b10\.\d{4,9}/[-._;()/:A-Z0-9]+\b', re.IGNORECASE)
-                doi_match = doi_pattern.search(citation_text)
-                if doi_match:
-                    new_doi = doi_match.group()
-                else:
-                    print("DOI not found in citation snippet.")
-                    continue  # Skip to next iteration if DOI not found
-
-                if new_doi in self.DOI_HOLDER:
-                    print(f"DOI {new_doi} already exists in Zotero. Skipping.")
-                    continue  # Skip this item since it's already in the library
-                else:
-                    self.DOI_HOLDER.add(new_doi)
-            except Exception as e:
-                print(f"An error occurred: {str(e)}")
-                continue
-
             # Cross-reference the Citation with Crossref to Get Bibtext
-            base = 'https://api.crossref.org/works?query.'
-            api_url = {'bibliographic': citation['citations'][1]['snippet']}
-            url = urlencode(api_url)
-            url = base + url
+            base     = 'https://api.crossref.org/works?query.'
+            api_url  = {'bibliographic': citation['citations'][1]['snippet']}
+            url      = urlencode(api_url)
+            url      = base + url
             response = requests.get(url)
 
             # Parse Bibtext from Crossref
@@ -275,7 +301,16 @@ class serpZot:
 
                 print(template)
 
-                zot.create_items([template])
+                cite_upload_response = zot.create_items([template])
+                if 'successful' in cite_upload_response:
+                    for key in cite_upload_response['successful']:
+                        created_item_key = cite_upload_response['successful'][key]['key']
+                        if self.enable_pdf_download:
+                            download_success = self.attempt_pdf_download(jsonResponse['DOI'], created_item_key)
+                            if download_success:
+                                print(f"PDF for DOI {jsonResponse['DOI']} downloaded and attached successfully.")
+                            else:
+                                print(f"Failed to download PDF for DOI {jsonResponse['DOI']}.")
 
             except Exception as e:
                 print(f"An error occurred: {e}")
@@ -284,3 +319,53 @@ class serpZot:
         return 0
 
 
+
+def main():
+    import yaml
+    from pathlib import Path
+    import sys
+
+    config_path = Path(__file__).parent / 'config.yaml'
+    print(config_path)
+
+    if not config_path.is_file():
+        print("Config file not found. Creating a new one.")
+        with config_path.open('w') as file:
+            yaml.dump({'API_KEY': ''}, file)
+
+    with config_path.open('r') as file:
+        config = yaml.safe_load(file)
+
+    api_key = config.get('API_KEY', '')
+    if not api_key:
+        api_key = input("Enter your serpAPI API key: ")
+        with config_path.open('w') as file:
+            yaml.dump({'API_KEY': api_key}, file)
+    zot_id = config.get('ZOT_ID', '')
+    if not zot_id:
+        zot_id = input("Enter your Zotero library ID: ")
+    zot_key = config.get('ZOT_KEY', '')
+    if not zot_key:
+        zot_key = input("Enter your Zotero API key: ")
+    download_dest = input("Enter download destination path (leave empty for current directory): ") or "."
+    download_pdfs = input("Do you want to download PDFs? [Y/n]: ").strip().lower()
+    if download_pdfs == '' or download_pdfs == 'y' or download_pdfs == 'Y' or download_pdfs == 'yes' or download_pdfs == 'True':
+        download_pdfs = True
+    else:
+        download_pdfs = False
+
+    term = input("Enter search term for Google Scholar: ")
+    min_year = input("Enter the oldest year to search from (leave empty if none): ")
+
+    serp_zot = serpZot(api_key, zot_id, zot_key, download_dest, download_pdfs)
+    serp_zot.searchScholar(term, min_year)
+    serp_zot.search2Zotero()
+
+    if download_pdfs:
+        print("Attempting to download PDFs...")
+
+    print("Done.")
+
+
+if __name__ == "__main__":
+    main()
