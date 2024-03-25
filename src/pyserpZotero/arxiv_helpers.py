@@ -1,132 +1,154 @@
-# arxiv_helpers.py
-
 from helpers import get_cosine, text_to_vector
-from pyzotero import zotero
-
 import arxiv
 import os
 import re
 import requests
 
 
-def downloadResponse(response, path):
-    if response.headers['content-type'] == "application/pdf":
-        with open(path, "wb") as f:
-            f.write(response.content)
-            f.close()
-        return 1
-    elif re.findall("application/pdf", response.text):
-        pdf_link = "https:" + \
-                   re.findall('src=".*\.pdf.*"', response.text)[0].split('"')[1].split('#')[0]
-        pdf_response = requests.get(pdf_link)
-        if pdf_response.headers['content-type'] == "application/pdf":
-            with open(path, "wb") as pf:
-                pf.write(pdf_response.content)
-                pf.close()
-            return 1
-    return 0
+def downloadResponse(response, path, server="se"):
+    try:
+        if response.headers.get('content-type') == "application/pdf":
+            with open(path, "wb") as f:
+                f.write(response.content)
+            return True
+        elif "application/pdf" in response.text:
+            if server == "se":
+                pdf_link = "https://sci-hub.se" + re.findall('src=".*\.pdf.*"', response.text)[0].split('"')[1].split('#')[0]
+            else:
+                pdf_link = "https://sci-hub.ru" + re.findall('src=".*\.pdf.*"', response.text)[0].split('"')[1].split('#')[0]
+            pdf_response = requests.get(pdf_link)
+            if pdf_response.headers.get('content-type') == "application/pdf":
+                with open(path, "wb") as pf:
+                    pf.write(pdf_response.content)
+                return True
+    except Exception as e:
+        print(f"Failed to download PDF: {e}")
+        return False
+    return False
 
 
-def sciHubDownload(self, DOWNLOAD_DEST, DOI):
-    sci_hub_url = "https://sci-hub.se/"
-    sci_hub_url += DOI
+def ensure_download_dest_is_valid(download_dest):
+    # Check if download_dest is a valid path
+    if not isinstance(download_dest, str) or not download_dest.strip():
+        download_dest = "."
 
-    response = requests.get(sci_hub_url)
+    # Ensure download_dest exists
+    os.makedirs(download_dest, exist_ok=True)
 
-    name = DOI.replace("/", "_") + ".pdf"
-    path = os.path.join(DOWNLOAD_DEST, name)
-    return self.downloadResponse(response, path)
+    # Normalize the path to remove any redundant separators, etc.
+    download_dest = os.path.normpath(download_dest)
 
-
-def medarxivDownload(self, DOWNLOAD_DEST, DOI):
-    medUrl = "https://www.medrxiv.org/"
-    # The url looks like https://www.medrxiv.org/content/10.1101/2024.02.03.24302058v1.full.pdf
-    medUrl += "content/"
-    medUrl += DOI + ".pdf"
-
-    response = requests.get(medUrl)
-    name = DOI.replace("/", "_") + ".pdf"
-    path = os.path.join(DOWNLOAD_DEST, name)
-
-    return self.downloadResponse(response, path)
+    return download_dest
 
 
-def arxivDownload(self, ZOT_ID="", ZOT_KEY="", SEARCH_TERM="", GET_SOURCE=False, DOWNLOAD_DEST="."):
-    FIELD = 'publicationTitle'
+def sciHubDownload(download_dest, DOI):
+    try:
+        sci_hub_url = "https://sci-hub.se/" + DOI
+        response    = requests.get(sci_hub_url)
+        name = DOI.replace("/", "_") + ".pdf"
+        path = os.path.join(download_dest, name)
+        return downloadResponse(response, path, "se")
 
-    '''
-    :param ZOT_ID: Zotero user (aka library) Id
-    :type ZOT_ID: str
-
-    :param ZOT_KEY: Zotero API key
-    :type ZOT_KEY: str
-
-    :param SEARCH_TERM: Search your library with this term to select papers for downloading.
-    : type SEARCH_TERM: str
-
-    :param GET_SOURCE: If True then attempt to download .tar.gz source files of a paper or papers.
-    : type GET_SOURCE: bool
-    '''
-    ZOT_ID = self.ZOT_ID
-    ZOT_KEY = self.ZOT_KEY
-    DOWNLOAD_DEST = self.DOWNLOAD_DEST
-    # Connect to Zotero
-    zot = zotero.Zotero(ZOT_ID, 'user', ZOT_KEY)
-
-    zot.add_parameters(q=SEARCH_TERM)
-    items = zot.everything(zot.items())
-
-    message = "Number of items retrieved from your library:" + str(len(items))
-    print(message)
-
-    n = 0
-    for item in items:
-        # Announce status
-        n = n + 1
-        message2 = "Processing number: " + str(n)
-        print(message2)
+    except:
         try:
-            if item['data']['itemType'] == 'journalArticle':
-                text1 = item['data'][FIELD]
-                string = re.sub('[ ](?=[ ])|[^-_,A-Za-z0-9 ]+', '', text1)
-                vector1 = text_to_vector(string)
+            sci_hub_url = "https://sci-hub.ru/"
+            sci_hub_url += DOI
 
-                search = arxiv.Search(
-                    query='ti:' + "'" + string + "'",
-                    max_results=10,
-                    sort_by=arxiv.SortCriterion.Relevance
-                )
-                DOI = item['data'].get('DOI')
-                pdf_downloaded = 0
-                for result in search.results():
+            response = requests.get(sci_hub_url)
+
+            name = DOI.replace("/", "_") + ".pdf"
+            path = os.path.join(download_dest, name)
+            return downloadResponse(response, path, "ru")
+
+        except:
+            print("Article not on Sci-hub, moving on")
+            return False
+
+
+def medRxivDownload(download_dest, DOI):
+    try:
+        # Form the direct URL to the PDF on medRxiv
+        medUrl = f"https://www.medrxiv.org/content/medrxiv/early/{DOI}.full.pdf"
+
+        # Fetch the PDF
+        response = requests.get(medUrl, stream=True)
+
+        # Ensure the response status code is 200 and content type indicates a PDF
+        if response.status_code == 200 and 'application/pdf' in response.headers.get('Content-Type', ''):
+            # Construct the file path
+            name = DOI.replace("/", "_") + ".pdf"
+            path = os.path.join(download_dest, name)
+
+            # Write the PDF to the file
+            with open(path, "wb") as f:
+                for chunk in response.iter_content(chunk_size=8192):
+                    f.write(chunk)
+
+            print(f"Downloaded from medRxiv: {DOI}")
+            return True
+        else:
+            print(f"PDF not available or not found at medRxiv for DOI: {DOI}")
+            return False
+    except Exception as e:
+        print(f"medRxiv download failed: {e}")
+        return False
+
+
+def arxivDownload(doi=None, items=None, download_dest=".", full_lib=False, title=None):
+    print("Trying to download via arXiv...")
+    downloaded = False
+    download_dest = ensure_download_dest_is_valid(download_dest)
+    client = arxiv.Client()  # Instantiate the arXiv client
+
+    try:
+        if not full_lib:
+            if title:
+                vector1 = text_to_vector(title)
+                search = arxiv.Search(query=f'ti:"{title}"', max_results=10, sort_by=arxiv.SortCriterion.Relevance)
+                for result in client.results(search):
                     vector2 = text_to_vector(result.title)
                     cosine = get_cosine(vector1, vector2)
-                    # cosine_holder.append({result.title:cosine})
-                    if cosine > .8:
-                        # result.doi
-                        pdf_downloaded += 1
-                        print("Match found!: ")
-                        print(text1)
-                        print(result.entry_id)
-                        result.download_pdf(dirpath=DOWNLOAD_DEST)
+                    if cosine > .85:
+                        print(f"ArXiv match found for {title}: {result.entry_id}")
+                        result.download_pdf(dirpath=download_dest)
+                        pdf_name = result.entry_id.split('/')[-1] + ".pdf"
+                        pdf_path = os.path.join(download_dest, pdf_name)
+                        downloaded = True
+                        return downloaded, pdf_path
+                # Attempt alternative downloads if no arXiv match is found
+                if not downloaded:
+                    print("Trying Sci-hub...")
+                    downloaded, pdf_path = sciHubDownload(download_dest, doi)
+                if not downloaded:
+                    print("Trying medArxiv...")
+                    downloaded, pdf_path = medRxivDownload(download_dest, doi)
+        else:
+            # Full library scan and match logic
+            for item in items:
+                if item['data']['itemType'] == 'journalArticle':
+                    text1 = item['data'].get('title', '')
+                    vector1 = text_to_vector(text1)
+                    search = arxiv.Search(query='ti:"' + text1 + '"', max_results=10, sort_by=arxiv.SortCriterion.Relevance)
+                    for result in search.results():
+                        vector2 = text_to_vector(result.title)
+                        cosine = get_cosine(vector1, vector2)
+                        if cosine > .85:
+                            downloaded = True
+                            print(f"ArXiv match found for {text1}: {result.entry_id}")
+                            result.download_pdf(dirpath=download_dest)
+                            break
+                    if not downloaded:
+                        downloaded = sciHubDownload(download_dest, item['data'].get('DOI', ''))
+                    if not downloaded:
+                        downloaded = medRxivDownload(download_dest, item['data'].get('DOI', ''))
+                    if downloaded:
+                        doi = item['data'].get('DOI', '')
+                        pdf_path = os.path.join(download_dest, f"{doi.replace('/', '_')}.pdf")
+                        return downloaded, pdf_path
+    except Exception as e:
+        print(f"Error processing arXiv download: {e}")
 
-                numDownloads = 0
-                if pdf_downloaded == 0:
-                    print("Attempting download from SCI-HUB")
-                    numDownloads = self.sciHubDownload(DOWNLOAD_DEST, DOI=DOI)
-
-                if numDownloads == 0:
-                    # call the media one
-                    print("Attempting download from medarxiv")
-                    numDownloads = self.medarxivDownload(DOWNLOAD_DEST, DOI=DOI)
-
-                files = [os.path.join(DOWNLOAD_DEST, x) for x in os.listdir(DOWNLOAD_DEST) if x.endswith(".pdf")]
-                print(files)
-                newest = max(files, key=os.path.getctime)
-                zot.attachment_simple([newest], item['key'])
-                break
-
-        except Exception as e:
-            print(e)
-            pass
-    return 0
+    if downloaded:
+        return downloaded, pdf_path
+    else:
+        return downloaded, None

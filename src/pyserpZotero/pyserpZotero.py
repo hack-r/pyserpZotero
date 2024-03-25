@@ -1,7 +1,7 @@
 # pyserpZotero.py
 
 # Libraries
-from arxiv_helpers import sciHubDownload, medarxivDownload, arxivDownload
+from arxiv_helpers import arxivDownload
 from bibtexparser.bparser import BibTexParser
 from box import Box
 from datetime import date, datetime
@@ -13,7 +13,6 @@ import bibtexparser
 import json
 import os
 import pandas as pd
-import re
 import requests
 
 
@@ -61,7 +60,8 @@ class serpZot:
 
         print("\nFriendly reminder: Make sure your Zotero key has write permissions. I'm not saying it doesn't, but I can't check it for you.\n")
 
-    def attempt_pdf_download(self, doi, zotero_item_key):
+    def attempt_pdf_download(self, items, doi, zotero_item_key, full_lib=False,
+                             title=None):
         """
         Attempts to download a PDF for a given DOI and attach it to a Zotero item.
         :param doi: DOI of the article to download.
@@ -70,11 +70,10 @@ class serpZot:
         """
         # Try to download PDF from various sources
         download_dest = self.DOWNLOAD_DEST
-        downloaded, pdf_path = arxivDownload(doi, download_dest)
+        downloaded, pdf_path = arxivDownload(items=items, download_dest=download_dest, doi=doi,full_lib=full_lib,title=title)
+
         if not downloaded:
-            downloaded, pdf_path = sciHubDownload(doi, download_dest)
-        if not downloaded:
-            downloaded, pdf_path = medarxivDownload(doi, download_dest)
+            print(f"No PDF available for DOI: {doi}, moving on.")
 
         # If a PDF was downloaded, attach it to the Zotero item
         if downloaded:
@@ -144,7 +143,7 @@ class serpZot:
         template = zot.item_template('journalArticle')  # Set Template
 
         # Retrieve DOI numbers of existing articles to avoid duplication of citations
-        print("Downloading your library's citations for deduping (not the attachments)...")
+        print("Reading your library's citations so we can avoid adding duplicates...")
         items0 = zot.everything(zot.items(q='DOI'))
         items1 = zot.everything(zot.items(q='doi'))
         items  = items0 + items1
@@ -273,11 +272,6 @@ class serpZot:
                 template['abstractNote'] = df['snippet'][0]
             except:
                 pass
-            try:
-                template[self.FIELD] = bib_dict[self.FIELD]  # yes, I know. it's fine.
-            except:
-                pass
-
             # Fix Date
             try:
                 mydate = bib_dict['month'] + ' ' + bib_dict['year']
@@ -306,7 +300,8 @@ class serpZot:
                     for key in cite_upload_response['successful']:
                         created_item_key = cite_upload_response['successful'][key]['key']
                         if self.enable_pdf_download:
-                            download_success = self.attempt_pdf_download(jsonResponse['DOI'], created_item_key)
+                            download_success = self.attempt_pdf_download(items=items,  doi=jsonResponse['DOI'], zotero_item_key=created_item_key,
+                             title=bib_dict['title'])
                             if download_success:
                                 print(f"PDF for DOI {jsonResponse['DOI']} downloaded and attached successfully.")
                             else:
@@ -323,7 +318,6 @@ class serpZot:
 def main():
     import yaml
     from pathlib import Path
-    import sys
 
     config_path = Path(__file__).parent / 'config.yaml'
     print(config_path)
