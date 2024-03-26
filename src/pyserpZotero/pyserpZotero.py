@@ -70,7 +70,7 @@ class serpZot:
         """
         # Try to download PDF from various sources
         download_dest = self.DOWNLOAD_DEST
-        downloaded, pdf_path = arxivDownload(items=items, download_dest=download_dest, doi=doi,full_lib=full_lib,title=title)
+        downloaded, pdf_path = arxivDownload(items=items, download_dest=download_dest, doi=doi, full_lib=full_lib, title=title)
 
         if not downloaded:
             print(f"No PDF available for DOI: {doi}, moving on.")
@@ -78,7 +78,11 @@ class serpZot:
         # If a PDF was downloaded, attach it to the Zotero item
         if downloaded:
             zot = zotero.Zotero(self.ZOT_ID, 'user', self.ZOT_KEY)
-            zot.attachment_simple([pdf_path], zotero_item_key)
+            if os.path.isfile(pdf_path):
+                zot.attachment_simple([pdf_path], zotero_item_key)
+            else:
+                pdf_path = pdf_path.removeprefix("./")
+                zot.attachment_simple([pdf_path], zotero_item_key)
             return True
         return False
 

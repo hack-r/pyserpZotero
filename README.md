@@ -4,11 +4,11 @@ pyserpZotero
 
 Google Scholar citation download, parsing, Bibtex export, and Zotero cloud upload via serpAPI.
 
-  * Docs: https://pyserpzotero.readthedocs.io
-  * GitHub Repo: https://github.com/hack-r/pyserpZotero
+  * Docs:         https://pyserpzotero.readthedocs.io
+  * GitHub Repo:  https://github.com/hack-r/pyserpZotero
   * PyPI Package: https://pypi.org/project/pyserpZotero/
-  * serpAPI: https://serpAPI.com
-  * Zotero: https://zotero.org
+  * serpAPI:      https://serpAPI.com
+  * Zotero:       https://zotero.org
 
 
 What does it do?
@@ -102,3 +102,8 @@ March 2024: Added support for additional portals and PDF sources, including **me
 
     #### Check Arxiv for Free PDFs of Papers and Attach / Upload Them To Zotero
     citeObj.arxivDownload()
+
+Why do you sometimes line up assignment operators like that?
+----------------
+
+As a data scientist, I'm a programming polyglot and long-time R programmer. Following top style guides for R, some of us like our code to be readable by human beings without wasting much time on it - it's a trick for easily making the code structured.
