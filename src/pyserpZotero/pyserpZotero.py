@@ -1,7 +1,7 @@
 # pyserpZotero.py
 
 # Libraries
-from arxiv_helpers import arxivDownload
+from utils.arxiv_helpers import arxiv_download
 from bibtexparser.bparser import BibTexParser
 from box import Box
 from datetime import date, datetime
@@ -16,24 +16,23 @@ import pandas as pd
 import requests
 
 
-class serpZot:
+class SerpZot:
     """
-    :param api_key: serpAPI API key
-    :type api_key: str
+    Initialize a SerpZot instance for managing Zotero citations and PDF downloads.
 
-    :param zot_id: Zotero user (aka library) Id
-    :type zot_id: str
-
-    :param zot_key: Zotero API key
-    :type zot_key: str
-
-    :param download_dest: Optional download directory
-    :type download_dest: str
+    Parameters:
+    - api_key (str): API key for SerpAPI to perform searches.
+    - zot_id (str): Zotero user/library ID for citation management.
+    - zot_key (str): API key for accessing Zotero services.
+    - download_dest (str): Default directory for downloading PDFs.
+    - enable_pdf_download (bool): Flag to enable or disable automatic PDF downloads.
     """
-
     def __init__(self, api_key="", zot_id="", zot_key="", download_dest=".",enable_pdf_download=True):
         """
-        Instantiate a serpZot object for API management
+        Instantiate a SerpZot object for API management.
+
+        Keep assignment operators reasonably aligned like an R programmer,
+            so code doesn't look like PEP dog poo.
         """
         self.df         = None
         self.FIELD      = "title"
@@ -63,17 +62,24 @@ class serpZot:
     def attempt_pdf_download(self, items, doi, zotero_item_key, full_lib=False,
                              title=None):
         """
-        Attempts to download a PDF for a given DOI and attach it to a Zotero item.
-        :param doi: DOI of the article to download.
-        :param zotero_item_key: Zotero item key to attach the downloaded PDF to.
-        :return: True if the PDF was downloaded and attached, False otherwise.
+        Attempt to download a PDF for a specified DOI and attach it to a Zotero item.
+
+        Parameters:
+        - items: Collection of Zotero items to consider for download.
+        - doi (str): The DOI of the paper to download.
+        - zotero_item_key (str): The Zotero item key where the PDF should be attached.
+        - full_lib (bool): Flag to indicate whether to search the entire library.
+        - title (str, optional): The title of the paper, used if DOI is not available.
+
+        Returns:
+        - (bool): True if the PDF was successfully downloaded and attached, False otherwise.
         """
         # Try to download PDF from various sources
         download_dest = self.DOWNLOAD_DEST
-        downloaded, pdf_path = arxivDownload(items=items, download_dest=download_dest, doi=doi, full_lib=full_lib, title=title)
+        downloaded, pdf_path = arxiv_download(items=items, download_dest=download_dest, doi=doi, full_lib=full_lib, title=title)
 
         if not downloaded:
-            print(f"No PDF available for DOI: {doi}, moving on.")
+            print(f"No PDF available for doi: {doi}, moving on.")
 
         # If a PDF was downloaded, attach it to the Zotero item
         if downloaded:
@@ -87,16 +93,19 @@ class serpZot:
         return False
 
     # Search for RIS Result ID's on Google Scholar
-    def searchScholar(self, term="", min_year="", save_bib=False):
+    def SearchScholar(self, term="", min_year="", save_bib=False):
         """
-        Search for journal articles
+        Search Google Scholar for articles matching the specified criteria and update Zotero library.
 
-        :param term: search term for Google Scholar
-        :type term: str
+        Parameters:
+        - term (str): The search term or query.
+        - min_year (str): The earliest publication year for articles.
+        - save_bib (bool): Whether to save the search results as a BibTeX file.
 
-        :param min_year: oldest year to search on
-        :type min_year: str
+        Returns:
+        - (int): Status code indicating success (0) or failure (non-zero).
         """
+
 
         # Search Parameters
         params = {
@@ -112,7 +121,7 @@ class serpZot:
         # Search
         search = GoogleSearch(params)
 
-        # Set SAVE_BIB for search2Zotero
+        # Set SAVE_BIB for Search2Zotero
         self.SAVE_BIB = save_bib
 
         # Scrape Results, Extract Result Id's
@@ -130,9 +139,15 @@ class serpZot:
         return 0
 
     # Convert RIS Result ID to Bibtex Citation
-    def search2Zotero(self, FIELD="title"):
+    def Search2Zotero(self, FIELD="title"):
         """
-        Add journal articles to your Zotero library.
+        Convert search results to Zotero citations, avoiding duplicates, and optionally download PDFs.
+
+        Parameters:
+        - FIELD (str): The field of the search result to use, default is 'title'.
+
+        Returns:
+        - (int): Status code indicating the operation's success (0) or failure.
         """
         df = pd.DataFrame()
 
@@ -146,16 +161,16 @@ class serpZot:
         zot = zotero.Zotero(self.ZOT_ID, 'user', self.ZOT_KEY)
         template = zot.item_template('journalArticle')  # Set Template
 
-        # Retrieve DOI numbers of existing articles to avoid duplication of citations
+        # Retrieve doi numbers of existing articles to avoid duplication of citations
         print("Reading your library's citations so we can avoid adding duplicates...")
-        items0 = zot.everything(zot.items(q='DOI'))
+        items0 = zot.everything(zot.items(q='doi'))
         items1 = zot.everything(zot.items(q='doi'))
         items  = items0 + items1
 
         if not self.DOI_HOLDER:  # Populate it only if it's empty
             for item in items:
                 try:
-                    self.DOI_HOLDER.add(item['data']['DOI'])
+                    self.DOI_HOLDER.add(item['data']['doi'])
                 except KeyError:
                     try:
                         self.DOI_HOLDER.add(item['data']['url'])
@@ -201,7 +216,7 @@ class serpZot:
             except Exception as e:
                 print(f"An error occurred: {str(e)}")
                 continue
-            curl_str = 'curl -LH "Accept: application/x-bibtex" http://dx.doi.org/' + jsonResponse['DOI']
+            curl_str = 'curl -LH "Accept: application/x-bibtex" http://dx.doi.org/' + jsonResponse['doi']
             result = os.popen(curl_str).read()
 
             # Write bibtext file
@@ -249,7 +264,7 @@ class serpZot:
             except:
                 pass
             try:
-                template['DOI'] = str(jsonResponse['DOI'])
+                template['doi'] = str(jsonResponse['doi'])
             except:
                 pass
             try:
@@ -304,12 +319,12 @@ class serpZot:
                     for key in cite_upload_response['successful']:
                         created_item_key = cite_upload_response['successful'][key]['key']
                         if self.enable_pdf_download:
-                            download_success = self.attempt_pdf_download(items=items,  doi=jsonResponse['DOI'], zotero_item_key=created_item_key,
+                            download_success = self.attempt_pdf_download(items=items,  doi=jsonResponse['doi'], zotero_item_key=created_item_key,
                              title=bib_dict['title'])
                             if download_success:
-                                print(f"PDF for DOI {jsonResponse['DOI']} downloaded and attached successfully.")
+                                print(f"PDF for doi {jsonResponse['doi']} downloaded and attached successfully.")
                             else:
-                                print(f"Failed to download PDF for DOI {jsonResponse['DOI']}.")
+                                print(f"Failed to download PDF for doi {jsonResponse['doi']}.")
 
             except Exception as e:
                 print(f"An error occurred: {e}")
@@ -355,9 +370,9 @@ def main():
     term = input("Enter search term for Google Scholar: ")
     min_year = input("Enter the oldest year to search from (leave empty if none): ")
 
-    serp_zot = serpZot(api_key, zot_id, zot_key, download_dest, download_pdfs)
-    serp_zot.searchScholar(term, min_year)
-    serp_zot.search2Zotero()
+    serp_zot = SerpZot(api_key, zot_id, zot_key, download_dest, download_pdfs)
+    serp_zot.SearchScholar(term, min_year)
+    serp_zot.Search2Zotero()
 
     if download_pdfs:
         print("Attempting to download PDFs...")
