@@ -1,9 +1,21 @@
 from helpers import get_cosine, text_to_vector
+from urllib.parse import urlparse
 import arxiv
 import os
 import re
 import requests
+import tempfile
 
+# Assuming your download function looks something like this
+def download_pdf(url):
+    response = requests.get(url)
+    if response.status_code == 200 and 'application/pdf' in response.headers.get('Content-Type', ''):
+        # Use NamedTemporaryFile to automatically handle the file creation
+        temp_file = tempfile.NamedTemporaryFile(delete=False, suffix='.pdf')
+        temp_file.write(response.content)
+        temp_file.close()
+        return temp_file.name
+    return None
 
 def downloadResponse(response, path, server="se"):
     try:
@@ -47,7 +59,7 @@ def sciHubDownload(download_dest, DOI):
         response    = requests.get(sci_hub_url)
         name = DOI.replace("/", "_") + ".pdf"
         path = os.path.join(download_dest, name)
-        return downloadResponse(response, path, "se")
+        return downloadResponse(response, path, "se"), path
 
     except:
         try:
@@ -58,41 +70,44 @@ def sciHubDownload(download_dest, DOI):
 
             name = DOI.replace("/", "_") + ".pdf"
             path = os.path.join(download_dest, name)
-            return downloadResponse(response, path, "ru")
+            return downloadResponse(response, path, "ru"), path
 
         except:
             print("Article not on Sci-hub, moving on")
-            return False
+            return False, None
 
 
 def medRxivDownload(download_dest, DOI):
-    try:
-        # Form the direct URL to the PDF on medRxiv
-        medUrl = f"https://www.medrxiv.org/content/medrxiv/early/{DOI}.full.pdf"
+    # Define the initial URL with "v1"
+    urls_to_try = [
+        f"https://www.medrxiv.org/content/{DOI}v1.full.pdf",
+        f"https://www.medrxiv.org/content/{DOI}full.pdf",
+        f"https://www.medrxiv.org/content/medrxiv/early/{DOI}v1.full.pdf"
+    ]
 
-        # Fetch the PDF
-        response = requests.get(medUrl, stream=True)
+    for url in urls_to_try:
+        try:
+            response = requests.get(url, stream=True)
 
-        # Ensure the response status code is 200 and content type indicates a PDF
-        if response.status_code == 200 and 'application/pdf' in response.headers.get('Content-Type', ''):
-            # Construct the file path
-            name = DOI.replace("/", "_") + ".pdf"
-            path = os.path.join(download_dest, name)
+            # Check if the response is successful and content type is PDF
+            if response.status_code == 200 and 'application/pdf' in response.headers.get('Content-Type', ''):
+                name = DOI.replace("/", "_") + ".pdf"
+                path = os.path.join(download_dest, name)
 
-            # Write the PDF to the file
-            with open(path, "wb") as f:
-                for chunk in response.iter_content(chunk_size=8192):
-                    f.write(chunk)
+                # Write the PDF to the file
+                with open(path, "wb") as f:
+                    for chunk in response.iter_content(chunk_size=8192):
+                        f.write(chunk)
 
-            print(f"Downloaded from medRxiv: {DOI}")
-            return True
-        else:
-            print(f"PDF not available or not found at medRxiv for DOI: {DOI}")
-            return False
-    except Exception as e:
-        print(f"medRxiv download failed: {e}")
-        return False
+                print(f"Downloaded from medRxiv: {DOI}")
+                return True, path
 
+        except Exception as e:
+            print(f"Attempt with URL {url} failed with error: {e}. Trying next URL if available.")
+
+    # If both attempts fail, inform the user
+    print(f"PDF not available on medRxiv for DOI: {DOI}")
+    return False, ""
 
 def arxivDownload(doi=None, items=None, download_dest=".", full_lib=False, title=None):
     print("Trying to download via arXiv...")
@@ -119,9 +134,13 @@ def arxivDownload(doi=None, items=None, download_dest=".", full_lib=False, title
                 if not downloaded:
                     print("Trying Sci-hub...")
                     downloaded, pdf_path = sciHubDownload(download_dest, doi)
+                    if downloaded:
+                        return downloaded, pdf_path
                 if not downloaded:
                     print("Trying medArxiv...")
                     downloaded, pdf_path = medRxivDownload(download_dest, doi)
+                    if downloaded:
+                        return downloaded, pdf_path
         else:
             # Full library scan and match logic
             for item in items:
@@ -138,9 +157,9 @@ def arxivDownload(doi=None, items=None, download_dest=".", full_lib=False, title
                             result.download_pdf(dirpath=download_dest)
                             break
                     if not downloaded:
-                        downloaded = sciHubDownload(download_dest, item['data'].get('DOI', ''))
+                        downloaded, path = sciHubDownload(download_dest, item['data'].get('DOI', ''))
                     if not downloaded:
-                        downloaded = medRxivDownload(download_dest, item['data'].get('DOI', ''))
+                        downloaded, path = medRxivDownload(download_dest, item['data'].get('DOI', ''))
                     if downloaded:
                         doi = item['data'].get('DOI', '')
                         pdf_path = os.path.join(download_dest, f"{doi.replace('/', '_')}.pdf")
