@@ -1,13 +1,23 @@
-from helpers import get_cosine, text_to_vector
-from urllib.parse import urlparse
+# utils/arxiv_helpers.py
+from .helpers import get_cosine, text_to_vector
 import arxiv
 import os
 import re
 import requests
 import tempfile
 
+
 # Assuming your download function looks something like this
 def download_pdf(url):
+    """
+    Download a PDF from a given URL.
+
+    Parameters:
+    - url (str): The URL of the PDF to be downloaded.
+
+    Returns:
+    - str or None: The file path to the downloaded PDF if successful, None otherwise.
+    """
     response = requests.get(url)
     if response.status_code == 200 and 'application/pdf' in response.headers.get('Content-Type', ''):
         # Use NamedTemporaryFile to automatically handle the file creation
@@ -17,7 +27,19 @@ def download_pdf(url):
         return temp_file.name
     return None
 
-def downloadResponse(response, path, server="se"):
+
+def download_response(response, path, server="se"):
+    """
+    Handle the response from a PDF download attempt, saving the file if successful.
+
+    Parameters:
+    - response: The response object from the download attempt.
+    - path (str): The file path where the PDF should be saved.
+    - server (str): Identifier for the PDF source server, default is "se" for Sci-Hub.se.
+
+    Returns:
+    - bool: True if the PDF was successfully downloaded and saved, False otherwise.
+    """
     try:
         if response.headers.get('content-type') == "application/pdf":
             with open(path, "wb") as f:
@@ -40,6 +62,15 @@ def downloadResponse(response, path, server="se"):
 
 
 def ensure_download_dest_is_valid(download_dest):
+    """
+    Ensure the specified download destination is valid, creating directories as needed.
+
+    Parameters:
+    - download_dest (str): The intended directory for downloading files.
+
+    Returns:
+    - str: The normalized, absolute path to the download destination.
+    """
     # Check if download_dest is a valid path
     if not isinstance(download_dest, str) or not download_dest.strip():
         download_dest = "."
@@ -53,31 +84,52 @@ def ensure_download_dest_is_valid(download_dest):
     return download_dest
 
 
-def sciHubDownload(download_dest, DOI):
+def scihub_download(download_dest, doi):
+    """
+    Attempt to download a PDF from Sci-Hub using a DOI.
+
+    Parameters:
+    - download_dest (str): The directory to save the downloaded PDF.
+    - doi (str): The DOI of the document to download.
+
+    Returns:
+    - tuple: (bool, str) indicating success status and the file path to the downloaded PDF.
+    """
     try:
-        sci_hub_url = "https://sci-hub.se/" + DOI
+        sci_hub_url = "https://sci-hub.se/" + doi
         response    = requests.get(sci_hub_url)
-        name = DOI.replace("/", "_") + ".pdf"
+        name = doi.replace("/", "_") + ".pdf"
         path = os.path.join(download_dest, name)
-        return downloadResponse(response, path, "se"), path
+        return download_response(response, path, "se"), path
 
     except:
         try:
             sci_hub_url = "https://sci-hub.ru/"
-            sci_hub_url += DOI
+            sci_hub_url += doi
 
             response = requests.get(sci_hub_url)
 
-            name = DOI.replace("/", "_") + ".pdf"
+            name = doi.replace("/", "_") + ".pdf"
             path = os.path.join(download_dest, name)
-            return downloadResponse(response, path, "ru"), path
+            return download_response(response, path, "ru"), path
 
         except:
             print("Article not on Sci-hub, moving on")
             return False, None
 
 
-def medRxivDownload(download_dest, DOI):
+def medrxiv_download(download_dest, DOI):
+    """
+    Attempt to download a PDF from medRxiv using a DOI.
+
+    Parameters:
+    - download_dest (str): The directory to save the downloaded PDF.
+    - DOI (str): The DOI of the document to download.
+
+    Returns:
+    - tuple: (bool, str) indicating success status and the file path to the downloaded PDF.
+    """
+
     # Define the initial URL with "v1"
     urls_to_try = [
         f"https://www.medrxiv.org/content/{DOI}v1.full.pdf",
@@ -106,10 +158,23 @@ def medRxivDownload(download_dest, DOI):
             print(f"Attempt with URL {url} failed with error: {e}. Trying next URL if available.")
 
     # If both attempts fail, inform the user
-    print(f"PDF not available on medRxiv for DOI: {DOI}")
+    print(f"PDF not available on medRxiv for doi: {DOI}")
     return False, ""
 
-def arxivDownload(doi=None, items=None, download_dest=".", full_lib=False, title=None):
+def arxiv_download(doi=None, items=None, download_dest=".", full_lib=False, title=None):
+    """
+    Attempt to download a PDF from arXiv or alternative sources using a DOI or title.
+
+    Parameters:
+    - doi (str, optional): The DOI of the paper to download.
+    - items: Collection of items to consider for downloading. Used if `full_lib` is True.
+    - download_dest (str): The directory to save the downloaded PDF.
+    - full_lib (bool): Whether to perform a full library scan for matching titles.
+    - title (str, optional): The title of the paper, used if DOI is not available.
+
+    Returns:
+    - tuple: (bool, str) indicating success status and the file path to the downloaded PDF.
+    """
     print("Trying to download via arXiv...")
     downloaded = False
     download_dest = ensure_download_dest_is_valid(download_dest)
@@ -133,12 +198,12 @@ def arxivDownload(doi=None, items=None, download_dest=".", full_lib=False, title
                 # Attempt alternative downloads if no arXiv match is found
                 if not downloaded:
                     print("Trying Sci-hub...")
-                    downloaded, pdf_path = sciHubDownload(download_dest, doi)
+                    downloaded, pdf_path = scihub_download(download_dest, doi)
                     if downloaded:
                         return downloaded, pdf_path
                 if not downloaded:
                     print("Trying medArxiv...")
-                    downloaded, pdf_path = medRxivDownload(download_dest, doi)
+                    downloaded, pdf_path = medrxiv_download(download_dest, doi)
                     if downloaded:
                         return downloaded, pdf_path
         else:
@@ -148,7 +213,7 @@ def arxivDownload(doi=None, items=None, download_dest=".", full_lib=False, title
                     text1 = item['data'].get('title', '')
                     vector1 = text_to_vector(text1)
                     search = arxiv.Search(query='ti:"' + text1 + '"', max_results=10, sort_by=arxiv.SortCriterion.Relevance)
-                    for result in search.results():
+                    for result in search.results(): # To do: replace with Client.results
                         vector2 = text_to_vector(result.title)
                         cosine = get_cosine(vector1, vector2)
                         if cosine > .85:
@@ -157,17 +222,17 @@ def arxivDownload(doi=None, items=None, download_dest=".", full_lib=False, title
                             result.download_pdf(dirpath=download_dest)
                             break
                     if not downloaded:
-                        downloaded, path = sciHubDownload(download_dest, item['data'].get('DOI', ''))
+                        downloaded, path = scihub_download(download_dest, item['data'].get('doi', ''))
                     if not downloaded:
-                        downloaded, path = medRxivDownload(download_dest, item['data'].get('DOI', ''))
+                        downloaded, path = medrxiv_download(download_dest, item['data'].get('doi', ''))
                     if downloaded:
-                        doi = item['data'].get('DOI', '')
+                        doi = item['data'].get('doi', '')
                         pdf_path = os.path.join(download_dest, f"{doi.replace('/', '_')}.pdf")
                         return downloaded, pdf_path
     except Exception as e:
         print(f"Error processing arXiv download: {e}")
 
     if downloaded:
-        return downloaded, pdf_path
+        return downloaded, pdf_path # Not ref. before assignment - ignore the warning
     else:
         return downloaded, None
