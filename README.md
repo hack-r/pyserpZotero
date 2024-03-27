@@ -11,6 +11,7 @@ Google Scholar citation download, parsing, Bibtex export, search for free PDFs, 
   * Zotero:       https://zotero.org
 
 
+
 What does it do?
 ----------------
 
@@ -42,13 +43,13 @@ the functions, via the interactive mode, or manage them more securely via a YAML
 How to use it?
 ----------------
 
-Beginning with v1.1 an interactive mode is available by running the main file (pyserpZotero.py). See quickstart.ipynb for a Jupyter notebook demonstration of API access.
+Beginning with v1.1 an interactive mode is available by entering `psz` into a terminal. See quickstart.ipynb for a Jupyter notebook demonstration of API access.
 
 
 What's new?
 ----------------
-
-March 2024: Added support for additional portals and PDF sources, including **medArxiv and bioRxiv**. Improved matching of citations to Arxiv PDFs. 
+  - Interactive mode! Just enter `psz` in a terminal after `pip install pyserpZotero` to use this library as a program. You can enter your credentials when prompted or edit the config.yaml file to bypass interactive authentication. 
+  - Added support for additional portals and PDF sources, including **medArxiv and bioRxiv**. Improved matching of citations to Arxiv PDFs. 
 
 
 Why do you sometimes align assignment operators across lines like that?
