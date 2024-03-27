@@ -44,6 +44,7 @@ class SerpZot:
         self.enable_pdf_download = ""
 
         # Override default values with values from config.yaml
+        print(f"Attempting to load configuration from config.yaml")
         config = Box.from_yaml(filename="config.yaml")
         print(config)
         if not self.API_KEY:
@@ -354,8 +355,9 @@ def main():
         with config_path.open('w') as file:
             yaml.dump({'API_KEY': ''}, file)
 
+    print(f"Attempting to load configuration from {config_path}")
     with config_path.open('r') as file:
-        config = yaml.safe_load(file) or {}
+        config = yaml.safe_load(file) or Box.from_yaml(file) or {}
 
     api_key = config.get('API_KEY', '')
     if not api_key:
