@@ -338,8 +338,16 @@ def main():
     import yaml
     from pathlib import Path
 
-    config_path = Path(__file__).parent / 'config.yaml'
-    print(config_path)
+    script_dir_config_path = Path(__file__).resolve().parent / 'config.yaml'
+    current_dir_config_path = Path('.').resolve() / 'config.yaml'
+
+    if script_dir_config_path.is_file():
+        config_path = script_dir_config_path
+    elif current_dir_config_path.is_file():
+        config_path = current_dir_config_path
+    else:
+        print("Config file not found in script or current directory. Proceeding with provided parameters.")
+        return
 
     if not config_path.is_file():
         print("Config file not found. Creating a new one.")
