@@ -5,6 +5,10 @@ pyserpZotero
 Installation:
     `pip install pyserpZotero`
 
+Usage: 
+    `psz`
+
+
 Google Scholar citation download, parsing, Bibtex export, search for free PDFs, and Zotero cloud upload. SerpAPI is leveraged for stable access to Google Scholar without IP throttling.
 
 
