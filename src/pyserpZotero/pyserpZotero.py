@@ -1,7 +1,7 @@
 # pyserpZotero.py
 
 # Libraries
-from utils.arxiv_helpers import arxiv_download
+from .utils.arxiv_helpers import arxiv_download
 from bibtexparser.bparser import BibTexParser
 from box import Box
 from datetime import date, datetime
@@ -347,7 +347,7 @@ def main():
             yaml.dump({'API_KEY': ''}, file)
 
     with config_path.open('r') as file:
-        config = yaml.safe_load(file)
+        config = yaml.safe_load(file) or {}
 
     api_key = config.get('API_KEY', '')
     if not api_key:
