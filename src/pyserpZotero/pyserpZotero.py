@@ -134,7 +134,7 @@ class SerpZot:
             ris = df['result_id']
             self.ris = ris
         except Exception as e:
-            print(f"An error occurred: {str(e)}")
+            print(f"An error occurred while filling into Pandas: {str(e)}")
 
         return 0
 
@@ -179,6 +179,7 @@ class SerpZot:
 
         try:
             ris = self.ris
+            print(f"Number of items to process : {len(ris)}")
         except Exception as e:
             print(f"An error occurred: {str(e)}")
             print("No results? Or an API key problem, maybe?")
@@ -216,7 +217,7 @@ class SerpZot:
             except Exception as e:
                 print(f"An error occurred: {str(e)}")
                 continue
-            curl_str = 'curl -LH "Accept: application/x-bibtex" http://dx.doi.org/' + jsonResponse['doi']
+            curl_str = 'curl -LH "Accept: application/x-bibtex" http://dx.doi.org/' + jsonResponse['DOI']
             result = os.popen(curl_str).read()
 
             # Write bibtext file
@@ -264,7 +265,7 @@ class SerpZot:
             except:
                 pass
             try:
-                template['doi'] = str(jsonResponse['doi'])
+                template['doi'] = str(jsonResponse['DOI'])
             except:
                 pass
             try:
@@ -319,15 +320,15 @@ class SerpZot:
                     for key in cite_upload_response['successful']:
                         created_item_key = cite_upload_response['successful'][key]['key']
                         if self.enable_pdf_download:
-                            download_success = self.attempt_pdf_download(items=items,  doi=jsonResponse['doi'], zotero_item_key=created_item_key,
+                            download_success = self.attempt_pdf_download(items=items,  doi=jsonResponse['DOI'], zotero_item_key=created_item_key,
                              title=bib_dict['title'])
                             if download_success:
-                                print(f"PDF for doi {jsonResponse['doi']} downloaded and attached successfully.")
+                                print(f"PDF for doi {jsonResponse['DOI']} downloaded and attached successfully.")
                             else:
-                                print(f"Failed to download PDF for doi {jsonResponse['doi']}.")
+                                print(f"Failed to download PDF for doi {jsonResponse['DOI']}.")
 
             except Exception as e:
-                print(f"An error occurred: {e}")
+                print(f"An error occurred while parsing: {e}")
                 continue
 
         return 0
@@ -360,8 +361,12 @@ def main():
     zot_key = config.get('ZOT_KEY', '')
     if not zot_key:
         zot_key = input("Enter your Zotero API key: ")
-    download_dest = input("Enter download destination path (leave empty for current directory): ") or "."
-    download_pdfs = input("Do you want to download PDFs? [Y/n]: ").strip().lower()
+    download_dest = config.get('DOWNLOAD_DEST', '.')
+    if not download_dest:
+       download_dest = input("Enter download destination path (leave empty for current directory): ") or "."
+    download_pdfs = config.get('ENABLE_PDF_DOWNLOAD', None)
+    if download_pdfs is None:
+        download_pdfs = input("Do you want to download PDFs? [Y/n]: ").strip().lower()
     if download_pdfs == '' or download_pdfs == 'y' or download_pdfs == 'Y' or download_pdfs == 'yes' or download_pdfs == 'True':
         download_pdfs = True
     else:
