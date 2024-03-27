@@ -2,6 +2,9 @@ pyserpZotero
 ============
 ![](https://i.imgur.com/bHS0mPZs.png)
 
+Installation:
+    `pip install pyserpZotero`
+
 Google Scholar citation download, parsing, Bibtex export, search for free PDFs, and Zotero cloud upload. SerpAPI is leveraged for stable access to Google Scholar without IP throttling.
 
   * Docs:         https://pyserpzotero.readthedocs.io
@@ -15,14 +18,14 @@ Google Scholar citation download, parsing, Bibtex export, search for free PDFs, 
 What does it do?
 ----------------
 
-pyserpZotero is a sophisticated Python library designed to automate the management of scholarly literature citations and PDF downloads. It leverages the power of SerpAPI for reliable access to Google Scholar and utilizes the Zotero service for efficient citation management. The library simplifies the process of searching for academic papers, downloading them (where available for free), and organizing citations directly into your Zotero library.
+*pyserpZotero* is a Python library designed to automate the search, management of scholarly literature citations, and attachment of free PDFs to Zotero citations. It leverages the power of SerpAPI for reliable access to Google Scholar and utilizes the Zotero service for efficient citation management. The library simplifies the process of searching for academic papers, downloading them (where available for free), and organizing citations directly into your Zotero library.
 
-*pyserpZotero* offers the following functions for (semi-) automating literature review:
+*pyserpZotero* offers the following functions for (semi-) automating literature review tasks:
 
 * *SerpZot* (class) - Instantiates a SerpZot object for API management. 
-  * ***SearchScholar*** - Searches Google Scholar for papers corresponding to 1 or more search terms and captures their identifiers.
-  * ***Search2Zotero*** - Pulls references from Google using identifiers from *SearchScholar*, converts to Bibtex via CrossRef, reformats for Zotero, looks for PDFs, and uploads to your Zotero cloud library (results will automatically sync to the desktop client, if installed).
-  * ***CleanZot*** - Attempt to remove/replace broken LaTex and other formatting in titles. 
+  * **SearchScholar** - Searches Google Scholar for papers corresponding to 1 or more search terms and captures their identifiers.
+  * **Search2Zotero** - Pulls references from Google using identifiers from *SearchScholar*, converts to Bibtex via CrossRef, reformats for Zotero, looks for PDFs, and uploads to your Zotero cloud library (results will automatically sync to the desktop client, if installed).
+  * **CleanZot** - Attempt to remove/replace broken LaTex and other formatting in titles. 
 
 
 Why SerpAPI?
@@ -30,7 +33,9 @@ Why SerpAPI?
 
 I'm not a shill for their company, but after a decade of scraping data I've gotten tired of code breaking due to upstream changes, dealing with 
 proxies, and concerns over intellectual property. SerpAPI handles those things for you. They offer a free tier, which is currently 100 searches 
-per month and decent pricing.
+per month and decent pricing. 
+
+I may add a proxy scraper later with logic for directly scraping Scholar and other portals, but have been hesistant to do so due to the potential for upstream changes and other risks.
 
 
 How to configure it?
