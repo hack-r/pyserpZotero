@@ -1,7 +1,7 @@
 # pyserpZotero.py
 
 # Libraries
-from utils.arxiv_helpers import arxiv_download
+from .utils.arxiv_helpers import arxiv_download
 from bibtexparser.bparser import BibTexParser
 from box import Box
 from datetime import date, datetime
@@ -44,6 +44,7 @@ class SerpZot:
         self.enable_pdf_download = ""
 
         # Override default values with values from config.yaml
+        print(f"Attempting to load configuration from config.yaml")
         config = Box.from_yaml(filename="config.yaml")
         print(config)
         if not self.API_KEY:
@@ -339,16 +340,25 @@ def main():
     import yaml
     from pathlib import Path
 
-    config_path = Path(__file__).parent / 'config.yaml'
-    print(config_path)
+    script_dir_config_path = Path(__file__).resolve().parent / 'config.yaml'
+    current_dir_config_path = Path('.').resolve() / 'config.yaml'
+
+    if script_dir_config_path.is_file():
+        config_path = script_dir_config_path
+    elif current_dir_config_path.is_file():
+        config_path = current_dir_config_path
+    else:
+        print("Config file not found in script or current directory. Proceeding with provided parameters.")
+        return
 
     if not config_path.is_file():
         print("Config file not found. Creating a new one.")
         with config_path.open('w') as file:
             yaml.dump({'API_KEY': ''}, file)
 
+    print(f"Attempting to load configuration from {config_path}")
     with config_path.open('r') as file:
-        config = yaml.safe_load(file)
+        config = yaml.safe_load(file) or {}
 
     api_key = config.get('API_KEY', '')
     if not api_key:
