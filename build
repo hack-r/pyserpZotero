@@ -1,0 +1,4 @@
+rm -rf dist
+python -m build
+pip install dist/pyserpzotero-1.1.0-py3-none-any.whl --force-reinstall
+psz
