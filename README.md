@@ -7,13 +7,14 @@ Installation:
 
 Google Scholar citation download, parsing, Bibtex export, search for free PDFs, and Zotero cloud upload. SerpAPI is leveraged for stable access to Google Scholar without IP throttling.
 
-  * Docs:         https://pyserpzotero.readthedocs.io
-  * GitHub Repo:  https://github.com/hack-r/pyserpZotero
-  * PyPI Package: https://pypi.org/project/pyserpZotero/
-  * SerpAPI:      https://serpAPI.com
-  * Zotero:       https://zotero.org
 
-
+| Resource       | URL                                          |
+|----------------|----------------------------------------------|
+| Docs           | https://pyserpzotero.readthedocs.io          |
+| GitHub Repo    | https://github.com/hack-r/pyserpZotero       |
+| PyPI Package   | https://pypi.org/project/pyserpZotero/       |
+| SerpAPI        | https://serpAPI.com                          |
+| Zotero         | https://zotero.org                           |
 
 What does it do?
 ----------------
