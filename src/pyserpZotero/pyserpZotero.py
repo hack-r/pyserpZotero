@@ -357,7 +357,7 @@ def main():
 
     print(f"Attempting to load configuration from {config_path}")
     with config_path.open('r') as file:
-        config = yaml.safe_load(file) or Box.from_yaml(file) or {}
+        config = yaml.safe_load(file) or {}
 
     api_key = config.get('API_KEY', '')
     if not api_key:
