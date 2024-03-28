@@ -344,10 +344,37 @@ class SerpZot:
         return 0
 
 
+# ANSI escape codes for colors
+class Colors:
+    HEADER = '\033[95m'
+    BLUE = '\033[94m'
+    CYAN = '\033[96m'
+    GREEN = '\033[92m'
+    YELLOW = '\033[93m'
+    RED = '\033[91m'
+    ENDC = '\033[0m'
+    BOLD = '\033[1m'
+    UNDERLINE = '\033[4m'
 
 def main():
     import yaml
     from pathlib import Path
+
+    # Colorful welcome message with version number
+    print(f"{Colors.CYAN}        __        __   _                          {Colors.ENDC}")
+    print(f"{Colors.CYAN}        \ \      / /__| | ___ ___  _ __ ___   ___ {Colors.ENDC}")
+    print(f"{Colors.BLUE}         \ \ /\ / / _ \ |/ __/ _ \| '_ ` _ \ / _ \{Colors.ENDC}")
+    print(f"{Colors.BLUE}          \ V  V /  __/ | (_| (_) | | | | | |  __/{Colors.ENDC}")
+    print(f"{Colors.CYAN}           \_/\_/ \___|_|\___\___/|_| |_| |_|\___|{Colors.ENDC}")
+    print(f"{Colors.GREEN}*********************************************{Colors.ENDC}")
+    print(f"{Colors.GREEN}*                                           *{Colors.ENDC}")
+    print(f"*     {Colors.UNDERLINE}Welcome to pyserpZotero Terminal!     {Colors.ENDC}*")
+    print(f"{Colors.GREEN}*                                           *{Colors.ENDC}")
+    print(f"{Colors.GREEN}*  Your go-to solution for managing Zotero  *{Colors.ENDC}")
+    print(f"*     {Colors.RED}entries directly from your terminal.  {Colors.ENDC}*")
+    print(f"{Colors.GREEN}*                                           *{Colors.ENDC}")
+    print(f"{Colors.BLUE}      Version: {Colors.RED}1.1.1{Colors.ENDC}                      *{Colors.ENDC}")
+    print(f"{Colors.GREEN}*********************************************{Colors.ENDC}")
 
     script_dir_config_path = Path(__file__).resolve().parent / 'config.yaml'
     current_dir_config_path = Path('.').resolve() / 'config.yaml'
