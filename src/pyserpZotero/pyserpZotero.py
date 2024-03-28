@@ -368,12 +368,12 @@ def main():
     print(f"{Colors.CYAN}           \_/\_/ \___|_|\___\___/|_| |_| |_|\___|{Colors.ENDC}")
     print(f"{Colors.GREEN}*********************************************{Colors.ENDC}")
     print(f"{Colors.GREEN}*                                           *{Colors.ENDC}")
-    print(f"*     {Colors.UNDERLINE}Welcome to pyserpZotero Terminal!     {Colors.ENDC}*")
+    print(f"{Colors.GREEN}*     {Colors.UNDERLINE}Welcome to pyserpZotero Terminal!     {Colors.GREEN}*")
     print(f"{Colors.GREEN}*                                           *{Colors.ENDC}")
     print(f"{Colors.GREEN}*  Your go-to solution for managing Zotero  *{Colors.ENDC}")
-    print(f"*     {Colors.RED}entries directly from your terminal.  {Colors.ENDC}*")
+    print(f"{Colors.GREEN}*     {Colors.RED}entries directly from your terminal.  {Colors.GREEN}*")
     print(f"{Colors.GREEN}*                                           *{Colors.ENDC}")
-    print(f"{Colors.BLUE}      Version: {Colors.RED}1.1.1{Colors.ENDC}                      *{Colors.ENDC}")
+    print(f"{Colors.GREEN}*{Colors.BLUE}      Version: {Colors.RED}1.1.1{Colors.ENDC}                       {Colors.GREEN}*{Colors.ENDC}")
     print(f"{Colors.GREEN}*********************************************{Colors.ENDC}")
 
     script_dir_config_path = Path(__file__).resolve().parent / 'config.yaml'
