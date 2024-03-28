@@ -368,7 +368,7 @@ def main():
     print(f"{Colors.CYAN}           \_/\_/ \___|_|\___\___/|_| |_| |_|\___|{Colors.ENDC}")
     print(f"{Colors.GREEN}*********************************************{Colors.ENDC}")
     print(f"{Colors.GREEN}*                                           *{Colors.ENDC}")
-    print(f"{Colors.GREEN}*     {Colors.UNDERLINE}Welcome to pyserpZotero Terminal!     {Colors.GREEN}*")
+    print(f"{Colors.GREEN}*     {Colors.UNDERLINE}Welcome to pyserpZotero Terminal!{Colors.ENDC}     {Colors.GREEN}*")
     print(f"{Colors.GREEN}*                                           *{Colors.ENDC}")
     print(f"{Colors.GREEN}*  Your go-to solution for managing Zotero  *{Colors.ENDC}")
     print(f"{Colors.GREEN}*     {Colors.RED}entries directly from your terminal.  {Colors.GREEN}*")
