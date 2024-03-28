@@ -418,8 +418,15 @@ def main():
     else:
         download_pdfs = False
 
-    term = input("Enter search term for Google Scholar: ")
     min_year = input("Enter the oldest year to search from (leave empty if none): ")
+    term     = input("Enter search term for: ")
+
+    if len(term) < 3:
+        print("Please enter at least 3 characters.")
+        term = input("Enter search term for: ")
+    else:
+        # Proceed with using 'term' for Google Scholar search
+        print(f"Searching Scholar for: {term}")
 
     serp_zot = SerpZot(api_key, zot_id, zot_key, download_dest, download_pdfs)
     serp_zot.SearchScholar(term, min_year)
