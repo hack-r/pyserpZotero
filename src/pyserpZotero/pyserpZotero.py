@@ -326,9 +326,12 @@ class SerpZot:
                     for key in cite_upload_response['successful']:
                         created_item_key = cite_upload_response['successful'][key]['key']
                         if self.enable_pdf_download:
-                            title = bib_dict['title'] or ''
-                            download_success = self.attempt_pdf_download(items=items,  doi=jsonResponse['DOI'], zotero_item_key=created_item_key,
-                             title=title)
+                            try:
+                                print(bib_dict['title'])
+                                download_success = self.attempt_pdf_download(items=items,  doi=jsonResponse['DOI'], zotero_item_key=created_item_key,
+                                 title=bib_dict['title'])
+                            except:
+                                download_success = self.attempt_pdf_download(items=items, doi=jsonResponse['DOI'],zotero_item_key=created_item_key,                      title='')
                             if download_success:
                                 print(f"PDF for doi {jsonResponse['DOI']} downloaded and attached successfully.")
                             else:
