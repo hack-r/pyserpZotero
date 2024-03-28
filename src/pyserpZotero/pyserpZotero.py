@@ -246,8 +246,9 @@ class SerpZot:
             except Exception as e:
                 print(f"An error occurred: {str(e)}")
                 continue
-            try:  # test to make sure it worked
-                len(bib_dict['author']) > 0
+            try:
+                if 'author' not in bib_dict:
+                    bib_dict['author'] = ["Unknown, Unknown"]
             except Exception as e:
                 print(f"An error occurred: {str(e)}")
                 continue
@@ -306,7 +307,11 @@ class SerpZot:
 
             # Parse Names into Template/Data
             try:
-                num_authors = len(bib_dict['author'])
+                try:
+                    num_authors = len(bib_dict['author'])
+                except:
+                    num_authors = 1
+                    bib_dict['author'] = ['Unknown Unknown']
                 template['creators'] = []
 
                 for a in bib_dict['author']:
@@ -321,8 +326,9 @@ class SerpZot:
                     for key in cite_upload_response['successful']:
                         created_item_key = cite_upload_response['successful'][key]['key']
                         if self.enable_pdf_download:
+                            title = bib_dict['title'] or ''
                             download_success = self.attempt_pdf_download(items=items,  doi=jsonResponse['DOI'], zotero_item_key=created_item_key,
-                             title=bib_dict['title'])
+                             title=title)
                             if download_success:
                                 print(f"PDF for doi {jsonResponse['DOI']} downloaded and attached successfully.")
                             else:
