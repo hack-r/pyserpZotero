@@ -371,9 +371,9 @@ def main():
     print(f"{Colors.GREEN}*     {Colors.UNDERLINE}Welcome to pyserpZotero Terminal!{Colors.ENDC}     {Colors.GREEN}*")
     print(f"{Colors.GREEN}*                                           *{Colors.ENDC}")
     print(f"{Colors.GREEN}*  Your go-to solution for managing Zotero  *{Colors.ENDC}")
-    print(f"{Colors.GREEN}*     {Colors.RED}entries directly from your terminal.  {Colors.GREEN}*")
+    print(f"{Colors.GREEN}*     entries directly from your terminal.  {Colors.GREEN}*")
     print(f"{Colors.GREEN}*                                           *{Colors.ENDC}")
-    print(f"{Colors.GREEN}*{Colors.BLUE}      Version: {Colors.RED}1.1.1{Colors.ENDC}                       {Colors.GREEN}*{Colors.ENDC}")
+    print(f"{Colors.GREEN}*{Colors.BLUE}      Version: {Colors.RED}1.1.2{Colors.ENDC}                       {Colors.GREEN}*{Colors.ENDC}")
     print(f"{Colors.GREEN}*********************************************{Colors.ENDC}")
 
     script_dir_config_path = Path(__file__).resolve().parent / 'config.yaml'
