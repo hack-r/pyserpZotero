@@ -6,7 +6,6 @@ import re
 import requests
 import tempfile
 
-
 # Assuming your download function looks something like this
 def download_pdf(url):
     """
@@ -46,15 +45,23 @@ def download_response(response, path, server="se"):
                 f.write(response.content)
             return True
         elif "application/pdf" in response.text:
-            if server == "se":
-                pdf_link = "https://sci-hub.se" + re.findall('src=".*\.pdf.*"', response.text)[0].split('"')[1].split('#')[0]
-            else:
-                pdf_link = "https://sci-hub.ru" + re.findall('src=".*\.pdf.*"', response.text)[0].split('"')[1].split('#')[0]
+            location = re.findall('src=".*\.pdf.*"', response.text)[0].split('"')[1].split('#')[0]
+            
+            # It also could be the absolute link present in sci-hub.
+            pdf_link = "https:" + re.findall('src=".*\.pdf.*"', response.text)[0].split('"')[1].split('#')[0]
+            
+            if "sci-hub" not in location:
+                if server == "se":
+                    pdf_link = "https://sci-hub.se" + location
+                else:
+                    pdf_link = "https://sci-hub.ru" + location
+
             pdf_response = requests.get(pdf_link)
             if pdf_response.headers.get('content-type') == "application/pdf":
                 with open(path, "wb") as pf:
                     pf.write(pdf_response.content)
                 return True
+
     except Exception as e:
         print(f"Failed to download PDF: {e}")
         return False
@@ -136,7 +143,6 @@ def medrxiv_download(download_dest, DOI):
         f"https://www.medrxiv.org/content/{DOI}full.pdf",
         f"https://www.medrxiv.org/content/medrxiv/early/{DOI}v1.full.pdf"
     ]
-
     for url in urls_to_try:
         try:
             response = requests.get(url, stream=True)
