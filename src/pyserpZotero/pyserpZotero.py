@@ -27,7 +27,7 @@ class SerpZot:
     - download_dest (str): Default directory for downloading PDFs.
     - enable_pdf_download (bool): Flag to enable or disable automatic PDF downloads.
     """
-    def __init__(self, api_key="", zot_id="", zot_key="", download_dest=".",enable_pdf_download=True):
+    def __init__(self, api_key="", zot_id="", zot_key="", download_dest=".", enable_pdf_download=True):
         """
         Instantiate a SerpZot object for API management.
 
