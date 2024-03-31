@@ -28,7 +28,7 @@ class SerpZot:
     - download_dest (str): Default directory for downloading PDFs.
     - enable_pdf_download (bool): Flag to enable or disable automatic PDF downloads.
     """
-    def __init__(self, api_key="", zot_id="", zot_key="", download_dest=".",enable_pdf_download=True):
+    def __init__(self, api_key="", zot_id="", zot_key="", download_dest=".", enable_pdf_download=True):
         """
         Instantiate a SerpZot object for API management.
 
@@ -187,8 +187,9 @@ class SerpZot:
             except Exception as e:
                 print(f"An error occurred: {str(e)}")
                 continue
-            try:  # test to make sure it worked
-                len(bib_dict['author']) > 0
+            try:
+                if 'author' not in bib_dict:
+                    bib_dict['author'] = ["Unknown, Unknown"]
             except Exception as e:
                 print(f"An error occurred: {str(e)}")
                 continue
@@ -247,7 +248,11 @@ class SerpZot:
 
             # Parse Names into Template/Data
             try:
-                num_authors = len(bib_dict['author'])
+                try:
+                    num_authors = len(bib_dict['author'])
+                except:
+                    num_authors = 1
+                    bib_dict['author'] = ['Unknown Unknown']
                 template['creators'] = []
 
                 for a in bib_dict['author']:
@@ -263,8 +268,12 @@ class SerpZot:
                     for key in cite_upload_response['successful']:
                         created_item_key = cite_upload_response['successful'][key]['key']
                         if self.enable_pdf_download:
-                            download_success = self.attempt_pdf_download(items=items,  doi=doi, zotero_item_key=created_item_key,
-                            title=bib_dict['title'])
+                            try:
+                                print(bib_dict['title'])
+                                download_success = self.attempt_pdf_download(items=items,  doi=doi, zotero_item_key=created_item_key,
+                                title=bib_dict['title'])
+                            except:
+                                download_success = self.attempt_pdf_download(items=items, doi=doi,zotero_item_key=created_item_key,                      title='')
                             if download_success:
                                 print(f"PDF for doi {doi} downloaded and attached successfully.")
                             else:
@@ -402,10 +411,37 @@ class SerpZot:
         return 0
 
 
+# ANSI escape codes for colors
+class Colors:
+    HEADER = '\033[95m'
+    BLUE = '\033[94m'
+    CYAN = '\033[96m'
+    GREEN = '\033[92m'
+    YELLOW = '\033[93m'
+    RED = '\033[91m'
+    ENDC = '\033[0m'
+    BOLD = '\033[1m'
+    UNDERLINE = '\033[4m'
 
 def main():
     import yaml
     from pathlib import Path
+
+    # Colorful welcome message with version number
+    print(f"{Colors.CYAN}        __        __   _                          {Colors.ENDC}")
+    print(f"{Colors.CYAN}        \ \      / /__| | ___ ___  _ __ ___   ___ {Colors.ENDC}")
+    print(f"{Colors.BLUE}         \ \ /\ / / _ \ |/ __/ _ \| '_ ` _ \ / _ \{Colors.ENDC}")
+    print(f"{Colors.BLUE}          \ V  V /  __/ | (_| (_) | | | | | |  __/{Colors.ENDC}")
+    print(f"{Colors.CYAN}           \_/\_/ \___|_|\___\___/|_| |_| |_|\___|{Colors.ENDC}")
+    print(f"{Colors.GREEN}*********************************************{Colors.ENDC}")
+    print(f"{Colors.GREEN}*                                           *{Colors.ENDC}")
+    print(f"{Colors.GREEN}*     {Colors.UNDERLINE}Welcome to pyserpZotero Terminal!{Colors.ENDC}     {Colors.GREEN}*")
+    print(f"{Colors.GREEN}*                                           *{Colors.ENDC}")
+    print(f"{Colors.GREEN}*  Your go-to solution for managing Zotero  *{Colors.ENDC}")
+    print(f"{Colors.GREEN}*     entries directly from your terminal.  {Colors.GREEN}*")
+    print(f"{Colors.GREEN}*                                           *{Colors.ENDC}")
+    print(f"{Colors.GREEN}*{Colors.BLUE}      Version: {Colors.RED}1.1.2{Colors.ENDC}                       {Colors.GREEN}*{Colors.ENDC}")
+    print(f"{Colors.GREEN}*********************************************{Colors.ENDC}")
 
     script_dir_config_path = Path(__file__).resolve().parent / 'config.yaml'
     current_dir_config_path = Path('.').resolve() / 'config.yaml'
@@ -449,8 +485,15 @@ def main():
     else:
         download_pdfs = False
 
-    term = input("Enter search term for Google Scholar: ")
     min_year = input("Enter the oldest year to search from (leave empty if none): ")
+    term     = input("Enter search term for: ")
+
+    if len(term) < 3:
+        print("Please enter at least 3 characters.")
+        term = input("Enter search term for: ")
+    else:
+        # Proceed with using 'term' for Google Scholar search
+        print(f"Searching Scholar for: {term}")
 
     serp_zot = SerpZot(api_key, zot_id, zot_key, download_dest, download_pdfs)
     serp_zot.SearchScholar(term, min_year)
