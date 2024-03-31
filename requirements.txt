@@ -3,9 +3,15 @@ arxiv~=2.1.0
 bibtexparser~=1.4.1
 bytesbufio
 google-search-results
+langchain
+langchain-community
+langchain-fireworks
+langchain-openai
+openai
 pandas~=2.2.1
 python-box
 pyzotero~=1.5.18
+ragatouille
 requests~=2.31.0
 urllib3
 wordcloud~=1.9.3
