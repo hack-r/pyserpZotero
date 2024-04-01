@@ -1,20 +1,21 @@
 # pyserpZotero.py
 
 # Libraries
-from .utils.arxiv_helpers import arxiv_download
+from utils.arxiv_helpers import arxiv_download
 from bibtexparser.bparser import BibTexParser
 from box import Box
 from datetime import date, datetime
 from pyzotero import zotero
 from serpapi import GoogleSearch
 from urllib.parse import urlencode
+import urllib.request as libreq
 
 import bibtexparser
 import json
 import os
 import pandas as pd
 import requests
-
+import re
 
 class SerpZot:
     """
@@ -139,87 +140,27 @@ class SerpZot:
 
         return 0
 
-    # Convert RIS Result ID to Bibtex Citation
-    def Search2Zotero(self, FIELD="title"):
+    def processBibsAndUpload( self, doiSet, zot, items, FIELD,df = None):
         """
-        Convert search results to Zotero citations, avoiding duplicates, and optionally download PDFs.
+        This function will download pdfs and citations related to all DOIs present in the DOI set. It will also
+        upload the results to Zotero
 
         Parameters:
-        - FIELD (str): The field of the search result to use, default is 'title'.
+        - doiSet (set): The set of DOIs.
+        - zot (Zotero Object): The place to upload the relevant findings.
+        - items (list): List of all present items in Zotero.
 
         Returns:
-        - (int): Status code indicating the operation's success (0) or failure.
+        - (int): Status code indicating success (0) or failure (non-zero).
         """
-        df = pd.DataFrame()
-
-        try:
-            df = self.df
-        except Exception as e:
-            print(f"An error occurred: {str(e)}")
-            print("Missing a search result dataframe.")
-
-        # Connect to Zotero
-        zot = zotero.Zotero(self.ZOT_ID, 'user', self.ZOT_KEY)
-        template = zot.item_template('journalArticle')  # Set Template
-
-        # Retrieve doi numbers of existing articles to avoid duplication of citations
-        print("Reading your library's citations so we can avoid adding duplicates...")
-        items0 = zot.everything(zot.items(q='doi'))
-        items1 = zot.everything(zot.items(q='doi'))
-        items  = items0 + items1
-
-        if not self.DOI_HOLDER:  # Populate it only if it's empty
-            for item in items:
-                try:
-                    self.DOI_HOLDER.add(item['data']['doi'])
-                except KeyError:
-                    try:
-                        self.DOI_HOLDER.add(item['data']['url'])
-                    except:
-                        continue
-
-        try:
-            ris = self.ris
-            print(f"Number of items to process : {len(ris)}")
-        except Exception as e:
-            print(f"An error occurred: {str(e)}")
-            print("No results? Or an API key problem, maybe?")
-            print("Fatal error!")
-            ris = ""
-
-        for i in ris:
-            # Announce status
-            print(f'Now processing: {i}')
-
-            # Get the Citation!
-            params = {
-                "api_key": self.API_KEY,
-                "device": "desktop",
-                "engine": "google_scholar_cite",
-                "q": i
-            }
-
-            search = GoogleSearch(params)
-            citation = search.get_dict()
-
-            # Cross-reference the Citation with Crossref to Get Bibtext
-            base     = 'https://api.crossref.org/works?query.'
-            api_url  = {'bibliographic': citation['citations'][1]['snippet']}
-            url      = urlencode(api_url)
-            url      = base + url
-            response = requests.get(url)
-
-            # Parse Bibtext from Crossref
-            try:
-                jsonResponse = response.json()
-                jsonResponse = jsonResponse['message']
-                jsonResponse = jsonResponse['items']
-                jsonResponse = jsonResponse[0]
-            except Exception as e:
-                print(f"An error occurred: {str(e)}")
-                continue
-            curl_str = 'curl -LH "Accept: application/x-bibtex" http://dx.doi.org/' + jsonResponse['DOI']
+        for doi, abstract in doiSet:
+            template = zot.item_template('journalArticle')  # Set Template
+            curl_str = 'curl -LH "Accept: application/x-bibtex" http://dx.doi.org/' + doi
             result = os.popen(curl_str).read()
+            if not result:
+                # medArxiv, bioarxiv and arxiv use this link to get the citation details
+                curl_str = 'curl -LH "Accept: application/x-bibtex" https://doi.org/' + doi
+                result = os.popen(curl_str).read()
 
             # Write bibtext file
             text_file = open("auto_cite.bib", "w")
@@ -267,7 +208,7 @@ class SerpZot:
             except:
                 pass
             try:
-                template['doi'] = str(jsonResponse['DOI'])
+                template['doi'] = str(doi)
             except:
                 pass
             try:
@@ -291,7 +232,7 @@ class SerpZot:
             except:
                 pass
             try:
-                template['abstractNote'] = df['snippet'][0]
+                template['abstractNote'] = abstract
             except:
                 pass
             # Fix Date
@@ -318,9 +259,10 @@ class SerpZot:
                     split = bibtexparser.customization.splitname(a, strict_mode=False)
                     template['creators'].append(
                         {'creatorType': 'author', 'firstName': split['first'][0], 'lastName': split['last'][0]})
-
                 print(template)
-
+                if template["doi"] in self.DOI_HOLDER:
+                    print("Not citation uploading since it's already present in Zotero")
+                    continue
                 cite_upload_response = zot.create_items([template])
                 if 'successful' in cite_upload_response:
                     for key in cite_upload_response['successful']:
@@ -328,19 +270,144 @@ class SerpZot:
                         if self.enable_pdf_download:
                             try:
                                 print(bib_dict['title'])
-                                download_success = self.attempt_pdf_download(items=items,  doi=jsonResponse['DOI'], zotero_item_key=created_item_key,
-                                 title=bib_dict['title'])
+                                download_success = self.attempt_pdf_download(items=items,  doi=doi, zotero_item_key=created_item_key,
+                                title=bib_dict['title'])
                             except:
-                                download_success = self.attempt_pdf_download(items=items, doi=jsonResponse['DOI'],zotero_item_key=created_item_key,                      title='')
+                                download_success = self.attempt_pdf_download(items=items, doi=doi,zotero_item_key=created_item_key,                      title='')
                             if download_success:
-                                print(f"PDF for doi {jsonResponse['DOI']} downloaded and attached successfully.")
+                                print(f"PDF for doi {doi} downloaded and attached successfully.")
                             else:
-                                print(f"Failed to download PDF for doi {jsonResponse['DOI']}.")
+                                print(f"Failed to download PDF for doi {doi}.")
 
             except Exception as e:
                 print(f"An error occurred while parsing: {e}")
-                continue
 
+        # If full lib needs to be downloaded, add the logic here
+        full_lib = False
+        if(full_lib):
+            download_success = self.attempt_pdf_download(items=items,  doi="", zotero_item_key=created_item_key,
+                            title=bib_dict['title'], full_lib=full_lib)
+
+        return 0
+
+    # Convert RIS Result ID to Bibtex Citation
+    def Search2Zotero(self, query, FIELD="title"):
+        """
+        Convert search results to Zotero citations, avoiding duplicates, and optionally download PDFs.
+
+        Parameters:
+        - FIELD (str): The field of the search result to use, default is 'title'.
+
+        Returns:
+        - (int): Status code indicating the operation's success (0) or failure.
+        """
+        df = pd.DataFrame()
+
+        try:
+            df = self.df
+        except Exception as e:
+            print(f"An error occurred: {str(e)}")
+            print("Missing a search result dataframe.")
+
+        # Connect to Zotero
+        zot = zotero.Zotero(self.ZOT_ID, 'user', self.ZOT_KEY)
+        # template = zot.item_template('journalArticle')  # Set Template
+
+        # Retrieve doi numbers of existing articles to avoid duplication of citations
+        print("Reading your library's citations so we can avoid adding duplicates...")
+
+        # This was not giving correct results:
+        # items0 = zot.everything(zot.items(q='doi'))
+        # items1 = zot.everything(zot.items(q='doi'))
+        # items  = items0 + items1
+
+        # Using this instead
+        items = zot.everything( zot.items() )
+
+        if not self.DOI_HOLDER:  # Populate it only if it's empty
+            for item in items:
+                try:
+                    doi = item["data"].get("doi") or item["data"].get("DOI")
+                    if not doi:
+                        raise KeyError
+                    self.DOI_HOLDER.add(doi)
+                except KeyError:
+                    try:
+                        url = item['data']['url']
+                        if url:
+                            self.DOI_HOLDER.add(url)
+                    except:
+                        continue
+
+        try:
+            ris = self.ris
+            print(f"Number of items to process : {len(ris)}")
+        except Exception as e:
+            print(f"An error occurred: {str(e)}")
+            print("No results? Or an API key problem, maybe?")
+            print("Fatal error!")
+            ris = ""
+
+        # Keep adding all the DOIs we find from all methods to this set, then download them
+        # all the end.
+        doiSet = set()
+        
+        # Processing everything we got from SearchScholar
+        for i in ris:
+
+            # Announce status
+            print(f'Now processing: {i}')
+
+            # Get the Citation from SerpApi search!
+            params = {
+                "api_key": self.API_KEY,
+                "device": "desktop",
+                "engine": "google_scholar_cite",
+                "q": i
+            }
+
+            search = GoogleSearch(params)
+            citation = search.get_dict()
+
+            # Cross-reference the Citation with Crossref to Get Bibtext
+            base     = 'https://api.crossref.org/works?query.'
+            api_url  = {'bibliographic': citation['citations'][1]['snippet']}
+            url      = urlencode(api_url)
+            url      = base + url
+            response = requests.get(url)
+
+            # Parse Bibtext from Crossref
+            try:
+                jsonResponse = response.json()
+                jsonResponse = jsonResponse['message']
+                jsonResponse = jsonResponse['items']
+                jsonResponse = jsonResponse[0]
+            except Exception as e:
+                print(f"An error occurred: {str(e)}")
+                continue
+            doiSet.add((jsonResponse['DOI'], df['snippet'][0]))
+
+
+        # arXiv processing of DOIs
+        url = f"http://export.arxiv.org/api/query?search_query=all:{query}&start=0&max_results=50"
+        r = libreq.urlopen(url).read()
+        out = re.findall('http:\/\/dx.doi.org\/[^"]*', str(r))
+        arxivCount = 0
+        for doiLink in out:
+            try:
+                doi = doiLink.split("http://dx.doi.org/")[1]
+                print("Found doi link", doi)
+                arxivCount += 1
+                doiSet.add(tuple([doi, None]))
+            except:
+                print("Wrong Link")
+                continue
+        print("Number of entries found in arXiv Search: ", arxivCount)
+
+        # TODO search in bioXriv and medXriv
+
+        # For all the DOIs we got using all methods, search citations and add PDFs
+        self.processBibsAndUpload(doiSet, zot, items, FIELD)
         return 0
 
 
@@ -430,7 +497,7 @@ def main():
 
     serp_zot = SerpZot(api_key, zot_id, zot_key, download_dest, download_pdfs)
     serp_zot.SearchScholar(term, min_year)
-    serp_zot.Search2Zotero()
+    serp_zot.Search2Zotero(term)
 
     if download_pdfs:
         print("Attempting to download PDFs...")
