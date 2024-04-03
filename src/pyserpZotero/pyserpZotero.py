@@ -248,11 +248,13 @@ class SerpZot:
 
             # Parse Names into Template/Data
             try:
+                no_author_found = False
                 try:
                     num_authors = len(bib_dict['author'])
                 except:
                     num_authors = 1
                     bib_dict['author'] = ['Unknown Unknown']
+                    no_author_found = True
                 template['creators'] = []
 
                 for a in bib_dict['author']:
@@ -262,6 +264,12 @@ class SerpZot:
                 print(template)
                 if template["doi"] in self.DOI_HOLDER:
                     print("Not citation uploading since it's already present in Zotero")
+                    continue
+                if no_author_found:
+                    print("No authors found for this paper, skipping upload to zotero")
+                    continue
+                if template.get("title", None) == None:
+                    print("Paper does not have a title. Skipping upload to Zotero")
                     continue
                 cite_upload_response = zot.create_items([template])
                 if 'successful' in cite_upload_response:
@@ -273,7 +281,7 @@ class SerpZot:
                                 download_success = self.attempt_pdf_download(items=items,  doi=doi, zotero_item_key=created_item_key,
                                 title=bib_dict['title'])
                             except:
-                                download_success = self.attempt_pdf_download(items=items, doi=doi,zotero_item_key=created_item_key,                      title='')
+                                download_success = self.attempt_pdf_download(items=items, doi=doi,zotero_item_key=created_item_key, title='')
                             if download_success:
                                 print(f"PDF for doi {doi} downloaded and attached successfully.")
                             else:
@@ -354,7 +362,6 @@ class SerpZot:
         
         # Processing everything we got from SearchScholar
         for i in ris:
-
             # Announce status
             print(f'Now processing: {i}')
 
@@ -388,8 +395,11 @@ class SerpZot:
             doiSet.add((jsonResponse['DOI'], df['snippet'][0]))
 
 
+        queryList = query.split()
+        queryStr = "+".join(queryList)
+
         # arXiv processing of DOIs
-        url = f"http://export.arxiv.org/api/query?search_query=all:{query}&start=0&max_results=50"
+        url = f"http://export.arxiv.org/api/query?search_query=all:{queryStr}&start=0&max_results=50"
         r = libreq.urlopen(url).read()
         out = re.findall('http:\/\/dx.doi.org\/[^"]*', str(r))
         arxivCount = 0
@@ -404,8 +414,46 @@ class SerpZot:
                 continue
         print("Number of entries found in arXiv Search: ", arxivCount)
 
-        # TODO search in bioXriv and medXriv
+        # medxriv link looks like https://www.medrxiv.org/search/humanoid+robot
+        medUrl = f"https://www.medrxiv.org/search/{queryStr}"
+        response = requests.get(medUrl)
 
+        # process all the DOIs we find
+        medDois = re.findall("\/\/doi.org\/([^\s]+)", response.text)
+
+        print("Dois found: ", medDois)
+        medArxivCount = 0
+        for doi in medDois:
+            try:
+                print("Found doi link for medArxiv", doi)
+                medArxivCount += 1
+                doiSet.add(tuple([doi, None]))
+            except:
+                print("Wrong Link")
+                continue
+        
+        print("Number of entries found in medXriv Search: ", medArxivCount)
+
+        
+        # biorxiv link looks like https://www.biorxiv.org/search/breast+Cancer
+        bioUrl = f"https://www.biorxiv.org/search/{queryStr}"
+        response = requests.get(bioUrl)
+
+        # process all the DOIs we find
+        bioDois = re.findall("\/\/doi.org\/([^\s]+)", response.text)
+
+        print("Dois found: ", bioDois)
+        bioArxivCount = 0
+        for doi in bioDois:
+            try:
+                print("Found doi link for biorxiv", doi)
+                bioArxivCount += 1
+                doiSet.add(tuple([doi, None]))
+            except:
+                print("Wrong Link")
+                continue
+
+        print("Number of entries found in bioXriv Search: ", bioArxivCount)
         # For all the DOIs we got using all methods, search citations and add PDFs
         self.processBibsAndUpload(doiSet, zot, items, FIELD)
         return 0
