@@ -1,7 +1,7 @@
 # pyserpZotero.py
 
 # Libraries
-from .utils.arxiv_helpers import arxiv_download
+from utils.arxiv_helpers import arxiv_download
 from bibtexparser.bparser import BibTexParser
 from box import Box
 from datetime import date, datetime
@@ -336,7 +336,7 @@ class SerpZot:
                                 print(f"PDF for doi {jsonResponse['DOI']} downloaded and attached successfully.")
                             else:
                                 print(f"Failed to download PDF for doi {jsonResponse['DOI']}.")
-
+                    
             except Exception as e:
                 print(f"An error occurred while parsing: {e}")
                 continue
@@ -419,23 +419,34 @@ def main():
         download_pdfs = False
 
     min_year = input("Enter the oldest year to search from (leave empty if none): ")
-    term     = input("Enter search term for: ")
-
-    if len(term) < 3:
-        print("Please enter at least 3 characters.")
-        term = input("Enter search term for: ")
-    else:
+    term_string = input("Enter one or more (max upto 20) search terms/phrases separated by semi-colon(;): ")
+    
+    terms = term_string.split(";")[:20]
+    terms_copy = []
+    
+    # Change terms which have less than 3 characters
+    for term in terms:
+        t = term
+        while len(t) < 3:
+            print("Please enter at least 3 characters.")
+            t = input("Enter search term for: ")
+        terms_copy.append(t)
+        
+    terms = terms_copy
+    
+    for term in terms:
+        
         # Proceed with using 'term' for Google Scholar search
         print(f"Searching Scholar for: {term}")
+        
 
-    serp_zot = SerpZot(api_key, zot_id, zot_key, download_dest, download_pdfs)
-    serp_zot.SearchScholar(term, min_year)
-    serp_zot.Search2Zotero()
+        serp_zot = SerpZot(api_key, zot_id, zot_key, download_dest, download_pdfs)
+        serp_zot.SearchScholar(term, min_year)
+        serp_zot.Search2Zotero()
 
-    if download_pdfs:
-        print("Attempting to download PDFs...")
-
-    print("Done.")
+        if download_pdfs:
+            print("Attempting to download PDFs...")
+        print("Done.")
 
 
 if __name__ == "__main__":
