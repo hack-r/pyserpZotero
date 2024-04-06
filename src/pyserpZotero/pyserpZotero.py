@@ -557,7 +557,7 @@ def main():
 
         serp_zot = SerpZot(api_key, zot_id, zot_key, download_dest, download_pdfs)
         serp_zot.SearchScholar(term, min_year)
-        serp_zot.Search2Zotero()
+        serp_zot.Search2Zotero(term)
 
         if download_pdfs:
             print("Attempting to download PDFs...")
