@@ -22,25 +22,25 @@ class SerpZot:
     Initialize a SerpZot instance for managing Zotero citations and PDF downloads.
 
     Parameters:
-    - api_key (str): API key for SerpAPI to perform searches.
+    - serp_api_key (str): API key for SerpAPI to perform searches.
     - zot_id (str): Zotero user/library ID for citation management.
     - zot_key (str): API key for accessing Zotero services.
     - download_dest (str): Default directory for downloading PDFs.
     - enable_pdf_download (bool): Flag to enable or disable automatic PDF downloads.
     """
-    def __init__(self, api_key="", zot_id="", zot_key="", download_dest=".", enable_pdf_download=True):
+    def __init__(self, serp_api_key="", zot_id="", zot_key="", download_dest=".", enable_pdf_download=True):
         """
         Instantiate a SerpZot object for API management.
 
         Keep assignment operators reasonably aligned like an R programmer,
             so code doesn't look like PEP dog poo.
         """
-        self.df         = None
-        self.FIELD      = "title"
-        self.DOI_HOLDER = set()
-        self.API_KEY    = ""
-        self.ZOT_ID     = ""
-        self.ZOT_KEY    = ""
+        self.df           = None
+        self.FIELD        = "title"
+        self.DOI_HOLDER   = set()
+        self.SERP_API_KEY = ""
+        self.ZOT_ID       = ""
+        self.ZOT_KEY      = ""
         self.DOWNLOAD_DEST       = ""
         self.enable_pdf_download = ""
 
@@ -48,8 +48,8 @@ class SerpZot:
         print(f"Attempting to load configuration from config.yaml")
         config = Box.from_yaml(filename="config.yaml")
         print(config)
-        if not self.API_KEY:
-            self.API_KEY = config.get('API_KEY', api_key)
+        if not self.SERP_API_KEY:
+            self.SERP_API_KEY = config.get('SERP_API_KEY', serp_api_key)
         if not self.ZOT_ID:
             self.ZOT_ID  = config.get('ZOT_ID', zot_id)
         if not self.ZOT_KEY:
@@ -111,7 +111,7 @@ class SerpZot:
 
         # Search Parameters
         params = {
-            "api_key": self.API_KEY,
+            "api_key": self.SERP_API_KEY,
             "device": "desktop",
             "engine": "google_scholar",
             "q": term,
@@ -315,13 +315,6 @@ class SerpZot:
 
         # Retrieve doi numbers of existing articles to avoid duplication of citations
         print("Reading your library's citations so we can avoid adding duplicates...")
-
-        # This was not giving correct results:
-        # items0 = zot.everything(zot.items(q='doi'))
-        # items1 = zot.everything(zot.items(q='doi'))
-        # items  = items0 + items1
-
-        # Using this instead
         items = zot.everything( zot.items() )
 
         if not self.DOI_HOLDER:  # Populate it only if it's empty
@@ -360,7 +353,7 @@ class SerpZot:
 
             # Get the Citation from SerpApi search!
             params = {
-                "api_key": self.API_KEY,
+                "api_key": self.SERP_API_KEY,
                 "device": "desktop",
                 "engine": "google_scholar_cite",
                 "q": i
@@ -457,17 +450,17 @@ def main():
     if not config_path.is_file():
         print("Config file not found. Creating a new one.")
         with config_path.open('w') as file:
-            yaml.dump({'API_KEY': ''}, file)
+            yaml.dump({'SERP_API_KEY': ''}, file)
 
     print(f"Attempting to load configuration from {config_path}")
     with config_path.open('r') as file:
         config = yaml.safe_load(file) or {}
 
-    api_key = config.get('API_KEY', '')
-    if not api_key:
-        api_key = input("Enter your serpAPI API key: ")
+    serp_api_key = config.get('SERP_API_KEY', '')
+    if not serp_api_key:
+        serp_api_key = input("Enter your serpAPI API key: ")
         with config_path.open('w') as file:
-            yaml.dump({'API_KEY': api_key}, file)
+            yaml.dump({'SERP_API_KEY': serp_api_key}, file)
     zot_id = config.get('ZOT_ID', '')
     if not zot_id:
         zot_id = input("Enter your Zotero library ID: ")
@@ -495,7 +488,7 @@ def main():
         # Proceed with using 'term' for Google Scholar search
         print(f"Searching Scholar for: {term}")
 
-    serp_zot = SerpZot(api_key, zot_id, zot_key, download_dest, download_pdfs)
+    serp_zot = SerpZot(serp_api_key, zot_id, zot_key, download_dest, download_pdfs)
     serp_zot.SearchScholar(term, min_year)
     serp_zot.Search2Zotero(term)
 
