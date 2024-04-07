@@ -146,7 +146,6 @@ class SerpZot:
         # Processing everything we got from SearchScholar
         for i in ris:
             # Announce status
-            break
             print(f'Now processing: {i}')
 
             # Get the Citation from SerpApi search!
@@ -274,6 +273,8 @@ class SerpZot:
         - (int): Status code indicating success (0) or failure (non-zero).
         """
 
+        # Keep adding all the DOIs we find from all methods to this set, then download them
+        # all the end.
         doiSet = set()
         if downloadSources is None:
              downloadSources = {
@@ -503,131 +504,7 @@ class SerpZot:
                     except:
                         continue
 
-        # Keep adding all the DOIs we find from all methods to this set, then download them
-        # all the end.
 
-        """
-        df = pd.DataFrame()
-
-        try:
-            df = self.df
-        except Exception as e:
-            print(f"An error occurred: {str(e)}")
-            print("Missing a search result dataframe.")
-
-
-        try:
-            ris = self.ris
-            print(f"Number of items     to process : {len(ris)}")
-        except Exception as e:
-            print(f"An error occurred: {str(e)}")
-            print("No results? Or an API key problem, maybe?")
-            print("Fatal error!")
-            ris = ""
-
-        # Processing everything we got from SearchScholar
-        for i in ris:
-            # Announce status
-            print(f'Now processing: {i}')
-
-            # Get the Citation from SerpApi search!
-            params = {
-                "api_key": self.API_KEY,
-                "device": "desktop",
-                "engine": "google_scholar_cite",
-                "q": i
-            }
-
-            search = GoogleSearch(params)
-            citation = search.get_dict()
-
-            # Cross-reference the Citation with Crossref to Get Bibtext
-            base     = 'https://api.crossref.org/works?query.'
-            api_url  = {'bibliographic': citation['citations'][1]['snippet']}
-            url      = urlencode(api_url)
-            url      = base + url
-            response = requests.get(url)
-
-            # Parse Bibtext from Crossref
-            try:
-                jsonResponse = response.json()
-                jsonResponse = jsonResponse['message']
-                jsonResponse = jsonResponse['items']
-                jsonResponse = jsonResponse[0]
-            except Exception as e:
-                print(f"An error occurred: {str(e)}")
-                continue
-            doiSet.add((jsonResponse['DOI'], df['snippet'][0]))
-
-        """
- 
-        """
-        queryList = query.split()
-        queryStr = "+".join(queryList)
-
-        # arXiv processing of DOIs
-        url = f"http://export.arxiv.org/api/query?search_query=all:{queryStr}&start=0&max_results=50"
-        r = libreq.urlopen(url).read()
-        out = re.findall('http:\/\/dx.doi.org\/[^"]*', str(r))
-        arxivCount = 0
-        for doiLink in out:
-            try:
-                doi = doiLink.split("http://dx.doi.org/")[1]
-                print("Found doi link", doi)
-                arxivCount += 1
-                doiSet.add(tuple([doi, None]))
-            except:
-                print("Wrong Link")
-                continue
-        print("Number of entries found in arXiv Search: ", arxivCount)
-        """
-
-        """
-        # medxriv link looks like https://www.medrxiv.org/search/humanoid+robot
-        medUrl = f"https://www.medrxiv.org/search/{queryStr}"
-        response = requests.get(medUrl)
-
-        # process all the DOIs we find
-        medDois = re.findall("\/\/doi.org\/([^\s]+)", response.text)
-
-        print("Dois found: ", medDois)
-        medArxivCount = 0
-        for doi in medDois:
-            try:
-                print("Found doi link for medArxiv", doi)
-                medArxivCount += 1
-                doiSet.add(tuple([doi, None]))
-            except:
-                print("Wrong Link")
-                continue
-        
-        print("Number of entries found in medXriv Search: ", medArxivCount)
-        """
- 
-
-        """
-        # biorxiv link looks like https://www.biorxiv.org/search/breast+Cancer
-        bioUrl = f"https://www.biorxiv.org/search/{queryStr}"
-        response = requests.get(bioUrl)
-
-        # process all the DOIs we find
-        bioDois = re.findall("\/\/doi.org\/([^\s]+)", response.text)
-
-        print("Dois found: ", bioDois)
-        bioArxivCount = 0
-        for doi in bioDois:
-            try:
-                print("Found doi link for biorxiv", doi)
-                bioArxivCount += 1
-                doiSet.add(tuple([doi, None]))
-            except:
-                print("Wrong Link")
-                continue
-
-        print("Number of entries found in bioXriv Search: ", bioArxivCount)
-        
-        """
-  
         # For all the DOIs we got using all methods, search citations and add PDFs
         self.processBibsAndUpload(self.doiSet, zot, items, FIELD)
         return 0
