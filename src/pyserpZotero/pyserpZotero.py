@@ -94,21 +94,7 @@ class SerpZot:
             return True
         return False
 
-    # Search for RIS Result ID's on Google Scholar
-    def SearchScholar(self, term="", min_year="", save_bib=False):
-        """
-        Search Google Scholar for articles matching the specified criteria and update Zotero library.
-
-        Parameters:
-        - term (str): The search term or query.
-        - min_year (str): The earliest publication year for articles.
-        - save_bib (bool): Whether to save the search results as a BibTeX file.
-
-        Returns:
-        - (int): Status code indicating success (0) or failure (non-zero).
-        """
-
-
+    def serpSearch(self, term, min_year, save_bib):
         # Search Parameters
         params = {
             "api_key": self.API_KEY,
@@ -138,6 +124,182 @@ class SerpZot:
         except Exception as e:
             print(f"An error occurred while filling into Pandas: {str(e)}")
 
+
+        df = pd.DataFrame()
+        doiList = []
+        try:
+            df = self.df
+        except Exception as e:
+            print(f"An error occurred: {str(e)}")
+            print("Missing a search result dataframe.")
+
+
+        try:
+            ris = self.ris
+            print(f"Number of items to process : {len(ris)}")
+        except Exception as e:
+            print(f"An error occurred: {str(e)}")
+            print("No results? Or an API key problem, maybe?")
+            print("Fatal error!")
+            ris = ""
+
+        # Processing everything we got from SearchScholar
+        for i in ris:
+            # Announce status
+            break
+            print(f'Now processing: {i}')
+
+            # Get the Citation from SerpApi search!
+            params = {
+                "api_key": self.API_KEY,
+                "device": "desktop",
+                "engine": "google_scholar_cite",
+                "q": i
+            }
+
+            search = GoogleSearch(params)
+            citation = search.get_dict()
+
+            # Cross-reference the Citation with Crossref to Get Bibtext
+            base     = 'https://api.crossref.org/works?query.'
+            api_url  = {'bibliographic': citation['citations'][1]['snippet']}
+            url      = urlencode(api_url)
+            url      = base + url
+            response = requests.get(url)
+
+            # Parse Bibtext from Crossref
+            try:
+                jsonResponse = response.json()
+                jsonResponse = jsonResponse['message']
+                jsonResponse = jsonResponse['items']
+                jsonResponse = jsonResponse[0]
+            except Exception as e:
+                print(f"An error occurred: {str(e)}")
+                continue
+            doiList.append((jsonResponse['DOI'], df['snippet'][0]))
+
+        print("Completed SerpApi search! DOIs found:")
+        for doi in doiList:
+            print(doi)
+
+        return doiList
+
+    def searchArxiv( self, query ):
+        queryList = query.split()
+        queryStr = "+".join(queryList)
+        doiList = []
+        # arXiv processing of DOIs
+        url = f"http://export.arxiv.org/api/query?search_query=all:{queryStr}&start=0&max_results=50"
+        r = libreq.urlopen(url).read()
+        out = re.findall('http:\/\/dx.doi.org\/[^"]*', str(r))
+        arxivCount = 0
+        for doiLink in out:
+            try:
+                doi = doiLink.split("http://dx.doi.org/")[1]
+                arxivCount += 1
+                doiList.append(tuple([doi, None]))
+            except:
+                print("Wrong Link")
+                continue
+        
+        print("Number of entries found in arXiv Search: ", arxivCount)
+        for doi in doiList:
+            print(doi[0])
+        return doiList
+    
+    def searchMedArxiv( self, query):
+        # medxriv link looks like https://www.medrxiv.org/search/humanoid+robot
+
+        queryList = query.split()
+        queryStr = "+".join(queryList)
+        doiList = []
+        medUrl = f"https://www.medrxiv.org/search/{queryStr}"
+        response = requests.get(medUrl)
+
+        # process all the DOIs we find
+        medDois = re.findall("\/\/doi.org\/([^\s]+)", response.text)
+
+        medArxivCount = 0
+        for doi in medDois:
+            try:
+                medArxivCount += 1
+                doiList.append(tuple([doi, None]))
+            except:
+                print("Wrong Link")
+                continue
+        
+        print("Number of entries found in medXriv Search: ", medArxivCount)
+        for doi in doiList:
+            print(doi[0])
+
+        return doiList
+    
+    def boiArxivSearch( self, query ):
+        # biorxiv link looks like https://www.biorxiv.org/search/breast+Cancer
+
+        queryList = query.split()
+        queryStr = "+".join(queryList)
+        doiList = []
+        bioUrl = f"https://www.biorxiv.org/search/{queryStr}"
+        response = requests.get(bioUrl)
+
+        # process all the DOIs we find
+        bioDois = re.findall("\/\/doi.org\/([^\s]+)", response.text)
+
+        bioArxivCount = 0
+        for doi in bioDois:
+            try:
+                bioArxivCount += 1
+                doiList.append(tuple([doi, None]))
+            except:
+                print("Wrong Link")
+                continue
+
+        print("Number of entries found in bioXriv Search: ", bioArxivCount)
+        for doi in doiList:
+            print(doi[0])
+        return doiList
+
+    # Search for RIS Result ID's on Google Scholar
+    def SearchScholar(self, term="", min_year="", save_bib=False, downloadSources = None):
+        """
+        Search Google Scholar for articles matching the specified criteria and update Zotero library.
+
+        Parameters:
+        - term (str): The search term or query.
+        - min_year (str): The earliest publication year for articles.
+        - save_bib (bool): Whether to save the search results as a BibTeX file.
+
+        Returns:
+        - (int): Status code indicating success (0) or failure (non-zero).
+        """
+
+        doiSet = set()
+        if downloadSources is None:
+             downloadSources = {
+                "serp": 1,
+                "arxiv": 1,
+                "medArxiv": 1,
+                "bioArxiv": 1,
+            }
+
+        if downloadSources.get('serp'):
+            serpDoiList = self.serpSearch(term, min_year, save_bib)
+            doiSet.update(serpDoiList)
+
+        if downloadSources.get('arxiv'):
+            arxivSearchResult = self.searchArxiv(term)
+            doiSet.update(arxivSearchResult)
+
+        if downloadSources.get('medArxiv'):
+            medArxivSearchResult = self.searchMedArxiv(term)
+            doiSet.update(medArxivSearchResult)
+
+        if downloadSources.get('bioArxiv'):
+            boiArxivSearchResult = self.boiArxivSearch(term)
+            doiSet.update(boiArxivSearchResult)
+
+        self.doiSet = doiSet
         return 0
 
     def processBibsAndUpload( self, doiSet, zot, items, FIELD,df = None):
@@ -297,9 +459,10 @@ class SerpZot:
                             title=bib_dict['title'], full_lib=full_lib)
 
         return 0
-
+    
+    
     # Convert RIS Result ID to Bibtex Citation
-    def Search2Zotero(self, query, FIELD="title"):
+    def Search2Zotero(self, FIELD="title"):
         """
         Convert search results to Zotero citations, avoiding duplicates, and optionally download PDFs.
 
@@ -309,14 +472,7 @@ class SerpZot:
         Returns:
         - (int): Status code indicating the operation's success (0) or failure.
         """
-        df = pd.DataFrame()
-
-        try:
-            df = self.df
-        except Exception as e:
-            print(f"An error occurred: {str(e)}")
-            print("Missing a search result dataframe.")
-
+  
         # Connect to Zotero
         zot = zotero.Zotero(self.ZOT_ID, 'user', self.ZOT_KEY)
         # template = zot.item_template('journalArticle')  # Set Template
@@ -347,19 +503,28 @@ class SerpZot:
                     except:
                         continue
 
+        # Keep adding all the DOIs we find from all methods to this set, then download them
+        # all the end.
+
+        """
+        df = pd.DataFrame()
+
+        try:
+            df = self.df
+        except Exception as e:
+            print(f"An error occurred: {str(e)}")
+            print("Missing a search result dataframe.")
+
+
         try:
             ris = self.ris
-            print(f"Number of items to process : {len(ris)}")
+            print(f"Number of items     to process : {len(ris)}")
         except Exception as e:
             print(f"An error occurred: {str(e)}")
             print("No results? Or an API key problem, maybe?")
             print("Fatal error!")
             ris = ""
 
-        # Keep adding all the DOIs we find from all methods to this set, then download them
-        # all the end.
-        doiSet = set()
-        
         # Processing everything we got from SearchScholar
         for i in ris:
             # Announce status
@@ -394,7 +559,9 @@ class SerpZot:
                 continue
             doiSet.add((jsonResponse['DOI'], df['snippet'][0]))
 
-
+        """
+ 
+        """
         queryList = query.split()
         queryStr = "+".join(queryList)
 
@@ -413,7 +580,9 @@ class SerpZot:
                 print("Wrong Link")
                 continue
         print("Number of entries found in arXiv Search: ", arxivCount)
+        """
 
+        """
         # medxriv link looks like https://www.medrxiv.org/search/humanoid+robot
         medUrl = f"https://www.medrxiv.org/search/{queryStr}"
         response = requests.get(medUrl)
@@ -433,8 +602,10 @@ class SerpZot:
                 continue
         
         print("Number of entries found in medXriv Search: ", medArxivCount)
+        """
+ 
 
-        
+        """
         # biorxiv link looks like https://www.biorxiv.org/search/breast+Cancer
         bioUrl = f"https://www.biorxiv.org/search/{queryStr}"
         response = requests.get(bioUrl)
@@ -454,8 +625,11 @@ class SerpZot:
                 continue
 
         print("Number of entries found in bioXriv Search: ", bioArxivCount)
+        
+        """
+  
         # For all the DOIs we got using all methods, search citations and add PDFs
-        self.processBibsAndUpload(doiSet, zot, items, FIELD)
+        self.processBibsAndUpload(self.doiSet, zot, items, FIELD)
         return 0
 
 
@@ -532,7 +706,25 @@ def main():
         download_pdfs = True
     else:
         download_pdfs = False
+    downloadSources = {
+        "serp": 1,
+        "arxiv": 1,
+        "medArxiv": 1,
+        "bioArxiv": 1,
+    }
+    
+    if config.get("NO_SERP"):
+        del downloadSources["serp"]
+  
+    if config.get("NO_ARXIV"):
+        del downloadSources["arxiv"]
+    
+    if config.get("NO_BIOARXIV"):
+        del downloadSources["bioArxiv"]
 
+    if config.get("NO_MEDARXIV"):
+        del downloadSources["medArxiv"]
+        
     min_year = input("Enter the oldest year to search from (leave empty if none): ")
     term     = input("Enter search term for: ")
 
@@ -544,7 +736,7 @@ def main():
         print(f"Searching Scholar for: {term}")
 
     serp_zot = SerpZot(api_key, zot_id, zot_key, download_dest, download_pdfs)
-    serp_zot.SearchScholar(term, min_year)
+    serp_zot.SearchScholar(term, min_year, downloadSources=downloadSources)
     serp_zot.Search2Zotero(term)
 
     if download_pdfs:

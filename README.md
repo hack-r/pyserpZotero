@@ -60,6 +60,13 @@ What's new?
 ----------------
   - Interactive mode! Just enter `psz` in a terminal after `pip install pyserpZotero` to use this library as a program. You can enter your credentials when prompted or edit the config.yaml file to bypass interactive authentication. 
   - Added support for additional portals and PDF sources, including **medArxiv and bioRxiv**. Improved matching of citations to Arxiv PDFs. 
+  - Searching is provided using:
+    1. SerpAPI
+    2. Arxiv Search
+    3. medArXiv Search
+    4. bioArxiv Search
+  If you want to skip searching in any source, add flags NO_SERP, NO_ARXIV, NO_MEDARXIV, NO_BIOARXIV in the config.yaml.
+
 
 
 Why do you sometimes align assignment operators across lines like that?
