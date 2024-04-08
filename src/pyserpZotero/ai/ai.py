@@ -1,6 +1,7 @@
 import time
 
 from langchain_community.chat_message_histories import SQLChatMessageHistory
+from langchain_community.embeddings import OpenAIEmbeddings
 from langchain_community.tools.google_scholar import GoogleScholarQueryRun
 from langchain_community.utilities.google_scholar import GoogleScholarAPIWrapper
 from langchain_community.vectorstores import faiss
@@ -55,77 +56,27 @@ class LangChainAssistant:
 
 
     def embed_and_index_documents(self):
+        print("Preparing documents for embedding and indexing...")
+
         # Prepare documents from Zotero and PDFs
         document_texts = self.collect_documents()
+        embeddings = OpenAIEmbeddings()
+        faiss_db = (faiss.FAISS.from_documents(document_texts, embeddings))
         # Embed documents
-        embeddings = self.embedding_model.encode(document_texts, convert_to_tensor=False)
+        #embeddings = self.embedding_model.encode(document_texts, convert_to_tensor=False)
         # Initialize FAISS index
-        dim = embeddings.shape[1]
-        self.faiss_index = faiss.IndexFlatL2(dim)
-        self.faiss_index.add(np.array(embeddings))
+        #dim = embeddings.shape[1]
+        #self.faiss_index = faiss.IndexFlatL2(dim)
+        #self.faiss_index.add(np.array(embeddings))
+        print("Documents embedded and indexed successfully.")
 
-    def prepare_embeddings(self):
-        # Collect all texts to be embedded
-        texts = self.collect_texts_from_sources()
-
-        # Embed all collected texts
-        embeddings = self.embedding_model.encode(texts, convert_to_tensor=False)
-
-        # Return the embeddings and the associated text data
-        return embeddings, texts
-
-    def collect_texts_from_sources(self):
-        # This method will collect texts from your PDFs and Zotero entries
-        texts = []
-
-        # Collect texts from Zotero
-        zot = self.zot
-        print("Downloading Zotero citations to AI knowledgebase...")
-        zotero_items = zot.everything(zot.items())
-        for item in zotero_items:
-            try:
-                print(item)
-                title = item['data']['title']
-                texts.append(title)  # or however you want to represent Zotero items
-            except KeyError as e:
-                print(f"Skipping an item due to missing data: {e}")
-
-        # Extract text from PDFs
+    def extract_text_from_pdfs(self):
+        text_content = ""
         for pdf_path in self.pdf_paths:
             with fitz.open(pdf_path) as doc:
                 for page in doc:
-                    texts.append(page.get_text())
-
-        return texts
-
-    def collect_documents(self):
-        texts = []
-        # Collect from Zotero
-        items = self.zot.everything(self.zot.items())
-        for item in items:
-            try:
-                title = item['data']['title']
-                texts.append(title)
-            except KeyError:
-                continue
-        # Extract from PDFs
-        for pdf_path in self.pdf_paths:
-            with fitz.open(pdf_path) as doc:
-                for page in doc:
-                    texts.append(page.get_text())
-        return texts
-
-    def retrieve_documents(self, query, k=5):
-        # Embed query
-        query_embedding = self.embedding_model.encode([query], convert_to_tensor=False).reshape(1, -1)
-        # Search in FAISS
-        _, I = self.faiss_index.search(query_embedding, k)
-        return [self.documents[i] for i in I[0]]
-
-    def retrieve_zotero_citations(self, query):
-        """Retrieve citations from Zotero based on a query."""
-        items = self.zot.everything(self.zot.items(q=query))
-        return items
+                    text_content += page.get_text()
+        return text_content
 
     def format_citations_for_prompt(self, items):
         """Format Zotero items for inclusion in a prompt."""
@@ -141,19 +92,37 @@ class LangChainAssistant:
         formatted_citations = "\n".join(citations)
         return formatted_citations
 
-    def extract_text_from_pdfs(self):
-        text_content = ""
-        for pdf_path in self.pdf_paths:
-            with fitz.open(pdf_path) as doc:
-                for page in doc:
-                    text_content += page.get_text()
-        return text_content
-
     def load_zotero_citations(self):
         if self.zotero_citation_path and os.path.exists(self.zotero_citation_path):
             with open(self.zotero_citation_path, 'r') as file:
                 return json.load(file)
         return {}
+
+    def print_vector_store_summary(self):
+        num_documents = len(self.documents)
+        print(f"Vector store summary: {num_documents} documents indexed (including citations and PDFs).")
+
+    def prepare_embeddings(self):
+        # Collect all texts to be embedded
+        texts = self.collect_texts_from_sources()
+
+        # Embed all collected texts
+        embeddings = self.embedding_model.encode(texts, convert_to_tensor=False)
+
+        # Return the embeddings and the associated text data
+        return embeddings, texts
+
+    def retrieve_documents(self, query, k=5):
+        # Embed query
+        query_embedding = self.embedding_model.encode([query], convert_to_tensor=False).reshape(1, -1)
+        # Search in FAISS
+        _, I = self.faiss_index.search(query_embedding, k)
+        return [self.documents[i] for i in I[0]]
+
+    def retrieve_zotero_citations(self, query):
+        """Retrieve citations from Zotero based on a query."""
+        items = self.zot.everything(self.zot.items(q=query))
+        return items
 
     def run_google_scholar_query(self, input_data):
         query = input_data.messages[len(input_data.messages)-1]
