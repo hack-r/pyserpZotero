@@ -22,25 +22,25 @@ class SerpZot:
     Initialize a SerpZot instance for managing Zotero citations and PDF downloads.
 
     Parameters:
-    - api_key (str): API key for SerpAPI to perform searches.
+    - serp_api_key (str): API key for SerpAPI to perform searches.
     - zot_id (str): Zotero user/library ID for citation management.
     - zot_key (str): API key for accessing Zotero services.
     - download_dest (str): Default directory for downloading PDFs.
     - enable_pdf_download (bool): Flag to enable or disable automatic PDF downloads.
     """
-    def __init__(self, api_key="", zot_id="", zot_key="", download_dest=".", enable_pdf_download=True):
+    def __init__(self, serp_api_key="", zot_id="", zot_key="", download_dest=".", enable_pdf_download=True):
         """
         Instantiate a SerpZot object for API management.
 
         Keep assignment operators reasonably aligned like an R programmer,
             so code doesn't look like PEP dog poo.
         """
-        self.df         = None
-        self.FIELD      = "title"
-        self.DOI_HOLDER = set()
-        self.API_KEY    = ""
-        self.ZOT_ID     = ""
-        self.ZOT_KEY    = ""
+        self.df           = None
+        self.FIELD        = "title"
+        self.DOI_HOLDER   = set()
+        self.SERP_API_KEY = ""
+        self.ZOT_ID       = ""
+        self.ZOT_KEY      = ""
         self.DOWNLOAD_DEST       = ""
         self.enable_pdf_download = ""
 
@@ -48,8 +48,8 @@ class SerpZot:
         print(f"Attempting to load configuration from config.yaml")
         config = Box.from_yaml(filename="config.yaml")
         print(config)
-        if not self.API_KEY:
-            self.API_KEY = config.get('API_KEY', api_key)
+        if not self.SERP_API_KEY:
+            self.SERP_API_KEY = config.get('SERP_API_KEY', serp_api_key)
         if not self.ZOT_ID:
             self.ZOT_ID  = config.get('ZOT_ID', zot_id)
         if not self.ZOT_KEY:
@@ -111,7 +111,7 @@ class SerpZot:
 
         # Search Parameters
         params = {
-            "api_key": self.API_KEY,
+            "api_key": self.SERP_API_KEY,
             "device": "desktop",
             "engine": "google_scholar",
             "q": term,
@@ -248,13 +248,11 @@ class SerpZot:
 
             # Parse Names into Template/Data
             try:
-                no_author_found = False
                 try:
                     num_authors = len(bib_dict['author'])
                 except:
                     num_authors = 1
                     bib_dict['author'] = ['Unknown Unknown']
-                    no_author_found = True
                 template['creators'] = []
 
                 for a in bib_dict['author']:
@@ -264,12 +262,6 @@ class SerpZot:
                 print(template)
                 if template["doi"] in self.DOI_HOLDER:
                     print("Not citation uploading since it's already present in Zotero")
-                    continue
-                if no_author_found:
-                    print("No authors found for this paper, skipping upload to zotero")
-                    continue
-                if template.get("title", None) == None:
-                    print("Paper does not have a title. Skipping upload to Zotero")
                     continue
                 cite_upload_response = zot.create_items([template])
                 if 'successful' in cite_upload_response:
@@ -281,7 +273,7 @@ class SerpZot:
                                 download_success = self.attempt_pdf_download(items=items,  doi=doi, zotero_item_key=created_item_key,
                                 title=bib_dict['title'])
                             except:
-                                download_success = self.attempt_pdf_download(items=items, doi=doi,zotero_item_key=created_item_key, title='')
+                                download_success = self.attempt_pdf_download(items=items, doi=doi,zotero_item_key=created_item_key,                      title='')
                             if download_success:
                                 print(f"PDF for doi {doi} downloaded and attached successfully.")
                             else:
@@ -323,13 +315,6 @@ class SerpZot:
 
         # Retrieve doi numbers of existing articles to avoid duplication of citations
         print("Reading your library's citations so we can avoid adding duplicates...")
-
-        # This was not giving correct results:
-        # items0 = zot.everything(zot.items(q='doi'))
-        # items1 = zot.everything(zot.items(q='doi'))
-        # items  = items0 + items1
-
-        # Using this instead
         items = zot.everything( zot.items() )
 
         if not self.DOI_HOLDER:  # Populate it only if it's empty
@@ -362,12 +347,13 @@ class SerpZot:
         
         # Processing everything we got from SearchScholar
         for i in ris:
+
             # Announce status
             print(f'Now processing: {i}')
 
             # Get the Citation from SerpApi search!
             params = {
-                "api_key": self.API_KEY,
+                "api_key": self.SERP_API_KEY,
                 "device": "desktop",
                 "engine": "google_scholar_cite",
                 "q": i
@@ -395,11 +381,8 @@ class SerpZot:
             doiSet.add((jsonResponse['DOI'], df['snippet'][0]))
 
 
-        queryList = query.split()
-        queryStr = "+".join(queryList)
-
         # arXiv processing of DOIs
-        url = f"http://export.arxiv.org/api/query?search_query=all:{queryStr}&start=0&max_results=50"
+        url = f"http://export.arxiv.org/api/query?search_query=all:{query}&start=0&max_results=50"
         r = libreq.urlopen(url).read()
         out = re.findall('http:\/\/dx.doi.org\/[^"]*', str(r))
         arxivCount = 0
@@ -414,46 +397,8 @@ class SerpZot:
                 continue
         print("Number of entries found in arXiv Search: ", arxivCount)
 
-        # medxriv link looks like https://www.medrxiv.org/search/humanoid+robot
-        medUrl = f"https://www.medrxiv.org/search/{queryStr}"
-        response = requests.get(medUrl)
+        # TODO search in bioXriv and medXriv
 
-        # process all the DOIs we find
-        medDois = re.findall("\/\/doi.org\/([^\s]+)", response.text)
-
-        print("Dois found: ", medDois)
-        medArxivCount = 0
-        for doi in medDois:
-            try:
-                print("Found doi link for medArxiv", doi)
-                medArxivCount += 1
-                doiSet.add(tuple([doi, None]))
-            except:
-                print("Wrong Link")
-                continue
-        
-        print("Number of entries found in medXriv Search: ", medArxivCount)
-
-        
-        # biorxiv link looks like https://www.biorxiv.org/search/breast+Cancer
-        bioUrl = f"https://www.biorxiv.org/search/{queryStr}"
-        response = requests.get(bioUrl)
-
-        # process all the DOIs we find
-        bioDois = re.findall("\/\/doi.org\/([^\s]+)", response.text)
-
-        print("Dois found: ", bioDois)
-        bioArxivCount = 0
-        for doi in bioDois:
-            try:
-                print("Found doi link for biorxiv", doi)
-                bioArxivCount += 1
-                doiSet.add(tuple([doi, None]))
-            except:
-                print("Wrong Link")
-                continue
-
-        print("Number of entries found in bioXriv Search: ", bioArxivCount)
         # For all the DOIs we got using all methods, search citations and add PDFs
         self.processBibsAndUpload(doiSet, zot, items, FIELD)
         return 0
@@ -505,17 +450,17 @@ def main():
     if not config_path.is_file():
         print("Config file not found. Creating a new one.")
         with config_path.open('w') as file:
-            yaml.dump({'API_KEY': ''}, file)
+            yaml.dump({'SERP_API_KEY': ''}, file)
 
     print(f"Attempting to load configuration from {config_path}")
     with config_path.open('r') as file:
         config = yaml.safe_load(file) or {}
 
-    api_key = config.get('API_KEY', '')
-    if not api_key:
-        api_key = input("Enter your serpAPI API key: ")
+    serp_api_key = config.get('SERP_API_KEY', '')
+    if not serp_api_key:
+        serp_api_key = input("Enter your serpAPI API key: ")
         with config_path.open('w') as file:
-            yaml.dump({'API_KEY': api_key}, file)
+            yaml.dump({'SERP_API_KEY': serp_api_key}, file)
     zot_id = config.get('ZOT_ID', '')
     if not zot_id:
         zot_id = input("Enter your Zotero library ID: ")
@@ -555,9 +500,12 @@ def main():
         print(f"Searching Scholar for: {term}")
         
 
-        serp_zot = SerpZot(api_key, zot_id, zot_key, download_dest, download_pdfs)
+        serp_zot = SerpZot(serp_api_key, zot_id, zot_key, download_dest, download_pdfs)
         serp_zot.SearchScholar(term, min_year)
         serp_zot.Search2Zotero(term)
+    # serp_zot = SerpZot(serp_api_key, zot_id, zot_key, download_dest, download_pdfs)
+    # serp_zot.SearchScholar(term, min_year)
+    # serp_zot.Search2Zotero(term)
 
         if download_pdfs:
             print("Attempting to download PDFs...")
