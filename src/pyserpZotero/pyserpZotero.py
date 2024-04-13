@@ -1,7 +1,11 @@
 # pyserpZotero.py
+import urllib.parse
 
 # Libraries
-from utils.arxiv_helpers import arxiv_download
+try:
+    from .utils.arxiv_helpers import arxiv_download
+except ImportError:
+    from utils.arxiv_helpers import arxiv_download
 from bibtexparser.bparser import BibTexParser
 import threading
 from box import Box
@@ -51,10 +55,10 @@ class SerpZot:
         self.lock = threading.Lock()
         
         # Override default values with values from config.yaml
-        print(f"Attempting to load configuration from config.yaml")
         config = Box.from_yaml(filename="config.yaml")
-        print(config)
+
         if not self.SERP_API_KEY:
+            config = Box.from_yaml(filename="config.yaml")
             self.SERP_API_KEY = config.get('SERP_API_KEY', serp_api_key)
         if not self.ZOT_ID:
             self.ZOT_ID  = config.get('ZOT_ID', zot_id)
@@ -376,7 +380,7 @@ class SerpZot:
 
         # Retrieve doi numbers of existing articles to avoid duplication of citations
         print("Reading your library's citations so we can avoid adding duplicates...")
-        items = zot.everything( zot.items() )
+        items = zot.everything(zot.items())
 
         if not self.DOI_HOLDER:  # Populate it only if it's empty
             for item in items:
@@ -395,7 +399,7 @@ class SerpZot:
 
         try:
             ris = self.ris
-            print(f"Number of items to process : {len(ris)}")
+            print(f"Number of Google Scholar search results to process : {len(ris)}")
         except Exception as e:
             print(f"An error occurred: {str(e)}")
             print("No results? Or an API key problem, maybe?")
@@ -443,6 +447,7 @@ class SerpZot:
 
 
         # arXiv processing of DOIs
+        query = urllib.parse.quote_plus(query)
         url = f"http://export.arxiv.org/api/query?search_query=all:{query}&start=0&max_results=50"
         r = libreq.urlopen(url).read()
         out = re.findall('http:\/\/dx.doi.org\/[^"]*', str(r))
@@ -510,10 +515,10 @@ def main():
     script_dir_config_path = Path(__file__).resolve().parent / 'config.yaml'
     current_dir_config_path = Path('.').resolve() / 'config.yaml'
 
-    if script_dir_config_path.is_file():
-        config_path = script_dir_config_path
-    elif current_dir_config_path.is_file():
+    if current_dir_config_path.is_file():
         config_path = current_dir_config_path
+    elif script_dir_config_path.is_file():
+        config_path = script_dir_config_path
     else:
         print("Config file not found in script or current directory. Proceeding with provided parameters.")
         return
@@ -523,7 +528,7 @@ def main():
         with config_path.open('w') as file:
             yaml.dump({'SERP_API_KEY': ''}, file)
 
-    print(f"Attempting to load configuration from {config_path}")
+    #print(f"Attempting to load configuration from {config_path}")
     with config_path.open('r') as file:
         config = yaml.safe_load(file) or {}
 
@@ -550,7 +555,7 @@ def main():
         download_pdfs = False
 
     min_year = input("Enter the oldest year to search from (leave empty if none): ")
-    term_string = input("Enter one or more (max upto 20) search terms/phrases separated by semi-colon(;): ")
+    term_string = input("Enter one or more (max up to 20) search terms/phrases separated by semi-colon(;): ")
     
     terms = term_string.split(";")[:20]
     terms_copy = []
