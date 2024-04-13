@@ -165,3 +165,32 @@ class LangChainAssistant:
         response = response.content
 
         return response
+
+
+# Example usage
+if __name__ == "__main__":
+    pdf_paths = ["/Users/user/PycharmProjects/pyserpZotero/10.1007_s13347-021-00450-x.pdf"]
+    import pickle as pkl
+    with open('../my_object.pkl', 'rb') as file:
+        zotero_citation = pkl.load(file)
+    #zotero_citation_path = "zotero_citations.json"
+    zot_id = "7032524"
+    zot_key = "ZVrF7TXnla2jRrQ86ujpecud"
+    serp_api_key = "58b73df719b00998d8f2a61d3f6e9bb2d8086a0013020f9a09094521de1ba831"
+    assistant = LangChainAssistant(serp_api_key=serp_api_key, zot_id=zot_id, zot_key=zot_key)
+    #user_question = "Tell me about ?"
+    #response = assistant.invoke(user_question)
+    #print(response)
+
+    # Preprocessing phase: Collect, embed, and index documents from Zotero and PDFs
+    assistant.embed_and_index_documents()
+    assistant.print_vector_store_summary()  # Print summary of documents in the vector store
+
+    # Interaction phase: Enter into a loop for handling user queries
+    while True:
+        user_question = input("What would you like to know? (Type 'exit' to end the session): ")
+        if user_question.lower() == 'exit':
+            print("Session ended. Thank you for using the AI assistant.")
+            break
+        response = assistant.invoke(user_question)
+        print(response)
