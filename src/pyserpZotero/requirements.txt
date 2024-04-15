@@ -1,0 +1,11 @@
+PyYAML
+arxiv~=2.1.0
+bibtexparser~=1.4.1
+bytesbufio
+google-search-results
+pandas~=2.2.1
+python-box
+pyzotero~=1.5.18
+requests~=2.31.0
+urllib3
+wordcloud~=1.9.3
