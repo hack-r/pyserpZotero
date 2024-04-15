@@ -45,6 +45,7 @@ class SerpZot:
         self.ZOT_KEY      = ""
         self.DOWNLOAD_DEST       = ""
         self.enable_pdf_download = ""
+        self.processBibsAndUpload = processBibsAndUpload
         self.SearchScholar = SearchScholar
         self.Search2Zotero = Search2Zotero
         # For shared dict
