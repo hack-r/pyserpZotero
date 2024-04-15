@@ -30,7 +30,7 @@ class SerpZot:
     - download_dest (str): Default directory for downloading PDFs.
     - enable_pdf_download (bool): Flag to enable or disable automatic PDF downloads.
     """
-    def __init__(self, serp_api_key="", zot_id="", zot_key="", download_dest=".", enable_pdf_download=True):
+    def __init__(self, serp_api_key="", zot_id="", zot_key="", download_dest=".", enable_pdf_download=True, enable_lib_download=True):
         """
         Instantiate a SerpZot object for API management.
 
@@ -45,10 +45,10 @@ class SerpZot:
         self.ZOT_KEY      = ""
         self.DOWNLOAD_DEST       = ""
         self.enable_pdf_download = ""
+        self.enable_lib_download = ""
         self.processBibsAndUpload = processBibsAndUpload
         self.SearchScholar = SearchScholar
         self.Search2Zotero = Search2Zotero
-        # For shared dict
         self.CITATION_DICT = dict()
         self.lock = threading.Lock()
         
@@ -128,6 +128,13 @@ def main():
     download_dest = config.get('DOWNLOAD_DEST', '.')
     if not download_dest:
        download_dest = input("Enter download destination path (leave empty for current directory): ") or "."
+    download_lib = config.get('ENABLE_LIB_DOWNLOAD', None)
+    if download_lib is None:
+        download_lib = input("Do you want to download your citation library to avoid duplicating entries? [Y/n]: ").strip().lower()
+        if download_lib == '' or download_lib == 'y' or download_lib == 'Y' or download_lib == 'yes' or download_lib == 'True':
+            download_lib = True
+        else:
+            download_lib = False
     download_pdfs = config.get('ENABLE_PDF_DOWNLOAD', None)
     if download_pdfs is None:
         download_pdfs = input("Do you want to download PDFs? [Y/n]: ").strip().lower()
@@ -157,9 +164,11 @@ def main():
         # Proceed with using 'term' for Google Scholar search
         print(f"Searching Scholar for: {term}")
 
-        serp_zot = SerpZot(serp_api_key, zot_id, zot_key, download_dest, download_pdfs)
+        serp_zot = SerpZot(serp_api_key, zot_id, zot_key, download_dest, download_pdfs, enable_lib_download=download_lib)
         serp_zot.SearchScholar(serp_zot, term=term, min_year=min_year)
-        serp_zot.Search2Zotero(self=serp_zot, query=term)
+        serp_zot.Search2Zotero(self=serp_zot,
+                               query=term,
+                               download_lib=download_lib)
 
         if download_pdfs:
             print("Attempting to download PDFs...")
