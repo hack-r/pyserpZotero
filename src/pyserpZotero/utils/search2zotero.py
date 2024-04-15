@@ -113,6 +113,7 @@ def Search2Zotero(self, query, FIELD="title", download_lib=True):
         print("Fatal error!")
         ris = ""
 
+    print("Initial search complete. Now retrieving citations...")
     # Keep adding all the DOIs we find from all methods to this set, then download them
     # all the end.
     doiSet = set()
@@ -121,7 +122,7 @@ def Search2Zotero(self, query, FIELD="title", download_lib=True):
     for i in ris:
 
         # Announce status
-        print(f'Now processing: {i}')
+        print(f'Retrieving citation for Result Id.#: {i}')
 
         # Get the Citation from SerpApi search!
         params = {
@@ -170,7 +171,7 @@ def Search2Zotero(self, query, FIELD="title", download_lib=True):
     print("Number of entries found in arXiv Search: ", arxivCount)
 
     # TODO search in bioXriv and medXriv
-
+    # TODO re-organize... Downloads are happening here? this calls process_and_upload.py which then calls pdf_downloader.py... seems odd? Don't just go by me though, let's discuss your thoughts. Would it be more standard to initiate the downloads from the main script by calling pdf_downloader there? Should multithreading be here? Seems like it should either go into the main file or in its own file?
     # For all the DOIs we got using all methods, search citations and add PDFs
 
     # Running citation and download parallely
