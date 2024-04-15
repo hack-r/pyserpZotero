@@ -56,7 +56,7 @@ class SerpZot:
         config = Box.from_yaml(filename="config.yaml")
 
         if not self.SERP_API_KEY:
-            config = Box.from_yaml(filename="config.yaml")
+            config            = Box.from_yaml(filename="config.yaml")
             self.SERP_API_KEY = config.get('SERP_API_KEY', serp_api_key)
         if not self.ZOT_ID:
             self.ZOT_ID  = config.get('ZOT_ID', zot_id)
@@ -149,10 +149,17 @@ def main():
     else:
         download_pdfs = False
 
-    min_year = input("Enter the oldest year to search from (leave empty if none): ")
+    while True:
+        min_year = input("Enter the oldest year to search from (leave empty if none): ")
+        if min_year == "":
+            break
+        elif min_year.isdigit() and len(min_year) == 4:
+            break
+        else:
+            print("Please enter a 4-digit year or leave the input blank.")
     term_string = input("Enter one or more (max up to 20) search terms/phrases separated by semi-colon(;): ")
     
-    terms = term_string.split(";")[:20]
+    terms      = term_string.split(";")[:20]
     terms_copy = []
     
     # Change terms which have less than 3 characters
