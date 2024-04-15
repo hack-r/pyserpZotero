@@ -45,7 +45,8 @@ class SerpZot:
         self.ZOT_KEY      = ""
         self.DOWNLOAD_DEST       = ""
         self.enable_pdf_download = ""
-        
+        self.SearchScholar = SearchScholar
+        self.Search2Zotero = Search2Zotero
         # For shared dict
         self.CITATION_DICT = dict()
         self.lock = threading.Lock()
@@ -89,12 +90,16 @@ def main():
     print(f"{Colors.GREEN}*********************************************{Colors.ENDC}")
 
     script_dir_config_path = Path(__file__).resolve().parent / 'config.yaml'
-    current_dir_config_path = Path('.').resolve() / 'config.yaml'
-
+    current_dir_config_path =Path('.').resolve().parent.parent / 'config.yaml'
+    print(f"Looking for a config in: {current_dir_config_path}...")
     if current_dir_config_path.is_file():
+        print("Found!")
         config_path = current_dir_config_path
     elif script_dir_config_path.is_file():
+        print("... not found.\n")
+        print(f"Looking for a config in: {script_dir_config_path}...")
         config_path = script_dir_config_path
+        print("Found!")
     else:
         print("Config file not found in script or current directory. Proceeding with provided parameters.")
         return
@@ -150,14 +155,10 @@ def main():
         
         # Proceed with using 'term' for Google Scholar search
         print(f"Searching Scholar for: {term}")
-        
 
         serp_zot = SerpZot(serp_api_key, zot_id, zot_key, download_dest, download_pdfs)
-        serp_zot.SearchScholar(term, min_year)
-        serp_zot.Search2Zotero(term)
-    # serp_zot = SerpZot(serp_api_key, zot_id, zot_key, download_dest, download_pdfs)
-    # serp_zot.SearchScholar(term, min_year)
-    # serp_zot.Search2Zotero(term)
+        serp_zot.SearchScholar(serp_zot, term=term, min_year=min_year)
+        serp_zot.Search2Zotero(self=serp_zot, query=term)
 
         if download_pdfs:
             print("Attempting to download PDFs...")

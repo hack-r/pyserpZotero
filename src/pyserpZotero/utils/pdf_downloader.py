@@ -1,5 +1,8 @@
 # .utils.pdf_downloader.py
-from arxiv_helpers import *
+try:
+    from .arxiv_helpers import *
+except:
+    from arxiv_helpers import *
 from pyzotero import zotero
 import os
 import time
