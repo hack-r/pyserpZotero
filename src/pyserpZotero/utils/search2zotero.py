@@ -5,13 +5,14 @@ from serpapi import GoogleSearch
 from urllib.parse import urlencode
 import urllib.request as libreq
 
+import json
 import pandas as pd
 import requests
 import re
 import urllib.parse
 
 # Convert RIS Result ID to Bibtex Citation
-def Search2Zotero(self, query, FIELD="title"):
+def Search2Zotero(self, query, FIELD="title", download_lib=True):
     """
     Convert search results to Zotero citations, avoiding duplicates, and optionally download PDFs.
 
@@ -35,7 +36,58 @@ def Search2Zotero(self, query, FIELD="title"):
 
     # Retrieve doi numbers of existing articles to avoid duplication of citations
     print("Reading your library's citations so we can avoid adding duplicates...")
-    items = zot.everything(zot.items())
+    if download_lib:
+        items = zot.everything("*")
+    else:
+        json_data = '''{
+            "key": "IHKT6PBN",
+            "version": 19315,
+            "library": {
+                "type": "user",
+                "id": 7032524,
+                "name": "hackr",
+                "links": {
+                    "alternate": {
+                        "href": "https://www.zotero.org/hackr",
+                        "type": "text/html"
+                    }
+                }
+            },
+            "links": {
+                "self": {
+                    "href": "https://api.zotero.org/users/7032524/items/IHKT6PBN",
+                    "type": "application/json"
+                },
+                "alternate": {
+                    "href": "https://www.zotero.org/hackr/items/IHKT6PBN",
+                    "type": "text/html"
+                },
+                "attachment": {
+                    "href": "https://api.zotero.org/users/7032524/items/JL5D29KN",
+                    "type": "application/json",
+                    "attachmentType": "application/pdf"
+                }
+            },
+            "creators": [
+                {"creatorType": "author", "firstName": "Bina", "lastName": "Joe"},
+                {"creatorType": "author", "firstName": "Xi", "lastName": "Cheng"}
+            ],
+            "abstractNote": "",
+            "publicationTitle": "Physiological Genomics",
+            "volume": "52",
+            "issue": "4",
+            "pages": "",
+            "date": "2020",
+            "DOI": "10.1152/physiolgenomics.00029.2020",
+            "url": "http://dx.doi.org/10.1152/physiolgenomics.00029.2020",
+            "accessDate": "2024-02-24",
+            "dateAdded": "2024-02-24T22:53:03Z",
+            "dateModified": "2024-02-24T22:53:03Z"
+        }'''
+
+        data_dict = json.loads(json_data)
+        items = [data_dict]
+
 
     if not self.DOI_HOLDER:  # Populate it only if it's empty
         for item in items:
