@@ -1,33 +1,43 @@
-import time
-
 from langchain_community.chat_message_histories import SQLChatMessageHistory
-from langchain_community.embeddings import OpenAIEmbeddings
 from langchain_community.tools.google_scholar import GoogleScholarQueryRun
 from langchain_community.utilities.google_scholar import GoogleScholarAPIWrapper
-from langchain_community.vectorstores import faiss
+from langchain_community.vectorstores import faiss as f
 from langchain_core.messages import AIMessage, BaseMessage, HumanMessage, SystemMessage
-from langchain_core.output_parsers import StrOutputParser
-from langchain_core.prompts import ChatPromptTemplate, MessagesPlaceholder
+from langchain_core.prompts import MessagesPlaceholder
 from langchain_core.prompts.chat import (ChatPromptTemplate)
-from langchain_core.runnables import RunnableLambda, RunnablePassthrough
+from langchain_core.runnables import RunnableLambda, RunnablePassthrough,RunnableParallel
 from langchain_core.runnables.history import RunnableWithMessageHistory
-from langchain_openai import ChatOpenAI
-from operator import itemgetter
+from langchain_openai import ChatOpenAI, OpenAIEmbeddings
+from openai import OpenAI
 from pyserpZotero.pyserpZotero import SerpZot as zot
+from pyzotero import zotero
 from sentence_transformers import SentenceTransformer
+import faiss
 import fitz
 import json
 import numpy as np
 import os
-import pyzotero.zotero
+import pickle
+import pyzotero
 import uuid
 
+client = OpenAI()
+
+
 class LangChainAssistant:
-    def __init__(self, serp_api_key, zot_id, zot_key, zotero_citation_path="", pdf_paths=""):
+    def __init__(self, serp_api_key, zot_id, zot_key, pkl_path="", pdf_paths=""):
+        self.pkl_path = pkl_path
         self.session_id = str(uuid.uuid4())
         os.environ["SERP_API_KEY"] = serp_api_key
         self.model = ChatOpenAI(model="gpt-4-turbo-preview", temperature=0)
-        self.sysmsg = "You are pyserpZotero - an AI Zotero-enabled literature reviewer. You will be given access to one or more of: 1. RAG results based on the user's list of Zotero citations and PDFs 2. search results from Bing, Google Scholar, and other sources. Use all available knowledge to provide the user with an exceedingly high quality answer. You may combine the supplied data with your general knowledge, but try to cite your sources as much as possible. You should be able to radically exceed the quality of other AI assistants and human literature reviewers by doing this."
+        self.sysmsg = ("You are pyserpZotero - an AI Zotero-enabled literature reviewer. "
+                       "You will be given access to one or more of: RAG results based on "
+                       "the user's list of Zotero citations and PDFs, search results from "
+                       "Bing, Google Scholar, and other sources. Use all available knowledge "
+                       "to provide the user with an exceedingly high quality answer. You may "
+                       "combine the supplied data with your general knowledge, but try to cite "
+                       "your sources as much as possible. You should be able to radically exceed "
+                       "the quality of other AI assistants and human literature reviewers by doing this.")
         self.prompt = ChatPromptTemplate.from_messages(
             [
                 ("system", self.sysmsg),
@@ -43,9 +53,8 @@ class LangChainAssistant:
         self.zot_id  = zot_id
         self.zot_key = zot_key
         self.zot = pyzotero.zotero.Zotero(zot_id, 'user', zot_key)
-        self.zotero_citation_path = zotero_citation_path or []
         self.pdf_paths = pdf_paths or []
-        self.embedding_model = SentenceTransformer('all-MiniLM-L6-v2')
+        #self.embedding_model = SentenceTransformer('all-MiniLM-L6-v2')
         self.faiss_index     = None
         self.documents       = []
         self.chain = (self.prompt
@@ -53,22 +62,39 @@ class LangChainAssistant:
                       | self.model
                       )
 
+        def load_documents_from_pkl(self):
+            with open(self.pkl_path, 'rb') as file:
+                documents = pickle.load(file)
+            return documents
 
+        self.load_documents_from_pkl = load_documents_from_pkl
 
-    def embed_and_index_documents(self):
-        print("Preparing documents for embedding and indexing...")
+        def embed_documents_with_openai(self, documents):
+            embeddings = []
+            documents = documents[-10:]  # TEMP for testing only
+            for document in documents:
+                response = client.embeddings.create(input=document, model="text-embedding-3-large")
+                embeddings.append(response.data[0].embedding)
+            return np.vstack(embeddings)
+        self.embed_documents_with_openai = embed_documents_with_openai
 
-        # Prepare documents from Zotero and PDFs
-        document_texts = self.collect_documents()
-        embeddings = OpenAIEmbeddings()
-        faiss_db = (faiss.FAISS.from_documents(document_texts, embeddings))
-        # Embed documents
-        #embeddings = self.embedding_model.encode(document_texts, convert_to_tensor=False)
-        # Initialize FAISS index
-        #dim = embeddings.shape[1]
-        #self.faiss_index = faiss.IndexFlatL2(dim)
-        #self.faiss_index.add(np.array(embeddings))
-        print("Documents embedded and indexed successfully.")
+        def jason_style(self, documents):
+            embeddings = OpenAIEmbeddings()
+            docs       = documents[-10:]
+            from langchain_text_splitters import CharacterTextSplitter
+            text_splitter = (CharacterTextSplitter(chunk_size=1000,
+                                                   chunk_overlap=0))
+            txt = text_splitter.split_text(str(docs))
+            db = f.FAISS.from_texts(txt, embeddings)
+            return db
+        self.jason_style = jason_style
+
+        def create_faiss_index(self, embeddings):
+            dimension = embeddings.shape[1]
+            faiss_index = faiss.IndexFlatL2(dimension)
+            faiss_index.add(embeddings)
+            return faiss_index
+        self.create_faiss_index = create_faiss_index
 
     def extract_text_from_pdfs(self):
         text_content = ""
@@ -82,50 +108,16 @@ class LangChainAssistant:
         """Format Zotero items for inclusion in a prompt."""
         citations = []
         for item in items:
-            # Simple formatting - customize as needed
             try:
                 title  = item['data']['title']
                 author = item['data']['creators'][0]['lastName'] if item['data']['creators'] else 'Unknown'
                 citations.append(f"{title} by {author}")
             except KeyError:
                 continue
-        formatted_citations = "\n".join(citations)
-        return formatted_citations
-
-    def load_zotero_citations(self):
-        if self.zotero_citation_path and os.path.exists(self.zotero_citation_path):
-            with open(self.zotero_citation_path, 'r') as file:
-                return json.load(file)
-        return {}
-
-    def print_vector_store_summary(self):
-        num_documents = len(self.documents)
-        print(f"Vector store summary: {num_documents} documents indexed (including citations and PDFs).")
-
-    def prepare_embeddings(self):
-        # Collect all texts to be embedded
-        texts = self.collect_texts_from_sources()
-
-        # Embed all collected texts
-        embeddings = self.embedding_model.encode(texts, convert_to_tensor=False)
-
-        # Return the embeddings and the associated text data
-        return embeddings, texts
-
-    def retrieve_documents(self, query, k=5):
-        # Embed query
-        query_embedding = self.embedding_model.encode([query], convert_to_tensor=False).reshape(1, -1)
-        # Search in FAISS
-        _, I = self.faiss_index.search(query_embedding, k)
-        return [self.documents[i] for i in I[0]]
-
-    def retrieve_zotero_citations(self, query):
-        """Retrieve citations from Zotero based on a query."""
-        items = self.zot.everything(self.zot.items(q=query))
-        return items
+        return "\n".join(citations)
 
     def run_google_scholar_query(self, input_data):
-        query = input_data.messages[len(input_data.messages)-1]
+        query = input_data.messages[-1].content if input_data.messages else None
         if query:
             tool     = GoogleScholarQueryRun(api_wrapper=GoogleScholarAPIWrapper())
             result   = tool.run({"query": query})
@@ -135,7 +127,7 @@ class LangChainAssistant:
                     content=self.sysmsg
                 ),
                 HumanMessage(
-                    content="The user's question is: " + query.content + " The Google Scholar search results gathered to help you answer it is: " + result
+                    content="The user's question is: " + query + " The Google Scholar search results gathered to help you answer it is: " + result
                 ),
             ]
             return messages
@@ -144,11 +136,13 @@ class LangChainAssistant:
 
     def invoke(self, input_query):
         #extracted_text = self.extract_text_from_pdfs()
-        #zotero_citations = self.load_zotero_citations()
-        citations = self.retrieve_zotero_citations(input_query)
-        formatted_citations = self.format_citations_for_prompt(citations)
+        citations = self.load_documents_from_pkl(self)
+        #formatted_citations = self.format_citations_for_prompt(citations)
+        db = self.jason_style(documents=citations[-3:], self=self)
+        print("Starting retrieval...")
+        rag_output = db.as_retriever().invoke(input_query)
 
-
+        print("Starting chain...")
         chain_with_history = RunnableWithMessageHistory(
             self.chain,
             lambda session_id: SQLChatMessageHistory(
@@ -162,29 +156,38 @@ class LangChainAssistant:
         config = {"configurable": {"session_id": self.session_id}}
 
         response = chain_with_history.invoke({"question": input_query}, config=config)
-        response = response.content
 
-        return response
+        combined_context = f"System: Based on the following details from RAG and Google Scholar search, synthesize a comprehensive answer without losing any information. RAG Output: {rag_output} \n\n Search Output: {response.content}"
+        final_prompt = {
+            "input": input_query,
+            "context": combined_context
+        }
+
+        final_chain = (
+                RunnablePassthrough(lambda: final_prompt)
+                | ChatOpenAI(model="gpt-3.5-turbo", temperature=0)
+                #| StrOutputParser()
+        )
+        final_answer = final_chain.invoke(final_prompt)
+        return final_answer.content
 
 
 # Example usage
 if __name__ == "__main__":
     pdf_paths = ["/Users/user/PycharmProjects/pyserpZotero/10.1007_s13347-021-00450-x.pdf"]
-    import pickle as pkl
-    with open('../my_object.pkl', 'rb') as file:
-        zotero_citation = pkl.load(file)
-    #zotero_citation_path = "zotero_citations.json"
     zot_id = "7032524"
     zot_key = "ZVrF7TXnla2jRrQ86ujpecud"
     serp_api_key = "58b73df719b00998d8f2a61d3f6e9bb2d8086a0013020f9a09094521de1ba831"
-    assistant = LangChainAssistant(serp_api_key=serp_api_key, zot_id=zot_id, zot_key=zot_key)
     #user_question = "Tell me about ?"
     #response = assistant.invoke(user_question)
     #print(response)
+    assistant = LangChainAssistant(
+        serp_api_key="58b73df719b00998d8f2a61d3f6e9bb2d8086a0013020f9a09094521de1ba831",
+        zot_id="7032524",
+        zot_key="ZVrF7TXnla2jRrQ86ujpecud",
+        pkl_path='../my_object.pkl'
+    )
 
-    # Preprocessing phase: Collect, embed, and index documents from Zotero and PDFs
-    assistant.embed_and_index_documents()
-    assistant.print_vector_store_summary()  # Print summary of documents in the vector store
 
     # Interaction phase: Enter into a loop for handling user queries
     while True:
