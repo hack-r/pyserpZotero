@@ -3,14 +3,14 @@
 # Libraries
 try:
     from .utils.arxiv_helpers import arxiv_download
-    from .utils.colors import *
+    from src.pyserpZotero.ui.colors import *
     from .utils.pdf_downloader import *
     from .utils.process_and_upload import *
     from .utils.search_scholar import *
     from .utils.search2zotero import *
 except ImportError:
     from utils.arxiv_helpers import arxiv_download
-    from utils.colors import *
+    from src.pyserpZotero.ui.colors import *
     from utils.pdf_downloader import *
     from utils.process_and_upload import *
     from utils.search_scholar import *
@@ -90,12 +90,18 @@ def main():
     print(f"{Colors.GREEN}*{Colors.BLUE}      Version: {Colors.RED}1.1.2{Colors.ENDC}                       {Colors.GREEN}*{Colors.ENDC}")
     print(f"{Colors.GREEN}*********************************************{Colors.ENDC}")
 
-    script_dir_config_path = Path(__file__).resolve().parent / 'config.yaml'
-    current_dir_config_path =Path('.').resolve().parent.parent / 'config.yaml'
+    script_dir_config_path   = Path(__file__).resolve().parent / 'config.yaml'
+    current_dir_config_path  = Path('.').resolve() / 'config.yaml'
+    current_dir_config_path2 = Path('.').resolve().parent.parent / 'config.yaml'
     print(f"Looking for a config in: {current_dir_config_path}...")
     if current_dir_config_path.is_file():
         print("Found!")
         config_path = current_dir_config_path
+    elif current_dir_config_path2.is_file():
+        print("...not found.\n")
+        print(f"Looking for a config in: {current_dir_config_path2}...")
+        config_path = current_dir_config_path2
+        print("Found!")
     elif script_dir_config_path.is_file():
         print("... not found.\n")
         print(f"Looking for a config in: {script_dir_config_path}...")
