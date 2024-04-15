@@ -3,7 +3,7 @@
 # Libraries
 try:
     from .utils.arxiv_helpers import arxiv_download
-    from src.pyserpZotero.ui.colors import *
+    from .src.pyserpZotero.ui.colors import *
     from .utils.pdf_downloader import *
     from .utils.process_and_upload import *
     from .utils.search_scholar import *
