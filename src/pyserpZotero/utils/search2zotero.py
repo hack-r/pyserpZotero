@@ -175,8 +175,8 @@ def Search2Zotero(self, query, FIELD="title", download_lib=True):
     # For all the DOIs we got using all methods, search citations and add PDFs
 
     # Running citation and download parallely
-    citation_thread = threading.Thread(target=self.processBibsAndUpload, args=(doiSet, zot, items, FIELD, True))
-    upload_thread = threading.Thread(target=self.processBibsAndUpload, args=(doiSet, zot, items, FIELD, False))
+    citation_thread = threading.Thread(target=self.processBibsAndUpload, args=( self, doiSet, zot, items, FIELD, True))
+    upload_thread = threading.Thread(target=self.processBibsAndUpload, args=( self, doiSet, zot, items, FIELD, False))
 
     citation_thread.start()
     upload_thread.start()
