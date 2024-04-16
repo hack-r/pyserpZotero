@@ -17,7 +17,7 @@ def cleanZot(self, search_term="", field="title"):
     zot = zotero.Zotero(id, 'user', key)
 
     zot.add_parameters(q=search_term)
-    items = zot.everything(zot.items())
+    items = zot.everything("*")
 
     message = "Number of items retreived from your library:" + str(len(items))
     print(message)
