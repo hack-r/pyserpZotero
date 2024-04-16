@@ -162,6 +162,6 @@ def processBibsAndUpload(self, doiSet, zot, items, FIELD, citation):
         print("Starting downloading thread")
         full_lib = False
         if self.enable_pdf_download:
-            self.attempt_pdf_download(items=items, full_lib=full_lib)
+            self.attempt_pdf_download(self, items=items, full_lib=full_lib)
 
     return 0
