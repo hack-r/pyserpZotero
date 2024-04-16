@@ -3,13 +3,14 @@
 # Libraries
 try:
     from .utils.arxiv_helpers import arxiv_download
-    from .src.pyserpZotero.ui.colors import *
+    from .ui.colors import *
     from .utils.pdf_downloader import *
     from .utils.process_and_upload import *
     from .utils.search_scholar import *
     from .utils.search2zotero import *
 except ImportError:
     from utils.arxiv_helpers import arxiv_download
+    from ui.colors import *
     from ui.colors import *
     from utils.pdf_downloader import *
     from utils.process_and_upload import *
@@ -37,6 +38,7 @@ class SerpZot:
         Keep assignment operators reasonably aligned like an R programmer,
             so code doesn't look like PEP dog poo.
         """
+        # Member attributes
         self.df           = None
         self.FIELD        = "title"
         self.DOI_HOLDER   = set()
@@ -46,13 +48,23 @@ class SerpZot:
         self.DOWNLOAD_DEST       = ""
         self.enable_pdf_download = ""
         self.enable_lib_download = ""
-        self.processBibsAndUpload = processBibsAndUpload
-        self.SearchScholar = SearchScholar
-        self.Search2Zotero = Search2Zotero
-        self.attempt_pdf_download = attempt_pdf_download
         self.CITATION_DICT = dict()
+        self.downloadAttachment = dict()
         self.lock = threading.Lock()
-        
+        self.SAVE_BIB = False
+
+        # Member functions
+        SerpZot.processBibsAndUpload = processBibsAndUpload
+        SerpZot.SearchScholar = SearchScholar
+        SerpZot.Search2Zotero = Search2Zotero
+        SerpZot.serpSearch = serpSearch
+        SerpZot.searchArxiv = searchArxiv
+        SerpZot.boiArxivSearch = boiArxivSearch
+        SerpZot.searchMedArxiv = searchMedArxiv
+        SerpZot.SearchScholar = SearchScholar
+        SerpZot.SearchScholar = SearchScholar
+        SerpZot.attempt_pdf_download = attempt_pdf_download
+
         # Override default values with values from config.yaml
         config = Box.from_yaml(filename="config.yaml")
 
@@ -69,7 +81,6 @@ class SerpZot:
             self.enable_pdf_download = config.get('ENABLE_PDF_DOWNLOAD', enable_pdf_download)
 
         print("\nFriendly reminder: Make sure your Zotero key has write permissions. I'm not saying it doesn't, but I can't check it for you.\n")
-
 
 def main():
     import yaml
@@ -197,9 +208,8 @@ def main():
         print(f"Searching Scholar for: {term}")
 
         serp_zot = SerpZot(serp_api_key, zot_id, zot_key, download_dest, download_pdfs, enable_lib_download=download_lib)
-        serp_zot.SearchScholar(serp_zot, term=term, min_year=min_year)
-        serp_zot.Search2Zotero(self=serp_zot,
-                               query=term,
+        serp_zot.SearchScholar( term=term, min_year=min_year, downloadSources = downloadSources)
+        serp_zot.Search2Zotero( query=term,
                                download_lib=download_lib)
 
         if download_pdfs:
