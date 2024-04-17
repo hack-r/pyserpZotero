@@ -124,6 +124,18 @@ def scihub_download(download_dest, doi):
             print("Article not on Sci-hub, moving on")
             return False, None
 
+def bioArxiv_download(download_dest, DOI):
+    # https://www.biorxiv.org/content/10.1101/2024.03.17.583882v1.full.pdf
+    url = 'http://biorxiv.org/content/' + DOI + "v1.full.pdf"
+    response = requests.get(url, stream=True)
+
+    name = DOI.replace("/", "_") + ".pdf"
+    path = os.path.join(download_dest, name)
+
+    # Write the PDF to the file
+    download_response(response, path)
+    print(f"Downloaded from bioRxiv: {DOI}")
+    return True, path
 
 def medrxiv_download(download_dest, DOI):
     """
@@ -196,8 +208,7 @@ def arxiv_download(doi=None, items=None, download_dest=".", full_lib=False, titl
                     cosine = get_cosine(vector1, vector2)
                     if cosine > .85:
                         print(f"ArXiv match found for {title}: {result.entry_id}")
-                        result.download_pdf(dirpath=download_dest)
-                        pdf_name = result.entry_id.split('/')[-1] + ".pdf"
+                        pdf_name = result.download_pdf(dirpath=download_dest)
                         pdf_path = os.path.join(download_dest, pdf_name)
                         downloaded = True
                         return downloaded, pdf_path
@@ -210,6 +221,11 @@ def arxiv_download(doi=None, items=None, download_dest=".", full_lib=False, titl
                 if not downloaded:
                     print("Trying medArxiv...")
                     downloaded, pdf_path = medrxiv_download(download_dest, doi)
+                    if downloaded:
+                        return downloaded, pdf_path
+                if not downloaded:
+                    print("Trying bioArxiv...")
+                    downloaded, pdf_path = bioArxiv_download(download_dest, doi)
                     if downloaded:
                         return downloaded, pdf_path
         else:

@@ -51,6 +51,13 @@ Beginning with v1.1 an interactive mode is available by entering `psz` into a te
 - Interactive mode! Just enter `psz` in a terminal after `pip install pyserpZotero` to use this library as a program. You can enter your credentials when prompted or edit the config.yaml file to bypass interactive authentication.
 - Added support for additional portals and PDF sources, including **medArxiv and bioRxiv**. Improved matching of citations to Arxiv PDFs.
 - Now you can add multiple queries together and just leave the program to run. To add multiple queries in the interactive mode just type semi-colon (;) separated words. For example:
+  - Searching is provided using:
+    1. SerpAPI
+    2. Arxiv Search
+    3. medArXiv Search
+    4. bioArxiv Search
+  If you want to skip searching in any source, add flags NO_SERP, NO_ARXIV, NO_MEDARXIV, NO_BIOARXIV in the config.yaml.
+
 
 ```
   Enter one or more (max upto 20) search terms/phrases separated by semi-colon(;): Cancer Research; Humanoid Robot; DNA mutation
