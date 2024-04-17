@@ -208,8 +208,7 @@ def main():
 
         serp_zot = SerpZot(serp_api_key, zot_id, zot_key, download_dest, download_pdfs, enable_lib_download=download_lib)
         serp_zot.search_scholar(term=term, min_year=min_year, download_sources = downloadSources)
-        serp_zot.search2zotero(self=serp_zot,
-                               query=term,
+        serp_zot.search2zotero(query=term,
                                download_lib=download_lib)
 
         if download_pdfs:
