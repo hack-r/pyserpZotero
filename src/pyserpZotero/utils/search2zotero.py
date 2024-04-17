@@ -132,7 +132,7 @@ def search2zotero(self, query, FIELD="title", download_lib=True):
     # all the end.
     doiSet = set()
 
-    # Processing everything we got from SearchScholar
+    # Processing everything we got from search_scholar
     for i in ris:
 
         # Announce status
