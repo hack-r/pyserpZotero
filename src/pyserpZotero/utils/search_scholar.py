@@ -35,7 +35,7 @@ def serpSearch(self, term, min_year, save_bib):
     # Search
     search = GoogleSearch(params)
 
-    # Set SAVE_BIB for Search2Zotero
+    # Set SAVE_BIB for search2_zotero
     self.SAVE_BIB = save_bib
 
     # Scrape Results, Extract Result Id's
