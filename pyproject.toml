@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "pyserpZotero"
-version = "1.1.1"
+version = "1.1.2"
 authors = [
   { name="Miller, J.", email="hello@libreagora.com" },
 ]
