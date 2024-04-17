@@ -54,14 +54,14 @@ class SerpZot:
 
         # Member functions
         SerpZot.processBibsAndUpload = processBibsAndUpload
-        SerpZot.SearchScholar = SearchScholar
+        SerpZot.search_scholar = search_scholar
         SerpZot.search2zotero = search2zotero
         SerpZot.serpSearch = serpSearch
         SerpZot.searchArxiv = searchArxiv
         SerpZot.boiArxivSearch = boiArxivSearch
         SerpZot.searchMedArxiv = searchMedArxiv
-        SerpZot.SearchScholar = SearchScholar
-        SerpZot.SearchScholar = SearchScholar
+        SerpZot.search_scholar = search_scholar
+        SerpZot.search_scholar = search_scholar
         SerpZot.attempt_pdf_download = attempt_pdf_download
 
         # Override default values with values from config.yaml
@@ -128,7 +128,6 @@ def main():
         with config_path.open('w') as file:
             yaml.dump({'SERP_API_KEY': ''}, file)
 
-    #print(f"Attempting to load configuration from {config_path}")
     with config_path.open('r') as file:
         config = yaml.safe_load(file) or {}
 
@@ -187,7 +186,7 @@ def main():
             break
         else:
             print("Please enter a 4-digit year or leave the input blank.")
-    term_string = input("Enter one or more (max up to 20) search terms/phrases separated by semi-colon(;): ")
+    term_string = input("Enter up to 20 search phrases separated by semi-colon(;): ")
     
     terms      = term_string.split(";")[:20]
     terms_copy = []
@@ -208,7 +207,7 @@ def main():
         print(f"Searching Scholar for: {term}")
 
         serp_zot = SerpZot(serp_api_key, zot_id, zot_key, download_dest, download_pdfs, enable_lib_download=download_lib)
-        serp_zot.SearchScholar(serp_zot, term=term, min_year=min_year, downloadSources = downloadSources)
+        serp_zot.search_scholar(term=term, min_year=min_year, download_sources = downloadSources)
         serp_zot.search2zotero(self=serp_zot,
                                query=term,
                                download_lib=download_lib)
