@@ -135,6 +135,9 @@ def processBibsAndUpload(self, doiSet, zot, items, FIELD, citation):
                 print(template)
                 if template["doi"] in self.DOI_HOLDER:
                     print("Not citation uploading since it's already present in Zotero")
+                    if template["doi"] in self.downloadAttachment:
+                        print("Still attempting download since attachment is not present")
+                        self.CITATION_DICT[doi] = ([self.downloadAttachment[doi]], bib_dict)
                     continue
                 if no_author_found:
                     print("No authors found for this paper, skipping upload to zotero")
@@ -162,6 +165,6 @@ def processBibsAndUpload(self, doiSet, zot, items, FIELD, citation):
         print("Starting downloading thread")
         full_lib = False
         if self.enable_pdf_download:
-            self.attempt_pdf_download(self, items=items, full_lib=full_lib)
+            self.attempt_pdf_download( items=items, full_lib=full_lib)
 
     return 0
