@@ -38,7 +38,7 @@ class SerpZot:
             so code doesn't look like PEP dog poo.
         """
         # Member attributes
-        self.df           = None
+        self.df           = pd.DataFrame()
         self.FIELD        = "title"
         self.DOI_HOLDER   = set()
         self.SERP_API_KEY = ""
@@ -186,6 +186,25 @@ def main():
             break
         else:
             print("Please enter a 4-digit year or leave the input blank.")
+      
+    max_searches = ""
+    while True:      
+        max_searches = input("Enter the max number of searches you would like to do (leave empty for default value of 50): ")
+        
+        if max_searches != "":
+            try:
+                max_searches = int(max_searches)
+                break
+            except ValueError:
+                print("Max searches can only be a number value")
+        else:
+            break
+        
+    if max_searches == "":
+        max_searches = 50
+    elif max_searches > 100:
+        print("We can do only upto a 100 searches. Setting max searches to 100")
+        max_searches = 100
     term_string = input("Enter up to 20 search phrases separated by semi-colon(;): ")
     
     terms      = term_string.split(";")[:20]
@@ -207,7 +226,7 @@ def main():
         print(f"Searching Scholar for: {term}")
 
         serp_zot = SerpZot(serp_api_key, zot_id, zot_key, download_dest, download_pdfs, enable_lib_download=download_lib)
-        serp_zot.search_scholar(term=term, min_year=min_year, download_sources = downloadSources)
+        serp_zot.search_scholar(term=term, min_year=min_year, download_sources = downloadSources, max_searches = max_searches)
         serp_zot.search2zotero(query=term,
                                download_lib=download_lib)
 
