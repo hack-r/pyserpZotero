@@ -10,6 +10,10 @@ import pandas as pd
 import requests
 import re
 import urllib.parse
+try:
+    from .arxiv_helpers import *
+except:
+    from arxiv_helpers import *
 
 # Convert RIS Result ID to Bibtex Citation
 def Search2Zotero(self, query, FIELD="title", download_lib=True):
@@ -39,7 +43,21 @@ def Search2Zotero(self, query, FIELD="title", download_lib=True):
     items = []
     if download_lib:
         items = zot.everything(zot.items())
-    """
+        # col = zot.collections()
+
+        # col_names = ["Arm / Hand Exoskeletons", "Cancer / Tumors"]
+        # for itr, col_name in enumerate(col_names):
+        #     col_key = ""
+        #     for i in col:
+        #         if( i.get('data', {}).get('name') == col_name):
+        #             col_key = i['key']
+        #             break
+
+        #     items = zot.collection_items(col_key)
+
+        #     self.arxiv_download(doi=None, items=items, download_dest=".", full_lib=True, title=None)
+        # exit(0)
+
     else:
         json_data = '''{
             "key": "IHKT6PBN",
@@ -89,7 +107,6 @@ def Search2Zotero(self, query, FIELD="title", download_lib=True):
 
         data_dict = json.loads(json_data)
         items = [data_dict]
-    """
     if not self.DOI_HOLDER:  # Populate it only if it's empty
         for item in items:
             try:
@@ -113,10 +130,10 @@ def Search2Zotero(self, query, FIELD="title", download_lib=True):
     doiSet = self.doiSet
     citation_thread = threading.Thread(target=self.processBibsAndUpload, args=(doiSet, zot, items, FIELD, True))
     upload_thread = threading.Thread(target=self.processBibsAndUpload, args=(doiSet, zot, items, FIELD, False))
-    
+
     citation_thread.start()
     upload_thread.start()
-    
+
     citation_thread.join()
     upload_thread.join()
 
