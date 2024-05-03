@@ -125,9 +125,9 @@ def search2zotero(self, query, FIELD="title", download_lib=True):
                     continue
     doiSet = self.doiSet
     citation_thread = threading.Thread(target=self.processBibsAndUpload,
-                                       args=(self, doiSet, zot, items, FIELD, True))
+                                       args=(doiSet, zot, items, FIELD, True))
     upload_thread = threading.Thread(target=self.processBibsAndUpload,
-                                     args=(self, doiSet, zot, items, FIELD, False))
+                                     args=(doiSet, zot, items, FIELD, False))
 
     citation_thread.start()
     upload_thread.start()
