@@ -5,6 +5,8 @@ import os
 import re
 import requests
 import tempfile
+from pyzotero import zotero
+import string
 
 # Assuming your download function looks something like this
 def download_pdf(url):
@@ -133,9 +135,7 @@ def bioArxiv_download(download_dest, DOI):
     path = os.path.join(download_dest, name)
 
     # Write the PDF to the file
-    download_response(response, path)
-    print(f"Downloaded from bioRxiv: {DOI}")
-    return True, path
+    return download_response(response, path), path
 
 def medrxiv_download(download_dest, DOI):
     """
@@ -175,11 +175,9 @@ def medrxiv_download(download_dest, DOI):
         except Exception as e:
             print(f"Attempt with URL {url} failed with error: {e}. Trying next URL if available.")
 
-    # If both attempts fail, inform the user
-    print(f"PDF not available on medRxiv for doi: {DOI}")
     return False, ""
 
-def arxiv_download(doi=None, items=None, download_dest=".", full_lib=False, title=None):
+def arxiv_download(self, doi=None, items=None, download_dest=".", full_lib=False, title=None):
     """
     Attempt to download a PDF from arXiv or alternative sources using a DOI or title.
 
@@ -201,6 +199,7 @@ def arxiv_download(doi=None, items=None, download_dest=".", full_lib=False, titl
     try:
         if not full_lib:
             if title:
+                title = string.capwords(title)
                 vector1 = text_to_vector(title)
                 search = arxiv.Search(query=f'ti:"{title}"', max_results=10, sort_by=arxiv.SortCriterion.Relevance)
                 for result in client.results(search):
@@ -231,28 +230,54 @@ def arxiv_download(doi=None, items=None, download_dest=".", full_lib=False, titl
         else:
             # Full library scan and match logic
             for item in items:
-                if item['data']['itemType'] == 'journalArticle':
-                    text1 = item['data'].get('title', '')
-                    vector1 = text_to_vector(text1)
-                    search = arxiv.Search(query='ti:"' + text1 + '"', max_results=10, sort_by=arxiv.SortCriterion.Relevance)
-                    for result in search.results(): # To do: replace with Client.results
-                        vector2 = text_to_vector(result.title)
-                        cosine = get_cosine(vector1, vector2)
-                        if cosine > .85:
-                            downloaded = True
-                            print(f"ArXiv match found for {text1}: {result.entry_id}")
-                            result.download_pdf(dirpath=download_dest)
-                            break
-                    if not downloaded:
-                        downloaded, path = scihub_download(download_dest, item['data'].get('doi', ''))
-                    if not downloaded:
-                        downloaded, path = medrxiv_download(download_dest, item['data'].get('doi', ''))
-                    if downloaded:
-                        doi = item['data'].get('doi', '')
-                        pdf_path = os.path.join(download_dest, f"{doi.replace('/', '_')}.pdf")
-                        return downloaded, pdf_path
+                try:
+                    if item['data']['itemType'] == 'journalArticle':
+                        pdf_path = ""
+                        downloaded = False
+                        text1 = item['data'].get('title', '')
+                        text1 = string.capwords(text1)
+                        vector1 = text_to_vector(text1)
+                        search = arxiv.Search(query='ti:"' + text1 + '"', max_results=10, sort_by=arxiv.SortCriterion.Relevance)
+                        for result in search.results(): # To do: replace with Client.results
+                            vector2 = text_to_vector(result.title)
+                            cosine = get_cosine(vector1, vector2)
+                            if cosine > .85:
+                                downloaded = True
+                                print(f"ArXiv match found for {text1}: {result.entry_id}")
+                                pdf_name = result.download_pdf(dirpath=download_dest)
+                                pdf_path = os.path.join(download_dest, pdf_name)
+                                break
+                        doi = item['data'].get('DOI', '')
+                        if not downloaded:
+                            downloaded, pdf_path = scihub_download(download_dest, item['data'].get('DOI', ''))
+                        if not downloaded:
+                            downloaded, pdf_path = medrxiv_download(download_dest, item['data'].get('DOI', ''))
+                        if not downloaded:
+                            downloaded, pdf_path = bioArxiv_download(download_dest, item['data'].get('DOI', '') )
+                        if downloaded:
+                            doi = item['data'].get('DOI', '')
+                            print("Downloaded pdf path: ", pdf_path)
+                            zotero_item_keys = [item['key']]
+                            if item.get('links', {}).get('attachment', {}).get('attachmentType') != None:
+                                print("Pdf Already present: ", doi)
+                                continue
+                            for zotero_item_key in zotero_item_keys:
+                                zot = zotero.Zotero(self.ZOT_ID, 'user', self.ZOT_KEY)
+                                if os.path.isfile(pdf_path):
+                                    zot.attachment_simple([pdf_path], zotero_item_key)
+                                else:
+                                    pdf_path = pdf_path.removeprefix("./")
+                                    zot.attachment_simple([pdf_path], zotero_item_key)
+                            print(f"PDF for {doi} attached successfully.")
+                            # return downloaded, pdf_path
+                        else:
+                            print("PDF not found : ", doi)
+                except Exception as e:
+                    print(f"Error processing arXiv download: {e}")
+                    continue
     except Exception as e:
         print(f"Error processing arXiv download: {e}")
+
 
     if downloaded:
         return downloaded, pdf_path # Not ref. before assignment - ignore the warning
