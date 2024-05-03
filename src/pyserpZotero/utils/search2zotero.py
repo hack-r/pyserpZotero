@@ -39,20 +39,6 @@ def search2zotero(self, query, FIELD="title", download_lib=True):
     items = []
     if download_lib:
         items = zot.everything(zot.items())
-        # col = zot.collections()
-
-        # col_names = ["Arm / Hand Exoskeletons", "Cancer / Tumors"]
-        # for itr, col_name in enumerate(col_names):
-        #     col_key = ""
-        #     for i in col:
-        #         if( i.get('data', {}).get('name') == col_name):
-        #             col_key = i['key']
-        #             break
-
-        #     items = zot.collection_items(col_key)
-
-        #     self.arxiv_download(doi=None, items=items, download_dest=".", full_lib=True, title=None)
-        # exit(0)
 
     else:
         json_data = '''{
