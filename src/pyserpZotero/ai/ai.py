@@ -165,7 +165,7 @@ class LangChainAssistant:
 
         final_chain = (
                 RunnablePassthrough(lambda: final_prompt)
-                | ChatOpenAI(model="gpt-3.5-turbo", temperature=0)
+                | ChatOpenAI(model="gpt-4-turbo-preview", temperature=0)
                 #| StrOutputParser()
         )
         final_answer = final_chain.invoke(final_prompt)
@@ -174,26 +174,3 @@ class LangChainAssistant:
 
 # Example usage
 if __name__ == "__main__":
-    pdf_paths = ["/Users/user/PycharmProjects/pyserpZotero/10.1007_s13347-021-00450-x.pdf"]
-    zot_id = "7032524"
-    zot_key = "ZVrF7TXnla2jRrQ86ujpecud"
-    serp_api_key = "58b73df719b00998d8f2a61d3f6e9bb2d8086a0013020f9a09094521de1ba831"
-    #user_question = "Tell me about ?"
-    #response = assistant.invoke(user_question)
-    #print(response)
-    assistant = LangChainAssistant(
-        serp_api_key="58b73df719b00998d8f2a61d3f6e9bb2d8086a0013020f9a09094521de1ba831",
-        zot_id="7032524",
-        zot_key="ZVrF7TXnla2jRrQ86ujpecud",
-        pkl_path='../my_object.pkl'
-    )
-
-
-    # Interaction phase: Enter into a loop for handling user queries
-    while True:
-        user_question = input("What would you like to know? (Type 'exit' to end the session): ")
-        if user_question.lower() == 'exit':
-            print("Session ended. Thank you for using the AI assistant.")
-            break
-        response = assistant.invoke(user_question)
-        print(response)

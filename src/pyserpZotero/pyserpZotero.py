@@ -11,7 +11,6 @@ try:
 except ImportError:
     from utils.arxiv_helpers import arxiv_download
     from ui.colors import *
-    from ui.colors import *
     from utils.pdf_downloader import *
     from utils.process_and_upload import *
     from utils.search_scholar import *
@@ -55,14 +54,14 @@ class SerpZot:
 
         # Member functions
         SerpZot.processBibsAndUpload = processBibsAndUpload
-        SerpZot.SearchScholar = SearchScholar
-        SerpZot.Search2Zotero = Search2Zotero
+        SerpZot.search_scholar = search_scholar
+        SerpZot.search2zotero = search2zotero
         SerpZot.serpSearch = serpSearch
         SerpZot.searchArxiv = searchArxiv
         SerpZot.boiArxivSearch = boiArxivSearch
         SerpZot.searchMedArxiv = searchMedArxiv
-        SerpZot.SearchScholar = SearchScholar
-        SerpZot.SearchScholar = SearchScholar
+        SerpZot.search_scholar = search_scholar
+        SerpZot.search_scholar = search_scholar
         SerpZot.attempt_pdf_download = attempt_pdf_download
         SerpZot.arxiv_download = arxiv_download
 
@@ -82,6 +81,7 @@ class SerpZot:
             self.enable_pdf_download = config.get('ENABLE_PDF_DOWNLOAD', enable_pdf_download)
 
         print("\nFriendly reminder: Make sure your Zotero key has write permissions. I'm not saying it doesn't, but I can't check it for you.\n")
+
 
 def main():
     import yaml
@@ -129,7 +129,6 @@ def main():
         with config_path.open('w') as file:
             yaml.dump({'SERP_API_KEY': ''}, file)
 
-    #print(f"Attempting to load configuration from {config_path}")
     with config_path.open('r') as file:
         config = yaml.safe_load(file) or {}
 
@@ -188,7 +187,7 @@ def main():
             break
         else:
             print("Please enter a 4-digit year or leave the input blank.")
-    term_string = input("Enter one or more (max up to 20) search terms/phrases separated by semi-colon(;): ")
+    term_string = input("Enter up to 20 search phrases separated by semi-colon(;): ")
     
     terms      = term_string.split(";")[:20]
     terms_copy = []
@@ -209,8 +208,8 @@ def main():
         print(f"Searching Scholar for: {term}")
 
         serp_zot = SerpZot(serp_api_key, zot_id, zot_key, download_dest, download_pdfs, enable_lib_download=download_lib)
-        serp_zot.SearchScholar( term=term, min_year=min_year, downloadSources = downloadSources)
-        serp_zot.Search2Zotero( query=term,
+        serp_zot.search_scholar(term=term, min_year=min_year, download_sources = downloadSources)
+        serp_zot.search2zotero(query=term,
                                download_lib=download_lib)
 
         if download_pdfs:
