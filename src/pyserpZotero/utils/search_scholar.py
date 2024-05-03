@@ -1,5 +1,4 @@
 #.utils.search_scholar.py
-import urllib.parse
 
 # Libraries
 from serpapi import GoogleSearch
@@ -9,6 +8,7 @@ import requests
 from urllib.parse import urlencode
 import urllib.request as libreq
 import re 
+
 
 def serpSearch(self, term, min_year, save_bib):
     """
@@ -35,7 +35,7 @@ def serpSearch(self, term, min_year, save_bib):
     # Search
     search = GoogleSearch(params)
 
-    # Set SAVE_BIB for Search2Zotero
+    # Set SAVE_BIB for search2_zotero
     self.SAVE_BIB = save_bib
 
     # Scrape Results, Extract Result Id's
@@ -69,7 +69,7 @@ def serpSearch(self, term, min_year, save_bib):
         print("Fatal error!")
         ris = ""
 
-    # Processing everything we got from SearchScholar
+    # Processing everything we got from search_scholar
     for i in ris:
         # Announce status
         print(f'Now processing: {i}')
@@ -132,7 +132,7 @@ def searchArxiv( self, query ):
             doi = doiLink.split("http://dx.doi.org/")[1]
             arxivCount += 1
             doiList.append(tuple([doi, None]))
-        except:
+        except Exception as e:
             print("Wrong Link")
             continue
     
@@ -141,7 +141,7 @@ def searchArxiv( self, query ):
         print(doi[0])
     return doiList
 
-def searchMedArxiv( self, query):
+def searchMedArxiv(self, query):
     """
     Searches on medArxiv and returns adds the dois to a list
 
@@ -167,8 +167,9 @@ def searchMedArxiv( self, query):
         try:
             medArxivCount += 1
             doiList.append(tuple([doi, None]))
-        except:
+        except Exception as e:
             print("Wrong Link")
+            print(e)
             continue
     
     print("Number of entries found in medXriv Search: ", medArxivCount)
@@ -177,7 +178,7 @@ def searchMedArxiv( self, query):
 
     return doiList
 
-def boiArxivSearch( self, query ):
+def boiArxivSearch(self, query):
     """
     Searches on bioArxiv and returns adds the dois to a list
 
@@ -203,8 +204,9 @@ def boiArxivSearch( self, query ):
         try:
             bioArxivCount += 1
             doiList.append(tuple([doi, None]))
-        except:
+        except Exception as e:
             print("Wrong Link")
+            print(e)
             continue
 
     print("Number of entries found in bioXriv Search: ", bioArxivCount)
@@ -212,8 +214,9 @@ def boiArxivSearch( self, query ):
         print(doi[0])
     return doiList
 
+
 # Search for RIS Result ID's on Google Scholar
-def SearchScholar(self, term="", min_year="", save_bib=False, downloadSources = None):
+def search_scholar(self, term="", min_year="", save_bib=False, download_sources=None):
     """
     Search Google Scholar for articles matching the specified criteria and update Zotero library.
 
@@ -229,28 +232,28 @@ def SearchScholar(self, term="", min_year="", save_bib=False, downloadSources = 
     # Keep adding all the DOIs we find from all methods to this set, then download them
     # all the end.
     doiSet = set()
-    if downloadSources is None:
-            downloadSources = {
+    if download_sources is None:
+        download_sources = {
             "serp": 1,
             "arxiv": 1,
             "medArxiv": 1,
             "bioArxiv": 1,
         }
 
-    if downloadSources.get('serp'):
+    if download_sources.get('serp'):
         print("Starting Serp Search")
         serpDoiList = self.serpSearch(term, min_year, save_bib)
         doiSet.update(serpDoiList)
 
-    if downloadSources.get('arxiv'):
+    if download_sources.get('arxiv'):
         arxivSearchResult = self.searchArxiv(term)
         doiSet.update(arxivSearchResult)
 
-    if downloadSources.get('medArxiv'):
+    if download_sources.get('medArxiv'):
         medArxivSearchResult = self.searchMedArxiv(term)
         doiSet.update(medArxivSearchResult)
 
-    if downloadSources.get('bioArxiv'):
+    if download_sources.get('bioArxiv'):
         boiArxivSearchResult = self.boiArxivSearch(term)
         doiSet.update(boiArxivSearchResult)
 
