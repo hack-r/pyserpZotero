@@ -63,6 +63,7 @@ class SerpZot:
         SerpZot.search_scholar = search_scholar
         SerpZot.search_scholar = search_scholar
         SerpZot.attempt_pdf_download = attempt_pdf_download
+        SerpZot.arxiv_download = arxiv_download
 
         # Override default values with values from config.yaml
         config = Box.from_yaml(filename="config.yaml")
@@ -177,7 +178,7 @@ def main():
 
     if config.get("NO_MEDARXIV"):
         del downloadSources["medArxiv"]
-        
+
     while True:
         min_year = input("Enter the oldest year to search from (leave empty if none): ")
         if min_year == "":

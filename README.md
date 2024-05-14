@@ -56,8 +56,11 @@ Beginning with v1.1 an interactive mode is available by entering `psz` into a te
     2. Arxiv Search
     3. medArXiv Search
     4. bioArxiv Search
-  If you want to skip searching in any source, add flags NO_SERP, NO_ARXIV, NO_MEDARXIV, NO_BIOARXIV in the config.yaml.
-
+    There is also functionality to skip any platform for searching. For example, if one does not want to search using SerpAPI, one can provide the option `NO_SERP=True` in the config.yaml. All the following options are available for skipping searching on a platform:
+      1. `NO_SERP=True`: Skip searching using SERP_API
+      2. `NO_MEDARXIV=True`: Skip searching on medArxiv
+      3. `NO_BIOARXIV=True`: Skip searching on bioArxiv
+      4. `NO_ARXIV=True`: Skip searching on arXiv
 
 ```
   Enter one or more (max upto 20) search terms/phrases separated by semi-colon(;): Cancer Research; Humanoid Robot; DNA mutation
