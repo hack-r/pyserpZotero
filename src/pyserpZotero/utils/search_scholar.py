@@ -10,7 +10,7 @@ import urllib.request as libreq
 import re 
 
 
-def serpSearch(self, term, min_year, save_bib):
+def serpSearch(self, term, min_year, save_bib, max_searches):
     """
     Searches on medArxiv and returns adds the dois to a list
 
@@ -22,33 +22,42 @@ def serpSearch(self, term, min_year, save_bib):
     - (list): a list of DOIs
     """
     # Search Parameters
-    params = {
-        "api_key": self.SERP_API_KEY,
-        "device": "desktop",
-        "engine": "google_scholar",
-        "q": term,
-        "hl": "en",
-        "num": "20",
-        "as_ylo": min_year
-    }
+    
+    google_local_search_count_per_pages = 20      # Only 20 search results per pages 
+    start = 0                                     # Start is the page number in search
+    while( max_searches > 0 ):
+        params = {
+            "api_key": self.SERP_API_KEY,
+            "device": "desktop",
+            "engine": "google_scholar",
+            "q": term,
+            "hl": "en",
+            "start": str(start),
+            "num": max_searches,
+            "as_ylo": min_year
+        }
+        max_searches -= google_local_search_count_per_pages
+        start += google_local_search_count_per_pages
+            
+        # Search
+        search = GoogleSearch(params)
+        # Set SAVE_BIB for search2_zotero
+        self.SAVE_BIB = save_bib
 
-    # Search
-    search = GoogleSearch(params)
-
-    # Set SAVE_BIB for search2_zotero
-    self.SAVE_BIB = save_bib
-
-    # Scrape Results, Extract Result Id's
-    df = pd.DataFrame()  # ignore warning - it gets used
-    try:
-        json_data = search.get_raw_json()
-        data = json.loads(json_data)
-        self.df = pd.json_normalize(data['organic_results'])
-        df = self.df
-        ris = df['result_id']
-        self.ris = ris
-    except Exception as e:
-        print(f"An error occurred while filling into Pandas: {str(e)}")
+        # Scrape Results, Extract Result Id's
+        df = pd.DataFrame()  # ignore warning - it gets used
+        try:
+            json_data = search.get_raw_json()
+            data = json.loads(json_data)
+            if (self.df.empty):
+                self.df = pd.json_normalize(data['organic_results'])
+            else:
+                self.df = self.df._append(pd.json_normalize(data['organic_results']), ignore_index = True)
+            df = self.df
+            ris = df['result_id']
+            self.ris = ris
+        except Exception as e:
+            print(f"An error occurred while filling into Pandas: {str(e)}")
 
 
     df = pd.DataFrame()
@@ -216,7 +225,7 @@ def boiArxivSearch(self, query):
 
 
 # Search for RIS Result ID's on Google Scholar
-def search_scholar(self, term="", min_year="", save_bib=False, download_sources=None):
+def search_scholar(self, term="", min_year="", save_bib=False, download_sources=None, max_searches=50):
     """
     Search Google Scholar for articles matching the specified criteria and update Zotero library.
 
@@ -224,6 +233,7 @@ def search_scholar(self, term="", min_year="", save_bib=False, download_sources=
     - term (str): The search term or query.
     - min_year (str): The earliest publication year for articles.
     - save_bib (bool): Whether to save the search results as a BibTeX file.
+    - max_searches (int): The integer value of this is the max number of searches that has to be done 
 
     Returns:
     - (int): Status code indicating success (0) or failure (non-zero).
@@ -242,7 +252,7 @@ def search_scholar(self, term="", min_year="", save_bib=False, download_sources=
 
     if download_sources.get('serp'):
         print("Starting Serp Search")
-        serpDoiList = self.serpSearch(term, min_year, save_bib)
+        serpDoiList = self.serpSearch(term, min_year, save_bib, max_searches)
         doiSet.update(serpDoiList)
 
     if download_sources.get('arxiv'):
