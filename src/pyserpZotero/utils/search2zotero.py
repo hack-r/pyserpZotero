@@ -4,7 +4,13 @@ from pyzotero import zotero
 
 import json
 import pandas as pd
-
+import requests
+import re
+import urllib.parse
+try:
+    from .arxiv_helpers import *
+except:
+    from arxiv_helpers import *
 
 # Convert RIS Result ID to Bibtex Citation
 def search2zotero(self, query, FIELD="title", download_lib=True):
@@ -32,8 +38,8 @@ def search2zotero(self, query, FIELD="title", download_lib=True):
     # Retrieve doi numbers of existing articles to avoid duplication of citations
     items = []
     if download_lib:
-        print("Reading your library's citations so we can avoid adding duplicates...")
-        items = zot.everything("*")
+        items = zot.everything(zot.items())
+
     else:
         json_data = '''{
             "key": "IHKT6PBN",
@@ -105,9 +111,9 @@ def search2zotero(self, query, FIELD="title", download_lib=True):
                     continue
     doiSet = self.doiSet
     citation_thread = threading.Thread(target=self.processBibsAndUpload,
-                                       args=(self, doiSet, zot, items, FIELD, True))
+                                       args=(doiSet, zot, items, FIELD, True))
     upload_thread = threading.Thread(target=self.processBibsAndUpload,
-                                     args=(self, doiSet, zot, items, FIELD, False))
+                                     args=(doiSet, zot, items, FIELD, False))
 
     citation_thread.start()
     upload_thread.start()

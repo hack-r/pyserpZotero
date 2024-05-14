@@ -51,7 +51,7 @@ def attempt_pdf_download(self, items, full_lib=False):
             print(
                 f"\n\nStarting download for doi: {doi}\nZotero Item Keys: {zotero_item_keys}\nBib Dict: {bib_dict}\n\n")
 
-            downloaded, pdf_path = arxiv_download(items=items, download_dest=download_dest, doi=doi, full_lib=full_lib,
+            downloaded, pdf_path = self.arxiv_download(items=items, download_dest=download_dest, doi=doi, full_lib=full_lib,
                                                   title=title)
 
             if not downloaded:
