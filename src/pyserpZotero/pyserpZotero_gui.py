@@ -1,49 +1,55 @@
 import threading
 import tkinter as tk
-from tkinter import messagebox
-from tkinter import filedialog
-from tkinter import ttk
+from tkinter import messagebox, filedialog, ttk
 import logging
 import yaml
-
 from pathlib import Path
+from PIL import Image, ImageTk
+import fitz  # PyMuPDF
 
+# Import SerpZot
 try:
     from pyserpZotero.pyserpZotero import SerpZot
 except ImportError:
-    # Adjust the import based on your project structure
     from pyserpZotero import SerpZot
 
 # Configure root logger
 logging.basicConfig(level=logging.INFO, format='%(asctime)s %(levelname)s: %(message)s')
 
+# Import ttkbootstrap for enhanced styling
+import ttkbootstrap as ttkb
+from ttkbootstrap.constants import *
+
+
 class TextHandler(logging.Handler):
-    """This class allows logging to a Tkinter Text widget."""
+    """Allows logging to a Tkinter Text widget."""
+
     def __init__(self, text_widget):
-        logging.Handler.__init__(self)
+        super().__init__()
         self.text_widget = text_widget
 
     def emit(self, record):
-        """
-
-        :param record:
-        """
         msg = self.format(record)
+
         def append():
             self.text_widget.configure(state='normal')
             self.text_widget.insert(tk.END, msg + '\n')
             self.text_widget.configure(state='disabled')
-            # Autoscroll to the end
             self.text_widget.yview(tk.END)
+
         self.text_widget.after(0, append)
+
 
 class SerpZotGUI:
     """GUI application for pyserpZotero."""
 
     def __init__(self, master):
-        """Initialize the GUI."""
         self.master = master
         master.title("pyserpZotero GUI")
+
+        # Initialize ttkbootstrap style
+        self.style = ttkb.Style(theme="litera")
+        master.configure(bg=self.style.lookup('TFrame', 'background'))
 
         # Initialize variables
         self.serp_api_key = tk.StringVar()
@@ -59,91 +65,21 @@ class SerpZotGUI:
         self.cancelled = False
         self.processing = False
 
+        # Initialize instance attributes
+        self.start_button = None
+        self.cancel_button = None
+        self.progress = None
+        self.log_text = None
+        self.text_handler = None
+        self.pdf_viewer = None
+
         # Create UI components
         self.create_widgets()
 
         # Load config if available
         self.load_config()
 
-    def cancel_processing(self):
-        """Cancel the ongoing process."""
-        if self.processing:
-            self.cancelled = True
-            logging.info("Cancelling the process...")
-        else:
-            logging.info("No process to cancel.")
-
-    def create_widgets(self):
-        """Create the UI widgets."""
-        row = 0
-        tk.Label(self.master, text="SerpAPI Key:").grid(row=row, column=0, sticky=tk.W)
-        tk.Entry(self.master, textvariable=self.serp_api_key, width=50).grid(row=row, column=1, columnspan=2)
-        row += 1
-
-        tk.Label(self.master, text="Zotero Library ID:").grid(row=row, column=0, sticky=tk.W)
-        tk.Entry(self.master, textvariable=self.zot_id, width=50).grid(row=row, column=1, columnspan=2)
-        row += 1
-
-        tk.Label(self.master, text="Zotero API Key:").grid(row=row, column=0, sticky=tk.W)
-        tk.Entry(self.master, textvariable=self.zot_key, width=50).grid(row=row, column=1, columnspan=2)
-        row += 1
-
-        tk.Label(self.master, text="Download Destination:").grid(row=row, column=0, sticky=tk.W)
-        tk.Entry(self.master, textvariable=self.download_dest, width=50).grid(row=row, column=1)
-        tk.Button(self.master, text="Browse", command=self.browse_download_dest).grid(row=row, column=2)
-        row += 1
-
-        tk.Checkbutton(self.master, text="Download Zotero Library to Avoid Duplicates", variable=self.download_lib).grid(row=row, column=0, columnspan=3, sticky=tk.W)
-        row += 1
-
-        tk.Checkbutton(self.master, text="Download PDFs", variable=self.download_pdfs).grid(row=row, column=0, columnspan=3, sticky=tk.W)
-        row += 1
-
-        tk.Label(self.master, text="Oldest Year to Search From:").grid(row=row, column=0, sticky=tk.W)
-        tk.Entry(self.master, textvariable=self.min_year).grid(row=row, column=1, columnspan=2)
-        row += 1
-
-        tk.Label(self.master, text="Max Number of Searches (1-100):").grid(row=row, column=0, sticky=tk.W)
-        tk.Entry(self.master, textvariable=self.max_searches).grid(row=row, column=1, columnspan=2)
-        row += 1
-
-        tk.Label(self.master, text="Search Terms (separated by semicolons ';'):").grid(row=row, column=0, sticky=tk.W)
-        tk.Entry(self.master, textvariable=self.search_terms, width=50).grid(row=row, column=1, columnspan=2)
-        row += 1
-
-        # Buttons
-        self.start_button = tk.Button(self.master, text="Start", command=self.start_processing)
-        self.start_button.grid(row=row, column=0)
-        self.cancel_button = tk.Button(self.master, text="Cancel", command=self.cancel_processing, state='disabled')
-        self.cancel_button.grid(row=row, column=1)
-        tk.Button(self.master, text="Exit", command=self.master.quit).grid(row=row, column=2)
-        row += 1
-
-        # Progress Bar
-        self.progress = ttk.Progressbar(self.master, orient='horizontal', mode='determinate')
-        self.progress.grid(row=row, column=0, columnspan=3, sticky=tk.W+tk.E)
-        row +=1
-
-        # Log Viewer
-        tk.Label(self.master, text="Logs:").grid(row=row, column=0, sticky=tk.W)
-        row += 1
-        self.log_text = tk.Text(self.master, height=15, state='disabled')
-        self.log_text.grid(row=row, column=0, columnspan=3)
-        row += 1
-
-        # Set up logging handler
-        self.text_handler = TextHandler(self.log_text)
-        logger = logging.getLogger()
-        logger.addHandler(self.text_handler)
-
-    def browse_download_dest(self):
-        """Open a dialog to select download destination."""
-        directory = filedialog.askdirectory()
-        if directory:
-            self.download_dest.set(directory)
-
     def load_config(self):
-        """Load configuration from config.yaml if available."""
         config_paths = [
             Path('.').resolve() / 'config.yaml',
             Path(__file__).resolve().parent / 'config.yaml'
@@ -160,9 +96,12 @@ class SerpZotGUI:
                 self.download_pdfs.set(config.get('ENABLE_PDF_DOWNLOAD', True))
                 break
 
+    def browse_download_dest(self):
+        directory = filedialog.askdirectory()
+        if directory:
+            self.download_dest.set(directory)
+
     def start_processing(self):
-        """Start the search and download process."""
-        # Validate inputs
         if not self.serp_api_key.get():
             messagebox.showerror("Error", "SerpAPI Key is required.")
             return
@@ -176,23 +115,19 @@ class SerpZotGUI:
             messagebox.showerror("Error", "At least one search term is required.")
             return
 
-        # Prepare parameters
         terms = [term.strip() for term in self.search_terms.get().split(';') if term.strip()]
-        terms = terms[:20]  # Limit to 20 terms
+        terms = terms[:20]
 
-        # Validate min_year
         min_year = self.min_year.get()
         if min_year and not (min_year.isdigit() and len(min_year) == 4):
             messagebox.showerror("Error", "Please enter a valid 4-digit year for 'Oldest Year to Search From'.")
             return
 
-        # Validate max_searches
         max_searches = self.max_searches.get()
         if not (1 <= max_searches <= 100):
             messagebox.showerror("Error", "Max number of searches must be between 1 and 100.")
             return
 
-        # Save config
         config = {
             'SERP_API_KEY': self.serp_api_key.get(),
             'ZOT_ID': self.zot_id.get(),
@@ -204,11 +139,20 @@ class SerpZotGUI:
         with open('config.yaml', 'w') as file:
             yaml.dump(config, file)
 
-        # Start processing in a new thread to keep UI responsive
+        self.processing = True
+        self.cancelled = False
+        self.start_button['state'] = 'disabled'
+        self.cancel_button['state'] = 'normal'
         threading.Thread(target=self.process_terms, args=(terms, min_year, max_searches)).start()
 
+    def cancel_processing(self):
+        if self.processing:
+            self.cancelled = True
+            logging.info("Cancelling the process...")
+        else:
+            logging.info("No process to cancel.")
+
     def process_terms(self, terms, min_year, max_searches):
-        """Process the search terms."""
         serp_zot = SerpZot(
             serp_api_key=self.serp_api_key.get(),
             zot_id=self.zot_id.get(),
@@ -218,27 +162,171 @@ class SerpZotGUI:
             enable_lib_download=self.download_lib.get()
         )
 
-        downloadSources = {
+        download_sources = {
             "serp": True,
             "arxiv": True,
             "medArxiv": True,
             "bioArxiv": True,
         }
 
-        for term in terms:
+        total_terms = len(terms)
+        for index, term in enumerate(terms):
+            if self.cancelled:
+                logging.info("Process cancelled by user.")
+                break
+
             logging.info(f"Searching for: {term}")
-            # Call methods on serp_zot instance
-            serp_zot.search_scholar(term=term, min_year=min_year, download_sources=downloadSources, max_searches=max_searches)
+            serp_zot.search_scholar(term=term, min_year=min_year, download_sources=download_sources, max_searches=max_searches)
             serp_zot.search2zotero(query=term, download_lib=self.download_lib.get())
 
-        messagebox.showinfo("Completed", "Processing completed.")
+            progress_value = ((index + 1) / total_terms) * 100
+            self.progress['value'] = progress_value
+            self.master.update_idletasks()
 
-# Main execution
+        if not self.cancelled:
+            logging.info("Processing completed.")
+            messagebox.showinfo("Completed", "Processing completed.")
+        else:
+            logging.info("Processing was cancelled.")
+            messagebox.showinfo("Cancelled", "Processing was cancelled.")
+
+        self.cancel_button['state'] = 'disabled'
+        self.start_button['state'] = 'normal'
+        self.processing = False
+
+    def create_widgets(self):
+        # Create main frame with padding
+        main_frame = ttkb.Frame(self.master, padding=(10, 10, 10, 10))
+        main_frame.pack(fill='both', expand=True)
+
+        # Configure grid
+        main_frame.columnconfigure(1, weight=1)
+        main_frame.rowconfigure(12, weight=1)
+
+        row = 0
+
+        # Add Image at the top
+        try:
+            img = Image.open("image.png")
+            img = img.resize((400, 100))
+            img = ImageTk.PhotoImage(img)
+            img_label = ttkb.Label(main_frame, image=img)
+            img_label.image = img
+            img_label.grid(row=row, column=0, columnspan=3, pady=10)
+        except FileNotFoundError:
+            logging.warning("Image file not found. Skipping image display.")
+            img_label = ttkb.Label(main_frame, text="pyserpZotero", font=("Helvetica", 16))
+            img_label.grid(row=row, column=0, columnspan=3, pady=10)
+
+        row += 1
+
+        # SerpAPI Key Input
+        ttkb.Label(main_frame, text="SerpAPI Key:").grid(row=row, column=0, sticky=tk.E, padx=5, pady=5)
+        ttkb.Entry(main_frame, textvariable=self.serp_api_key).grid(row=row, column=1, columnspan=2, sticky='ew', padx=5, pady=5)
+
+        row += 1
+
+        # Zotero Library ID Input
+        ttkb.Label(main_frame, text="Zotero Library ID:").grid(row=row, column=0, sticky=tk.E, padx=5, pady=5)
+        ttkb.Entry(main_frame, textvariable=self.zot_id).grid(row=row, column=1, columnspan=2, sticky='ew', padx=5, pady=5)
+
+        row += 1
+
+        # Zotero API Key Input
+        ttkb.Label(main_frame, text="Zotero API Key:").grid(row=row, column=0, sticky=tk.E, padx=5, pady=5)
+        ttkb.Entry(main_frame, textvariable=self.zot_key).grid(row=row, column=1, columnspan=2, sticky='ew', padx=5, pady=5)
+
+        row += 1
+
+        # Download Destination Input
+        ttkb.Label(main_frame, text="Download Destination:").grid(row=row, column=0, sticky=tk.E, padx=5, pady=5)
+        ttkb.Entry(main_frame, textvariable=self.download_dest).grid(row=row, column=1, sticky='ew', padx=5, pady=5)
+        ttkb.Button(main_frame, text="Browse", command=self.browse_download_dest).grid(row=row, column=2, padx=5, pady=5)
+
+        row += 1
+
+        # Additional Options
+        ttkb.Checkbutton(main_frame, text="Download Zotero Library to Avoid Duplicates", variable=self.download_lib).grid(row=row, column=0, columnspan=3, sticky='w', padx=5, pady=5)
+        row += 1
+
+        ttkb.Checkbutton(main_frame, text="Download PDFs", variable=self.download_pdfs).grid(row=row, column=0, columnspan=3, sticky='w', padx=5, pady=5)
+        row += 1
+
+        # Search Term and Year Inputs
+        ttkb.Label(main_frame, text="Oldest Year to Search From:").grid(row=row, column=0, sticky=tk.E, padx=5, pady=5)
+        ttkb.Entry(main_frame, textvariable=self.min_year).grid(row=row, column=1, columnspan=2, sticky='w', padx=5, pady=5)
+        row += 1
+
+        ttkb.Label(main_frame, text="Max Number of Searches (1-100):").grid(row=row, column=0, sticky=tk.E, padx=5, pady=5)
+        ttkb.Entry(main_frame, textvariable=self.max_searches).grid(row=row, column=1, columnspan=2, sticky='w', padx=5, pady=5)
+        row += 1
+
+        ttkb.Label(main_frame, text="Search Terms (separated by semicolons ';'):", wraplength=200).grid(row=row, column=0, sticky='ne', padx=5, pady=5)
+        ttkb.Entry(main_frame, textvariable=self.search_terms).grid(row=row, column=1, columnspan=2, sticky='ew', padx=5, pady=5)
+        row += 1
+
+        # Buttons
+        button_frame = ttkb.Frame(main_frame)
+        button_frame.grid(row=row, column=0, columnspan=3, pady=10)
+
+        self.start_button = ttkb.Button(button_frame, text="Start", command=self.start_processing, bootstyle=SUCCESS)
+        self.start_button.pack(side='left', padx=5)
+
+        self.cancel_button = ttkb.Button(button_frame, text="Cancel", command=self.cancel_processing, state='disabled', bootstyle=DANGER)
+        self.cancel_button.pack(side='left', padx=5)
+
+        ttkb.Button(button_frame, text="Exit", command=self.master.quit, bootstyle=SECONDARY).pack(side='left', padx=5)
+        row += 1
+
+        # Progress Bar
+        self.progress = ttkb.Progressbar(main_frame, orient='horizontal', mode='determinate')
+        self.progress.grid(row=row, column=0, columnspan=3, sticky='ew', padx=5, pady=5)
+        row += 1
+
+        # Log Viewer
+        ttkb.Label(main_frame, text="Logs:").grid(row=row, column=0, sticky='nw', padx=5, pady=5)
+        row += 1
+
+        self.log_text = tk.Text(main_frame, height=15, state='disabled')
+        self.log_text.grid(row=row, column=0, columnspan=3, sticky='nsew', padx=5, pady=5)
+        main_frame.rowconfigure(row, weight=1)
+
+        # PDF Viewer Button
+        ttkb.Button(main_frame, text="Open PDF Viewer", command=self.open_pdf_viewer, bootstyle=INFO).grid(row=row+1, column=0, columnspan=3, pady=5)
+
+        # Set up logging handler
+        self.text_handler = TextHandler(self.log_text)
+        logger = logging.getLogger()
+        logger.addHandler(self.text_handler)
+
+    def open_pdf_viewer(self):
+        file_path = filedialog.askopenfilename(filetypes=[("PDF Files", "*.pdf")])
+        if file_path:
+            viewer = tk.Toplevel(self.master)
+            viewer.title(f"PDF Viewer - {Path(file_path).name}")
+            viewer.geometry("800x600")
+
+            canvas = tk.Canvas(viewer)
+            canvas.pack(fill='both', expand=True)
+
+            doc = fitz.open(file_path)
+            for page_num in range(doc.page_count):
+                page = doc.load_page(page_num)
+                pix = page.get_pixmap()
+                img = Image.frombytes("RGB", [pix.width, pix.height], pix.samples)
+                photo = ImageTk.PhotoImage(img)
+
+                canvas.create_image(0, page_num * pix.height, anchor='nw', image=photo)
+                canvas.image = photo  # Keep a reference
+
+            viewer.mainloop()
+
+
 def main():
-    """Run the GUI application."""
-    root = tk.Tk()
+    root = ttkb.Window(themename="litera")
     app = SerpZotGUI(root)
     root.mainloop()
+
 
 if __name__ == "__main__":
     main()
