@@ -29,8 +29,11 @@ class SerpZot:
     - zot_key (str): API key for accessing Zotero services.
     - download_dest (str): Default directory for downloading PDFs.
     - enable_pdf_download (bool): Flag to enable or disable automatic PDF downloads.
+    - enable_lib_download (bool): Flag to enable or disable downloading the Zotero library.
     """
-    def __init__(self, serp_api_key="", zot_id="", zot_key="", download_dest=".", enable_pdf_download=True, enable_lib_download=True):
+
+    def __init__(self, serp_api_key="", zot_id="", zot_key="", download_dest=".",
+                 enable_pdf_download=True, enable_lib_download=True):
         """
         Instantiate a SerpZot object for API management.
 
@@ -38,32 +41,30 @@ class SerpZot:
             so code doesn't look like PEP dog poo.
         """
         # Member attributes
-        self.df           = pd.DataFrame()
-        self.FIELD        = "title"
-        self.DOI_HOLDER   = set()
-        self.SERP_API_KEY = ""
-        self.ZOT_ID       = ""
-        self.ZOT_KEY      = ""
+        self.df                  = pd.DataFrame()
+        self.FIELD               = "title"
+        self.DOI_HOLDER          = set()
+        self.SERP_API_KEY        = ""
+        self.ZOT_ID              = ""
+        self.ZOT_KEY             = ""
         self.DOWNLOAD_DEST       = ""
         self.enable_pdf_download = ""
         self.enable_lib_download = ""
-        self.CITATION_DICT = dict()
-        self.downloadAttachment = dict()
-        self.lock = threading.Lock()
-        self.SAVE_BIB = False
+        self.CITATION_DICT       = dict()
+        self.downloadAttachment  = dict()
+        self.lock                = threading.Lock()
+        self.SAVE_BIB            = False
 
         # Member functions
-        SerpZot.processBibsAndUpload = processBibsAndUpload
-        SerpZot.search_scholar = search_scholar
-        SerpZot.search2zotero = search2zotero
-        SerpZot.serpSearch = serpSearch
-        SerpZot.searchArxiv = searchArxiv
-        SerpZot.boiArxivSearch = boiArxivSearch
-        SerpZot.searchMedArxiv = searchMedArxiv
-        SerpZot.search_scholar = search_scholar
-        SerpZot.search_scholar = search_scholar
-        SerpZot.attempt_pdf_download = attempt_pdf_download
-        SerpZot.arxiv_download = arxiv_download
+        SerpZot.processBibsAndUpload   = processBibsAndUpload
+        SerpZot.search_scholar         = search_scholar
+        SerpZot.search2zotero          = search2zotero
+        SerpZot.serpSearch             = serpSearch
+        SerpZot.searchArxiv            = searchArxiv
+        SerpZot.bioArxivSearch         = bioArxivSearch  # Corrected function name
+        SerpZot.searchMedArxiv         = searchMedArxiv
+        SerpZot.attempt_pdf_download   = attempt_pdf_download
+        SerpZot.arxiv_download         = arxiv_download
 
         # Override default values with values from config.yaml
         config = Box.from_yaml(filename="config.yaml")
@@ -86,6 +87,10 @@ class SerpZot:
 def main():
     import yaml
     from pathlib import Path
+    import logging
+
+    # Configure logging
+    logging.basicConfig(level=logging.INFO, format='%(asctime)s %(levelname)s: %(message)s')
 
     # Colorful welcome message with version number
     print(f"{Colors.CYAN}        __        __   _                          {Colors.ENDC}")
@@ -106,26 +111,26 @@ def main():
     script_dir_config_path   = Path(__file__).resolve().parent / 'config.yaml'
     current_dir_config_path  = Path('.').resolve() / 'config.yaml'
     current_dir_config_path2 = Path('.').resolve().parent.parent / 'config.yaml'
-    print(f"Looking for a config in: {current_dir_config_path}...")
+    logging.info(f"Looking for a config in: {current_dir_config_path}...")
     if current_dir_config_path.is_file():
-        print("Found!")
+        logging.info("Found!")
         config_path = current_dir_config_path
     elif current_dir_config_path2.is_file():
-        print("...not found.\n")
-        print(f"Looking for a config in: {current_dir_config_path2}...")
+        logging.info("...not found.")
+        logging.info(f"Looking for a config in: {current_dir_config_path2}...")
         config_path = current_dir_config_path2
-        print("Found!")
+        logging.info("Found!")
     elif script_dir_config_path.is_file():
-        print("... not found.\n")
-        print(f"Looking for a config in: {script_dir_config_path}...")
+        logging.info("... not found.")
+        logging.info(f"Looking for a config in: {script_dir_config_path}...")
         config_path = script_dir_config_path
-        print("Found!")
+        logging.info("Found!")
     else:
-        print("Config file not found in script or current directory. Proceeding with provided parameters.")
+        logging.warning("Config file not found in script or current directory. Proceeding with provided parameters.")
         return
 
     if not config_path.is_file():
-        print("Config file not found. Creating a new one.")
+        logging.info("Config file not found. Creating a new one.")
         with config_path.open('w') as file:
             yaml.dump({'SERP_API_KEY': ''}, file)
 
@@ -149,10 +154,7 @@ def main():
     download_lib = config.get('ENABLE_LIB_DOWNLOAD', None)
     if download_lib is None:
         download_lib = input("Do you want to download your citation library to avoid duplicating entries? [Y/n]: ").strip().lower()
-        if download_lib == '' or download_lib == 'y' or download_lib == 'Y' or download_lib == 'yes' or download_lib == 'True':
-            download_lib = True
-        else:
-            download_lib = False
+        download_lib = download_lib in ['', 'y', 'yes', 'true']
     download_pdfs = config.get('ENABLE_PDF_DOWNLOAD', None)
     if download_pdfs is None:
         download_pdfs = input("Do you want to download PDFs? [Y/n]: ").strip().lower()
@@ -182,6 +184,7 @@ def main():
     while True:
         min_year = input("Enter the oldest year to search from (leave empty if none): ")
         if min_year == "":
+            min_year = None
             break
         elif min_year.isdigit() and len(min_year) == 4:
             break
@@ -191,32 +194,30 @@ def main():
     max_searches = ""
     while True:      
         max_searches = input("Enter the max number of searches you would like to do (leave empty for default value of 50): ")
-        
         if max_searches != "":
             try:
                 max_searches = int(max_searches)
+                if max_searches > 100:
+                    print("We can do only up to 100 searches. Setting max searches to 100.")
+                    max_searches = 100
                 break
             except ValueError:
-                print("Max searches can only be a number value")
+                print("Max searches can only be a numerical value.")
         else:
+            max_searches = 50
             break
-        
-    if max_searches == "":
-        max_searches = 50
-    elif max_searches > 100:
-        print("We can do only upto a 100 searches. Setting max searches to 100")
-        max_searches = 100
+
     term_string = input("Enter up to 20 search phrases separated by semi-colon(;): ")
     
     terms      = term_string.split(";")[:20]
     terms_copy = []
-    
-    # Change terms which have less than 3 characters
+
+    # Ensure each term has at least 3 characters
     for term in terms:
-        t = term
+        t = term.strip()
         while len(t) < 3:
             print("Please enter at least 3 characters.")
-            t = input("Enter search term for: ")
+            t = input("Enter search term: ").strip()
         terms_copy.append(t)
         
     terms = terms_copy
@@ -227,9 +228,8 @@ def main():
         print(f"Searching Scholar for: {term}")
 
         serp_zot = SerpZot(serp_api_key, zot_id, zot_key, download_dest, download_pdfs, enable_lib_download=download_lib)
-        serp_zot.search_scholar(term=term, min_year=min_year, download_sources = downloadSources, max_searches = max_searches)
-        serp_zot.search2zotero(query=term,
-                               download_lib=download_lib)
+        serp_zot.search_scholar(term=term, min_year=min_year, download_sources=downloadSources, max_searches=max_searches)
+        serp_zot.search2zotero(query=term, download_lib=download_lib)
 
         if download_pdfs:
             print("Attempting to download PDFs...")

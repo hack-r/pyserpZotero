@@ -1,4 +1,6 @@
 # utils/arxiv_helpers.py
+import sys
+
 from .helpers import get_cosine, text_to_vector
 import arxiv
 import os
@@ -7,6 +9,7 @@ import requests
 import tempfile
 from pyzotero import zotero
 import string
+
 
 # Assuming your download function looks something like this
 def download_pdf(url):
@@ -19,7 +22,7 @@ def download_pdf(url):
     Returns:
     - str or None: The file path to the downloaded PDF if successful, None otherwise.
     """
-    response = requests.get(url)
+    response = requests.get(url, timeout=4)
     if response.status_code == 200 and 'application/pdf' in response.headers.get('Content-Type', ''):
         # Use NamedTemporaryFile to automatically handle the file creation
         temp_file = tempfile.NamedTemporaryFile(delete=False, suffix='.pdf')
@@ -48,10 +51,10 @@ def download_response(response, path, server="se"):
             return True
         elif "application/pdf" in response.text:
             location = re.findall('src=".*\.pdf.*"', response.text)[0].split('"')[1].split('#')[0]
-            
+
             # It also could be the absolute link present in sci-hub.
             pdf_link = "https:" + re.findall('src=".*\.pdf.*"', response.text)[0].split('"')[1].split('#')[0]
-            
+
             if "sci-hub" not in location:
                 if server == "se":
                     pdf_link = "https://sci-hub.se" + location
@@ -106,7 +109,7 @@ def scihub_download(download_dest, doi):
     """
     try:
         sci_hub_url = "https://sci-hub.se/" + doi
-        response    = requests.get(sci_hub_url)
+        response = requests.get(sci_hub_url)
         name = doi.replace("/", "_") + ".pdf"
         path = os.path.join(download_dest, name)
         return download_response(response, path, "se"), path
@@ -126,6 +129,7 @@ def scihub_download(download_dest, doi):
             print("Article not on Sci-hub, moving on")
             return False, None
 
+
 def bioArxiv_download(download_dest, DOI):
     # https://www.biorxiv.org/content/10.1101/2024.03.17.583882v1.full.pdf
     url = 'http://biorxiv.org/content/' + DOI + "v1.full.pdf"
@@ -136,6 +140,7 @@ def bioArxiv_download(download_dest, DOI):
 
     # Write the PDF to the file
     return download_response(response, path), path
+
 
 def medrxiv_download(download_dest, DOI):
     """
@@ -177,6 +182,7 @@ def medrxiv_download(download_dest, DOI):
 
     return False, ""
 
+
 def arxiv_download(self, doi=None, items=None, download_dest=".", full_lib=False, title=None):
     """
     Attempt to download a PDF from arXiv or alternative sources using a DOI or title.
@@ -214,6 +220,10 @@ def arxiv_download(self, doi=None, items=None, download_dest=".", full_lib=False
                 # Attempt alternative downloads if no arXiv match is found
                 if not downloaded:
                     print("Trying Sci-hub...")
+                    if not download_dest:
+                        sys.exit("Error! Download destination missing")
+                    if not doi:
+                        sys.exit("Error! DOI missing")
                     downloaded, pdf_path = scihub_download(download_dest, doi)
                     if downloaded:
                         return downloaded, pdf_path
@@ -237,8 +247,9 @@ def arxiv_download(self, doi=None, items=None, download_dest=".", full_lib=False
                         text1 = item['data'].get('title', '')
                         text1 = string.capwords(text1)
                         vector1 = text_to_vector(text1)
-                        search = arxiv.Search(query='ti:"' + text1 + '"', max_results=10, sort_by=arxiv.SortCriterion.Relevance)
-                        for result in search.results(): # To do: replace with Client.results
+                        search = arxiv.Search(query='ti:"' + text1 + '"', max_results=10,
+                                              sort_by=arxiv.SortCriterion.Relevance)
+                        for result in search.results():  # To do: replace with Client.results
                             vector2 = text_to_vector(result.title)
                             cosine = get_cosine(vector1, vector2)
                             if cosine > .85:
@@ -253,7 +264,7 @@ def arxiv_download(self, doi=None, items=None, download_dest=".", full_lib=False
                         if not downloaded:
                             downloaded, pdf_path = medrxiv_download(download_dest, item['data'].get('DOI', ''))
                         if not downloaded:
-                            downloaded, pdf_path = bioArxiv_download(download_dest, item['data'].get('DOI', '') )
+                            downloaded, pdf_path = bioArxiv_download(download_dest, item['data'].get('DOI', ''))
                         if downloaded:
                             doi = item['data'].get('DOI', '')
                             print("Downloaded pdf path: ", pdf_path)
@@ -278,8 +289,7 @@ def arxiv_download(self, doi=None, items=None, download_dest=".", full_lib=False
     except Exception as e:
         print(f"Error processing arXiv download: {e}")
 
-
     if downloaded:
-        return downloaded, pdf_path # Not ref. before assignment - ignore the warning
+        return downloaded, pdf_path  # Not ref. before assignment - ignore the warning
     else:
         return downloaded, None

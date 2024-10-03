@@ -135,7 +135,7 @@ def text_to_vector(text):
     '''
     Converts strings to vectors
 
-    :param text: search term (title, etc)
+    :param text: search term (title, etc.)
     :type text: str
     '''
     WORD = re.compile(r"\w+")

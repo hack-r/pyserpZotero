@@ -1,31 +1,52 @@
-#.utils.search_scholar.py
+# .utils.search_scholar.py
+"""
+Search Scholar and free journal article sources
+"""
 
-# Libraries
+from bs4 import BeautifulSoup
+from concurrent.futures import ThreadPoolExecutor, as_completed
 from serpapi import GoogleSearch
-import json
-import pandas as pd
-import requests
 from urllib.parse import urlencode
+import logging
+import pandas as pd
+import re
+import requests
+import sys
 import urllib.request as libreq
-import re 
+
+# Configure logging
+logging.basicConfig(level=logging.INFO, format='%(asctime)s %(levelname)s: %(message)s')
 
 
 def serpSearch(self, term, min_year, save_bib, max_searches):
     """
-    Searches on medArxiv and returns adds the dois to a list
+    Searches on Google Scholar and returns a list of DOIs.
 
     Parameters:
-    - term (str): The query to search for
-    - min_year(int): The year after which the search should be done
+    - term (str): The query to search for.
+    - min_year (int): The year after which the search should be done.
+    - save_bib (bool): Whether to save the BibTeX entries.
+    - max_searches (int): Maximum number of search results to retrieve.
 
     Returns:
-    - (list): a list of DOIs
+    - list: A list of tuples containing DOIs and abstracts.
     """
+
+    # Validate API Key
+    if not self.SERP_API_KEY:
+        logging.error("SerpAPI key is missing. Please set your API key at https://serpapi.com/manage-api-key")
+        sys.exit(1)  # Exit the script gracefully
+
     # Search Parameters
-    
-    google_local_search_count_per_pages = 20      # Only 20 search results per pages 
-    start = 0                                     # Start is the page number in search
-    while( max_searches > 0 ):
+    results_per_page = 20  # Maximum number of results per page allowed by SerpAPI
+    start = 0  # Start index for pagination
+    total_results = min(max_searches, 100)  # Limit to 100 as per SerpAPI's restrictions
+    doiList = []
+
+    while start < total_results:
+        # Adjust results_per_page for the last page
+        num_results = min(results_per_page, total_results - start)
+
         params = {
             "api_key": self.SERP_API_KEY,
             "device": "desktop",
@@ -33,57 +54,55 @@ def serpSearch(self, term, min_year, save_bib, max_searches):
             "q": term,
             "hl": "en",
             "start": str(start),
-            "num": max_searches,
+            "num": num_results,
             "as_ylo": min_year
         }
-        max_searches -= google_local_search_count_per_pages
-        start += google_local_search_count_per_pages
-            
+        logging.info(f"Searching Google Scholar with parameters: {params}")
+        start += num_results
+
         # Search
         search = GoogleSearch(params)
-        # Set SAVE_BIB for search2_zotero
         self.SAVE_BIB = save_bib
 
         # Scrape Results, Extract Result Id's
         df = pd.DataFrame()  # ignore warning - it gets used
         try:
-            json_data = search.get_raw_json()
-            data = json.loads(json_data)
-            if (self.df.empty):
-                self.df = pd.json_normalize(data['organic_results'])
+            data = search.get_dict()
+            if 'error' in data:
+                logging.error(f"SerpAPI Error: {data['error']}")
+                sys.exit(1)  # Exit for SerpAPI errors
+
+            organic_results = data.get('organic_results', [])
+            if not organic_results:
+                logging.info("No results found.")
+                break
+
+            df = pd.json_normalize(organic_results)
+            if self.df.empty:
+                self.df = df
             else:
-                self.df = self.df._append(pd.json_normalize(data['organic_results']), ignore_index = True)
-            df = self.df
+                self.df = pd.concat([self.df, df], ignore_index=True)
             ris = df['result_id']
             self.ris = ris
         except Exception as e:
-            print(f"An error occurred while filling into Pandas: {str(e)}")
+            logging.exception(f"An error occurred while processing search results: {e}")
+            continue
 
-
-    df = pd.DataFrame()
-    doiList = []
     try:
         df = self.df
-    except Exception as e:
-        print(f"An error occurred: {str(e)}")
-        print("Missing a search result dataframe.")
-
-
-    try:
         ris = self.ris
-        print(f"Number of items to process : {len(ris)}")
-    except Exception as e:
-        print(f"An error occurred: {str(e)}")
-        print("No results? Or an API key problem, maybe?")
-        print("Fatal error!")
-        ris = ""
+        logging.info(f"Number of items to process: {len(ris)}")
+    except AttributeError as e:
+        logging.info(e)
+        logging.error("No results found or an error occurred during the search.")
+        sys.exit(1)
 
     # Processing everything we got from search_scholar
     for i in ris:
         # Announce status
-        print(f'Now processing: {i}')
+        logging.info(f'Now processing: {i}')
 
-        # Get the Citation from SerpApi search!
+        # Get the Citation from SerpApi search
         params = {
             "api_key": self.SERP_API_KEY,
             "device": "desktop",
@@ -94,178 +113,177 @@ def serpSearch(self, term, min_year, save_bib, max_searches):
         search = GoogleSearch(params)
         citation = search.get_dict()
 
-        # Cross-reference the Citation with Crossref to Get Bibtext
-        base     = 'https://api.crossref.org/works?query.'
-        api_url  = {'bibliographic': citation['citations'][1]['snippet']}
-        url      = urlencode(api_url)
-        url      = base + url
-        response = requests.get(url)
-
-        # Parse Bibtext from Crossref
+        # Cross-reference the Citation with Crossref to Get Bibtex
+        base = 'https://api.crossref.org/works?query.'
+        api_url = {'bibliographic': citation['citations'][1]['snippet']}
+        url = base + urlencode(api_url)
         try:
-            jsonResponse = response.json()
-            jsonResponse = jsonResponse['message']
-            jsonResponse = jsonResponse['items']
-            jsonResponse = jsonResponse[0]
-        except Exception as e:
-            print(f"An error occurred: {str(e)}")
+            response = requests.get(url, timeout=10)
+            response.raise_for_status()
+        except requests.RequestException as e:
+            logging.exception(f"Failed to get Crossref data: {e}")
             continue
-        doiList.append((jsonResponse['DOI'], df['snippet'][0]))
 
-    print("Completed SerpApi search! DOIs found:")
+        # Parse Bibtex from Crossref
+        try:
+            jsonResponse = response.json()['message']['items'][0]
+            doiList.append((jsonResponse['DOI'], df['snippet'][0]))
+        except Exception as e:
+            logging.exception(f"An error occurred while parsing Crossref response: {e}")
+            continue
+
+    logging.info("Completed SerpApi search! DOIs found:")
     for doi in doiList:
-        print(doi)
+        logging.info(doi)
 
     return doiList
 
-def searchArxiv( self, query ):
+
+def searchArxiv(self, query):
     """
-    Searches on arxiv and returns adds the dois to a list
+    Searches on arXiv and returns a list of DOIs.
 
     Parameters:
-    - query (str): The query to search for
+    - query (str): The query to search for.
 
     Returns:
-    - (list): a list of DOIs
+    - list: A list of DOIs.
     """
     queryList = query.split()
     queryStr = "+".join(queryList)
     doiList = []
     # arXiv processing of DOIs
     url = f"http://export.arxiv.org/api/query?search_query=all:{queryStr}&start=0&max_results=50"
-    r = libreq.urlopen(url).read()
-    out = re.findall('http:\/\/dx.doi.org\/[^"]*', str(r))
-    arxivCount = 0
-    for doiLink in out:
-        try:
-            doi = doiLink.split("http://dx.doi.org/")[1]
+    try:
+        r = libreq.urlopen(url, timeout=10).read()
+        out = re.findall(r'<id>http://arxiv\.org/abs/(.*?)</id>', r.decode('utf-8'))
+        arxivCount = 0
+        for identifier in out:
             arxivCount += 1
-            doiList.append(tuple([doi, None]))
-        except Exception as e:
-            print("Wrong Link")
-            continue
-    
-    print("Number of entries found in arXiv Search: ", arxivCount)
-    for doi in doiList:
-        print(doi[0])
+            doiList.append((identifier, None))
+        logging.info(f"Number of entries found in arXiv Search: {arxivCount}")
+    except Exception as e:
+        logging.exception(f"Error occurred during arXiv search: {e}")
     return doiList
+
 
 def searchMedArxiv(self, query):
     """
-    Searches on medArxiv and returns adds the dois to a list
+    Searches on medRxiv and returns a list of DOIs.
 
     Parameters:
-    - query (str): The query to search for
+    - query (str): The query to search for.
 
     Returns:
-    - (list): a list of DOIs
+    - list: A list of DOIs.
     """
-    # medxriv link looks like https://www.medrxiv.org/search/humanoid+robot
-
     queryList = query.split()
     queryStr = "+".join(queryList)
     doiList = []
-    medUrl = f"https://www.medrxiv.org/search/{queryStr}"
-    response = requests.get(medUrl)
+    medUrl = f"https://www.medrxiv.org/search/{queryStr}%20numresults%3A10%20sort%3Arelevance-rank"
+    try:
+        response = requests.get(medUrl, timeout=10)
+        response.raise_for_status()
+    except requests.RequestException as e:
+        logging.exception(f"Failed to fetch medRxiv search results: {e}")
+        return doiList
 
-    # process all the DOIs we find
-    medDois = re.findall("\/\/doi.org\/([^\s]+)", response.text)
-
+    # Process all the DOIs we find
+    soup = BeautifulSoup(response.text, 'html.parser')
+    links = soup.find_all('a', href=re.compile(r'^/content/'))
     medArxivCount = 0
-    for doi in medDois:
-        try:
+    for link in links:
+        href = link.get('href')
+        match = re.search(r'/content/(.*v\d+)$', href)
+        if match:
+            doi = match.group(1)
             medArxivCount += 1
-            doiList.append(tuple([doi, None]))
-        except Exception as e:
-            print("Wrong Link")
-            print(e)
-            continue
-    
-    print("Number of entries found in medXriv Search: ", medArxivCount)
-    for doi in doiList:
-        print(doi[0])
+            doiList.append((doi, None))
 
+    logging.info(f"Number of entries found in medRxiv Search: {medArxivCount}")
     return doiList
 
-def boiArxivSearch(self, query):
+
+def bioArxivSearch(self, query):
     """
-    Searches on bioArxiv and returns adds the dois to a list
+    Searches on bioRxiv and returns a list of DOIs.
 
     Parameters:
-    - query (str): The query to search for
+    - query (str): The query to search for.
 
     Returns:
-    - (list): a list of DOIs
+    - list: A list of DOIs.
     """
-    # biorxiv link looks like https://www.biorxiv.org/search/breast+Cancer
-
     queryList = query.split()
     queryStr = "+".join(queryList)
     doiList = []
-    bioUrl = f"https://www.biorxiv.org/search/{queryStr}"
-    response = requests.get(bioUrl)
+    bioUrl = f"https://www.biorxiv.org/search/{queryStr}%20numresults%3A10%20sort%3Arelevance-rank"
+    try:
+        response = requests.get(bioUrl, timeout=10)
+        response.raise_for_status()
+    except requests.RequestException as e:
+        logging.exception(f"Failed to fetch bioRxiv search results: {e}")
+        return doiList
 
-    # process all the DOIs we find
-    bioDois = re.findall("\/\/doi.org\/([^\s]+)", response.text)
-
+    # Process all the DOIs we find
+    soup = BeautifulSoup(response.text, 'html.parser')
+    links = soup.find_all('a', href=re.compile(r'^/content/'))
     bioArxivCount = 0
-    for doi in bioDois:
-        try:
+    for link in links:
+        href = link.get('href')
+        match = re.search(r'/content/(.*v\d+)$', href)
+        if match:
+            doi = match.group(1)
             bioArxivCount += 1
-            doiList.append(tuple([doi, None]))
-        except Exception as e:
-            print("Wrong Link")
-            print(e)
-            continue
+            doiList.append((doi, None))
 
-    print("Number of entries found in bioXriv Search: ", bioArxivCount)
-    for doi in doiList:
-        print(doi[0])
+    logging.info(f"Number of entries found in bioRxiv Search: {bioArxivCount}")
     return doiList
 
 
 # Search for RIS Result ID's on Google Scholar
-def search_scholar(self, term="", min_year="", save_bib=False, download_sources=None, max_searches=50):
+def search_scholar(self, term="", min_year=None, save_bib=False, download_sources=None, max_searches=50):
     """
-    Search Google Scholar for articles matching the specified criteria and update Zotero library.
+    Search multiple sources for articles matching the specified criteria and update Zotero library.
 
     Parameters:
     - term (str): The search term or query.
     - min_year (str): The earliest publication year for articles.
     - save_bib (bool): Whether to save the search results as a BibTeX file.
-    - max_searches (int): The integer value of this is the max number of searches that has to be done 
+    - download_sources (dict): A dictionary specifying which sources to search.
+    - max_searches (int): The maximum number of searches to perform.
 
     Returns:
-    - (int): Status code indicating success (0) or failure (non-zero).
+    - int: Status code indicating success (0) or failure (non-zero).
     """
 
     # Keep adding all the DOIs we find from all methods to this set, then download them
-    # all the end.
     doiSet = set()
     if download_sources is None:
         download_sources = {
-            "serp": 1,
-            "arxiv": 1,
-            "medArxiv": 1,
-            "bioArxiv": 1,
+            "serp": True,
+            "arxiv": True,
+            "medArxiv": True,
+            "bioArxiv": True,
         }
 
-    if download_sources.get('serp'):
-        print("Starting Serp Search")
-        serpDoiList = self.serpSearch(term, min_year, save_bib, max_searches)
-        doiSet.update(serpDoiList)
+    with ThreadPoolExecutor(max_workers=4) as executor:
+        futures = []
+        if download_sources.get('serp'):
+            futures.append(executor.submit(self.serpSearch, term, min_year, save_bib, max_searches))
+        if download_sources.get('arxiv'):
+            futures.append(executor.submit(self.searchArxiv, term))
+        if download_sources.get('medArxiv'):
+            futures.append(executor.submit(self.searchMedArxiv, term))
+        if download_sources.get('bioArxiv'):
+            futures.append(executor.submit(self.bioArxivSearch, term))
 
-    if download_sources.get('arxiv'):
-        arxivSearchResult = self.searchArxiv(term)
-        doiSet.update(arxivSearchResult)
-
-    if download_sources.get('medArxiv'):
-        medArxivSearchResult = self.searchMedArxiv(term)
-        doiSet.update(medArxivSearchResult)
-
-    if download_sources.get('bioArxiv'):
-        boiArxivSearchResult = self.boiArxivSearch(term)
-        doiSet.update(boiArxivSearchResult)
+        for future in as_completed(futures):
+            try:
+                result = future.result()
+                doiSet.update(result)
+            except Exception as e:
+                logging.exception(f"An error occurred during search: {e}")
 
     self.doiSet = doiSet
     return 0
