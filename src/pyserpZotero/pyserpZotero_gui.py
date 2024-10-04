@@ -207,7 +207,7 @@ class SerpZotGUI:
 
         # Add Image at the top
         try:
-            img = Image.open("image.png")
+            img = Image.open("feature_header.png")
             img = img.resize((400, 100))
             img = ImageTk.PhotoImage(img)
             img_label = ttkb.Label(main_frame, image=img)
