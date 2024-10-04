@@ -3,12 +3,11 @@
 
 ![](/Users/user/PycharmProjects/pyserpZotero/src/pyserpZotero/feature_header.png)
 Installation:
-`pip install pyserpZotero`
+`pip install pyserpzotero`
 
 Usage:
 `psz`
 
-Google Scholar citation download, parsing, Bibtex export, search for free PDFs, and Zotero cloud upload. SerpAPI is leveraged for stable access to Google Scholar without IP throttling.
 
 | Resource     | URL                                    |
 | ------------ | -------------------------------------- |
@@ -18,29 +17,10 @@ Google Scholar citation download, parsing, Bibtex export, search for free PDFs, 
 | SerpAPI      | https://serpAPI.com                    |
 | Zotero       | https://zotero.org                     |
 
-## What does it do?
-
-_pyserpZotero_ is a Python library designed to automate the search, management of scholarly literature citations, and attachment of free PDFs to Zotero citations. It leverages SerpAPI for reliable access to Google Scholar and utilizes the Zotero service for efficient citation management. The library simplifies the process of searching for academic papers, downloading them (where available for free), and organizing citations directly into your Zotero library.
-
-_pyserpZotero_ offers the following functions for (semi-) automating literature review tasks:
-
-- _SerpZot_ (class) - Instantiates a SerpZot object for API management.
-  - **SearchScholar** - Searches Google Scholar for papers corresponding to 1 or more search terms and captures their identifiers.
-  - **Search2Zotero** - Pulls references from Google using identifiers from _SearchScholar_, converts to Bibtex via CrossRef, reformats for Zotero, looks for PDFs, and uploads to your Zotero cloud library (results will automatically sync to the desktop client, if installed).
-  - **CleanZot** - Attempt to remove/replace broken LaTex and other formatting in titles.
-
 ## How to configure it?
 
-You'll need to provide an API key for serpAPI and Zotero, as well as a Zotero library Id. You can either provide these directly as arguments to
+ArXiv, BioRxiv, and MedRxiv do not require configuration, although they can be disabled in the config file. You'll need to provide an API key for serpAPI and Zotero, as well as a Zotero library Id. You can either provide these directly as arguments to
 the functions, via the interactive mode, or manage them more securely via a YAML configuration file, as in the _Example Usage_ below.
-
-Yes, considering the addition of the GUI to your `pyserpZotero` project, it is highly recommended to update the `README.md` to reflect this new feature. Updating the `README.md` will help users understand the full capabilities of your tool, how to install it, and how to use both the CLI and GUI interfaces.
-
-Below are suggestions for updating your `README.md`:
-
----
-
-**pyserpZotero** is a Python library and application designed to automate the search and management of scholarly literature citations, as well as the attachment of free PDFs to Zotero citations. It leverages the power of SerpAPI for reliable access to Google Scholar and utilizes the Zotero service for efficient citation management. The tool simplifies the process of searching for academic papers, downloading them (where available for free), and organizing citations directly into your Zotero library.
 
 ### Key Features
 
