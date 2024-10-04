@@ -7,7 +7,7 @@ Installation:
 
 Usage:
 `psz`
-
+![](/Users/user/PycharmProjects/pyserpZotero/screen.png)
 
 | Resource     | URL                                    |
 | ------------ | -------------------------------------- |
