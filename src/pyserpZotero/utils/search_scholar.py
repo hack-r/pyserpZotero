@@ -13,6 +13,7 @@ import re
 import requests
 import sys
 import urllib.request as libreq
+import time
 
 # Configure logging
 logging.basicConfig(level=logging.INFO, format='%(asctime)s %(levelname)s: %(message)s')
@@ -242,48 +243,35 @@ def bioArxivSearch(self, query):
 
 
 # Search for RIS Result ID's on Google Scholar
-def search_scholar(self, term="", min_year=None, save_bib=False, download_sources=None, max_searches=50):
-    """
-    Search multiple sources for articles matching the specified criteria and update Zotero library.
+def search_scholar(self, term="", min_year=None, download_sources=None, max_searches=50):
+    results_list = []
+    page = 0
+    max_retries = 5
+    retries = 0
 
-    Parameters:
-    - term (str): The search term or query.
-    - min_year (str): The earliest publication year for articles.
-    - save_bib (bool): Whether to save the search results as a BibTeX file.
-    - download_sources (dict): A dictionary specifying which sources to search.
-    - max_searches (int): The maximum number of searches to perform.
-
-    Returns:
-    - int: Status code indicating success (0) or failure (non-zero).
-    """
-
-    # Keep adding all the DOIs we find from all methods to this set, then download them
-    doiSet = set()
-    if download_sources is None:
-        download_sources = {
-            "serp": True,
-            "arxiv": True,
-            "medArxiv": True,
-            "bioArxiv": True,
+    while len(results_list) < max_searches and retries < max_retries:
+        params = {
+            "api_key": self.SERP_API_KEY,
+            "engine": "google_scholar",
+            "q": term,
+            "start": page * 10,
+            "as_ylo": min_year,
         }
+        response = requests.get("https://serpapi.com/search", params=params)
+        if response.status_code == 200:
+            data = response.json()
+            organic_results = data.get("organic_results", [])
+            if organic_results:
+                results_list.extend(organic_results)
+                page += 1
+                retries = 0  # Reset retries if successful
+            else:
+                retries += 1
+                time.sleep(2)
+        else:
+            print(f"Error: {response.status_code} - {response.text}")
+            retries += 1
+            time.sleep(2)
 
-    with ThreadPoolExecutor(max_workers=4) as executor:
-        futures = []
-        if download_sources.get('serp'):
-            futures.append(executor.submit(self.serpSearch, term, min_year, save_bib, max_searches))
-        if download_sources.get('arxiv'):
-            futures.append(executor.submit(self.searchArxiv, term))
-        if download_sources.get('medArxiv'):
-            futures.append(executor.submit(self.searchMedArxiv, term))
-        if download_sources.get('bioArxiv'):
-            futures.append(executor.submit(self.bioArxivSearch, term))
-
-        for future in as_completed(futures):
-            try:
-                result = future.result()
-                doiSet.update(result)
-            except Exception as e:
-                logging.exception(f"An error occurred during search: {e}")
-
-    self.doiSet = doiSet
-    return 0
+    if retries == max_retries:
+        print("Max retries reached. Exiting search.")
