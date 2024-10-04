@@ -1,13 +1,13 @@
 # ![](https://i.imgur.com/bHS0mPZs.png) pyserpZotero 
 
 
-![](/Users/user/PycharmProjects/pyserpZotero/src/pyserpZotero/feature_header.png)
+![](src/pyserpZotero/feature_header.png)
 Installation:
 `pip install pyserpzotero`
 
 Usage:
 `psz`
-![](/Users/user/PycharmProjects/pyserpZotero/screen.png)
+![](screen.png)
 
 | Resource     | URL                                    |
 | ------------ | -------------------------------------- |
